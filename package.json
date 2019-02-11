@@ -1,0 +1,22 @@
+{
+  "name": "southpark-api",
+  "version": "1.0.0",
+  "description": "1 - Will be able to query for all lines per character.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThomasLee94/southpark-api.git"
+  },
+  "author": "\\",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThomasLee94/southpark-api/issues"
+  },
+  "homepage": "https://github.com/ThomasLee94/southpark-api#readme"
+}
