@@ -9,7 +9,7 @@ const CharacterSchema = new Schema({
   bio: { type: String, required: false },
   middleSchool: { type: String, required: true },
   siblings: [{ type: Schema.Types.ObjectId, ref: 'Sibling' }],
-  lines: [{ type: Schema.Types.ObjectId, ref: 'Line' }],
+  lines: [{ type: Schema.Types.ObjectId, ref: 'Lines' }],
 });
 
 const character = mongoose.model('Character', CharacterSchema); 
