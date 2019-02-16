@@ -6,7 +6,7 @@ const utils = require('../utils');
 const expect = chai.expect;
 const { assert } = require('chai')
 
-it('should say hello', function() {
+it('should return character first name', function() {
   const hello = utils.sayHello();
   expect(hello).to.be.a('string');
   expect(hello).to.equal('Hello');
