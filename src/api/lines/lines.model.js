@@ -1,23 +1,14 @@
-// SOUTHPARK 'LINES' MODEL
+// 'LINES' MODEL
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema; 
 
 const LineSchema = new Schema({
-    season: {
-        1: {
-            episode: 
-        }
-    }
-    lines: {type: String, required: true}
+  character: { type: String, required: true },
+  line: [{ type: String, required: true }]
 });
 
-const character = mongoose.model('Character', CharacterSchema); 
+const Line = mongoose.model('Line', LineSchema); 
 
 module.exports = {
-  Lines
+  Line
 };
-
-{
-    lines: "",
-
-}

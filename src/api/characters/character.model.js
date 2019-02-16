@@ -8,11 +8,10 @@ const CharacterSchema = new Schema({
   nickname: { type: String, required: true },
   bio: { type: String, required: false },
   middleSchool: { type: String, required: true },
-  siblings: [{ type: Schema.Types.ObjectId, ref: 'Sibling' }],
   lines: [{ type: Schema.Types.ObjectId, ref: 'Lines' }],
 });
 
-const character = mongoose.model('Character', CharacterSchema); 
+const Character = mongoose.model('Character', CharacterSchema); 
 
 module.exports = {
   Character
