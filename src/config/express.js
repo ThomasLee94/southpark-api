@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const routes = require('/index.routes');
 
 // SETTING DB AND MONGOOSE CONNECTION
-require('./data/reddit-db');
+require('../db/southpark-db');
 
 // INSTANCE OF EXPRESS
 const server = express();
