@@ -1,14 +1,37 @@
 const mocha = require('mocha');
 const chai = require('chai');
 const utils = require('../utils');
+const server = require('../../index');
 const expect = chai.expect;
 const { assert } = require('chai')
+const agent = chai.request.agent(server);
 
-it('should return character first name', function() {
-  const hello = utils.sayHello();
-  expect(hello).to.be.a('string');
-  expect(hello).to.equal('Hello');
-  expect(hello).with.lengthOf(5);
+it('should return list of all characters', (done) => {
+  agent
+    .get('/api/')
+    .end((err, res) => {
+      if (err) { done(err) }
+      res.status.should.be.equal(200);
+      res.characters.should.be.an('Array');
+      res.characters.should.include('Eric Cartman');
+      res.characters.should.include('Kyle Broflovski');
+      res.characters.should.include('Stan Marsh');
+      res.characters.should.include('Kenny McCormick');
+      res.characters.should.include('Butter');
+      res.characters.should.include('Kyle');
+
+      return done();
+  });
+});
+
+it('should return character first name', (done) => {
+  agent
+    .get('/api/:id')
+    .end((err, res) => {
+      if (err) { done(err) }
+      res.status.should.be.equal(200);
+
+    })
 });
 
 it('should return the area of a 5 by 6 rectangle', function() {

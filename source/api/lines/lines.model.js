@@ -1,5 +1,5 @@
-// 'LINES' MODEL
 const mongoose = require('mongoose');
+// 'LINES' MODEL
 const Schema = mongoose.Schema; 
 
 const LineSchema = new Schema({
