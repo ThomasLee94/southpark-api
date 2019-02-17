@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const EpisodeSchema = new Schema({
   episodeLength: { type: Number, required: true }, 
-  episodeNum: [{ type: Schema.Types.ObjectId, ref: 'Line' }],
+  seasonNum: [{ type: Schema.Types.ObjectId, ref: 'Season' }],
 
 });
 

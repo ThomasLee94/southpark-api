@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema; 
 
 const SeasonSchema = new Schema({
-  seasonNumber: { type: Number, required: true}
+  seasonNumber: { type: Number, required: true}, 
   totalEpisodes: { type: Number, required: true }, 
-  episode: [{ type: Schema.Types.ObjectId, ref: 'Episode' }],
   
 });
 
