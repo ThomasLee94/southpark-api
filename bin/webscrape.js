@@ -22,8 +22,15 @@ nightmare
   .then((result) => {
     // LOADING HTML
     const $ = cheerio.load(result);
-
-    const characterName = $('.character').children().text();
+    let characterNameArr = [];
+    const characterName = $('.character').children()
+    characterName.each((i, child) => {
+      if (child.children[child.children.length - 1]  !== undefined) {
+        characterNameArr.push(child.children[child.children.length - 1].data)
+      }
+      
+    }); 
+    console.log(characterNameArr)
     
 
     // SAVE TEXT AS PROPERTY OF RESULT OBJ
@@ -31,8 +38,6 @@ nightmare
     //   name: characterName,
     // };
 
-    const scholarship = new Scholarship(result_obj);
-    scholarship.save()
   })
   .catch((err) => {
     console.log(err)
