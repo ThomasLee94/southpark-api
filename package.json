@@ -29,5 +29,11 @@
   "bin": {
     "southpark-api": "webscrape.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "dotenv": "^6.2.0",
+    "fs": "0.0.1-security",
+    "mongoose": "^5.4.13",
+    "nightmare": "^3.0.1"
+  }
 }

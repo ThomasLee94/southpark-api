@@ -7,6 +7,7 @@ require('dotenv').config()
 const Nightmare = require('nightmare');
 const nightmare = Nightmare({ show: true });
 const cheerio = require('cheerio');
+const fs = require('fs');
 const Character = require('../source/api/characters/character.model');
 require('./db/southpark-db');
 
@@ -30,13 +31,8 @@ nightmare
       }
       
     }); 
-    console.log(characterNameArr)
-    
 
-    // SAVE TEXT AS PROPERTY OF RESULT OBJ
-    // const result_obj = {
-    //   name: characterName,
-    // };
+    fs.writeFileSync('southparkNames.js', characterNameArr)
 
   })
   .catch((err) => {
