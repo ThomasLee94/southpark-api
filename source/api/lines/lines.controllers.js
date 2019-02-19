@@ -16,7 +16,7 @@ async function GetCharacterLinesForEpisode(req, res) {
 }
 
 // GET: RETURNS ALL LINES PER CHARACTER
-async function GetAllCharacterLines(req, res){
+async function GetAllCharacterLines(req, res) {
   res.json(await Model.Line.findById(req.params.id)); 
 }
 
