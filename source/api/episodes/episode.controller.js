@@ -1,7 +1,7 @@
 const Model = require('./episode.model');
 
 // RETURNS ALL EPISODES FOR ANY GIVEN SEASON
-async function GetAllEpisodes(req, res) {
+async function Index(req, res) {
   res.json(await Model.Episode.find());
 }
 
@@ -10,12 +10,12 @@ async function GetEpisode(req, res) {
 }
 
 //  RETURN LENGTH OF EPISODE IN MINUTES
-async function GetEpisdoeLength(req, res) {
+async function GetEpisodeLength(req, res) {
   res.json(await Model.Episode.findById(req.params.id));
 }
 
 module.exports = {
-  GetAllEpisdoes,
+  Index,
   GetEpisode,
   GetEpisodeLength,
 };

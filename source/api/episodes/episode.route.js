@@ -5,7 +5,7 @@ const parcel = require('../../middleware/asyncHandler');
 const router = express.Router();
 
 //  GET: RETURNS ALL EPISODES FOR ANY GIVEN SEASON AS OBJECTS
-router.get('/:season/episodes', parcel(controller.GetAllEpisodes));
+router.get('/:season/episodes', parcel(controller.Index));
 
 // GET: RETURN SPECIFIC EPISODE AS OBJECT
 router.get('/:season/:episode', parcel(controller.GetEpisode)); 
