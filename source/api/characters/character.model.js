@@ -1,6 +1,10 @@
-// SOUTHPARK CHARACTER MODEL
+//
+// ─── CHARACTER MODEL ────────────────────────────────────────────────────────────
+//
+
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema; 
+
+const { Schema } = mongoose.Schema;
 
 const CharacterSchema = new Schema({
   firstName: { type: String, required: true },

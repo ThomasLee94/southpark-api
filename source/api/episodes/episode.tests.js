@@ -2,8 +2,10 @@
 const mocha = require('mocha');
 const chai = require('chai');
 const server = require('../../index');
+
 const expect = chai.expect;
 const { assert } = require('chai')
+
 const agent = chai.request.agent(server);
 
 it('should return all the episodes of associated season', (done) => {

@@ -12,12 +12,12 @@ async function GetLinesForEpisode(req, res) {
 
 // GET: RETURNS LINES OF A SPECIFIC EPISODE FOR A SPECIFIC CHARACTER
 async function GetCharacterLinesForEpisode(req, res) {
-  res.json(await Model.Line.findById(req.params.id)); 
+  res.json(await Model.Line.findById(req.params.id));
 }
 
 // GET: RETURNS ALL LINES PER CHARACTER
 async function GetAllCharacterLines(req, res) {
-  res.json(await Model.Line.findById(req.params.id)); 
+  res.json(await Model.Line.findById(req.params.id));
 }
 
 module.exports = {

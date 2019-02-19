@@ -1,8 +1,11 @@
+/* eslint-disable no-undef */
 const mocha = require('mocha');
 const chai = require('chai');
 const server = require('../../index');
+
 const expect = chai.expect;
 const { assert } = require('chai')
+
 const agent = chai.request.agent(server);
 const characterFullNames = require('../../../bin/db/southparkNames');
 
@@ -15,7 +18,7 @@ it('should return list of all characters full names', (done) => {
       res.characters.should.be.an('Array');
       res.characters.should.include(characterFullNames);
       return done();
-  });
+    });
 });
 
 it('should return a specific character full name', (done) => {
@@ -27,6 +30,5 @@ it('should return a specific character full name', (done) => {
       res.status.should.be.an('String');
       res.characters.should.include(characterFullNames);
       return done();
-    })
+    });
 });
-

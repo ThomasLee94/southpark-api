@@ -1,6 +1,11 @@
-// 'EPISODE' MODEL
+//
+// ─── EPISODE MODEL ──────────────────────────────────────────────────────────────
+//
+
+  
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema; 
+
+const { Schema } = mongoose.Schema; 
 
 const EpisodeSchema = new Schema({
   episodeNumber: { type: Number, required: true }, 
@@ -12,5 +17,5 @@ const EpisodeSchema = new Schema({
 const Episode = mongoose.model('Episode', EpisodeSchema); 
 
 module.exports = {
-  Episode
+  Episode,
 };
