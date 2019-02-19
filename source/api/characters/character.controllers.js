@@ -6,12 +6,11 @@ async function Index(req, res) {
 }
 
 //  SEND SPECIFIC CHARACTER
-async function Get(req, res) {
+async function GetCharacter(req, res) {
   res.json(await Model.Character.findById(req.params.id));
 }
 
-
 module.exports = {
   Index,
-  Get,
+  GetCharacter,
 };
