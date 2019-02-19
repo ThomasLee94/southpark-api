@@ -1,5 +1,5 @@
 const express = require('express');
-const controller = require('./episode.controller');
+const controller = require('./line.controller');
 const parcel = require('../../middleware/asyncHandler');
 
 const router = express.Router();
