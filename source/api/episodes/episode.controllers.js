@@ -6,12 +6,12 @@ async function Index(req, res) {
 }
 
 async function GetEpisode(req, res) {
-  res.json(await Model.Episode.findById()); 
+  res.json(await Model.Episode.findById(req.params.id)); 
 }
 
 //  RETURN LENGTH OF EPISODE IN MINUTES
 async function GetEpisodeLength(req, res) {
-  res.json(await Model.Episode.findById(req.params.episodeLength));
+  res.json(await Model.Episode.findById(req.params.id));
 }
 
 module.exports = {

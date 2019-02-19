@@ -7,7 +7,7 @@ async function Index(req, res) {
 
 // RETURN ALL LINES FOR A SPECIFIC EPISODE AS STRING
 async function GetAllEpisodes(req, res) {
-  res.json(await Model.Season.findById()); 
+  res.json(await Model.Season.findById(req.params.id)); 
 }
 
 module.exports = {
