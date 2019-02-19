@@ -8,7 +8,6 @@ const CharacterSchema = new Schema({
   nickname: { type: String, required: true },
   bio: { type: String, required: false },
   middleSchool: { type: String, required: true },
-  
 });
 
 const Character = mongoose.model('Character', CharacterSchema); 
