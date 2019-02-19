@@ -10,19 +10,8 @@ async function Get(req, res) {
   res.json(await Model.Character.findById(req.params.id));
 }
 
-//  DELETE SPECIFIC CHARACTER
-async function Delete(req, res) {
-  res.json(await Model.Character.findOneAndRemove({ _id: req.params.id }));
-}
-
-//  UPDATE SPECIFIC CHARACTER
-async function Update(req, res) {
-  res.json(await Model.Character.findOneAndUpdate({ _id: req.params.id }, req.body));
-}
 
 module.exports = {
   Index,
   Get,
-  Delete,
-  Update,
 };

@@ -8,12 +8,6 @@ const router = express.Router();
 router.get('/', parcel(controller.Index));
 
 // GET: RETURNS SPECIFIC CHARACTER
-router.get('/:id', parcel(controller.Get));
-
-// DELETE: DELETES A SPECIFIC CHARACTER
-router.delete('/:id', parcel(controller.Delete));
-
-// PATCH: UPDATE CHARACTER INFO
-router.patch('/:id', parcel(controller.Update));
+router.get('/character/:id', parcel(controller.Get));
 
 module.exports = router;
