@@ -1,8 +1,8 @@
 const express = require('express');
-const characterRoutes = require('./server/auth/auth.route');
-const episodeRoutes = require('./server/artist/artist.route');
-const lineRoutes = require('./server/user/user.route');
-const seasonRoutes = require('./server/art/art.route');
+const characterRoutes = require('./api/characters/character.routes');
+const episodeRoutes = require('./api/episodes/episode.routes');
+const lineRoutes = require('./api/lines/lines.routes');
+const seasonRoutes = require('./api/seasons/season.routes');
 
 const router = express.Router();
 
