@@ -60,8 +60,6 @@ const nextLink = () => {
       //   line = $('td:nth-child(2) > span:first-child').text();
       // }); 
 
-
-
       // SAVE TO DB
       // const resultCharacterObj = {
       //   firstName: firstName,
