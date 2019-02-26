@@ -11,7 +11,7 @@ require('dotenv').config()
 const Nightmare = require('nightmare');
 const nightmare = Nightmare({ show: true });
 const cheerio = require('cheerio');
-const cheerioAdv = require('cheerio-advanced-selectors');
+// const cheerioAdv = require('cheerio-advanced-selectors');
 // cheerio = cheerioAdv.wrap(cheerio)
 
 const Lines = require('../source/api/lines/line.model');

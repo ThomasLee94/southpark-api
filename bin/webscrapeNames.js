@@ -9,12 +9,12 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 
 // URL FOR ALL CHARACTERS
-let url = 'http://wiki.southpark.cc.com/wiki/List_of_Characters'
+let url = 'http://wiki.southpark.cc.com/wiki/List_of_Characters';
 
 nightmare
   .goto(url)
   .evaluate(() => {
-    return document.body.innerHTML
+    return document.body.innerHTML;
   })
   .then((result) => {
     // LOADING HTML
@@ -23,7 +23,7 @@ nightmare
     const characterName = $('.character').children()
     characterName.each((i, child) => {
       if (child.children[child.children.length - 1]  !== undefined) {
-        characterNameArr.push(child.children[child.children.length - 1].data)
+        characterNameArr.push(child.children[child.children.length - 1].data);
       }
     });
 
