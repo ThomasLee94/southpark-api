@@ -5,7 +5,7 @@
   
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose.Schema; 
+const { Schema } = mongoose; 
 
 const LineSchema = new Schema({
   character: { type: String, required: true },
@@ -16,5 +16,5 @@ const LineSchema = new Schema({
 const Line = mongoose.model('Line', LineSchema); 
 
 module.exports = {
-  Line.
+  Line, 
 };

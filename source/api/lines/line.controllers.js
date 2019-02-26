@@ -1,4 +1,4 @@
-const Model = require('./lines.model');
+const Model = require('./line.model');
 
 // RETURNS ALL LINES FOR A SEASON AS STRING
 async function Index(req, res) {

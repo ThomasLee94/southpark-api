@@ -5,9 +5,10 @@
   
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose.Schema; 
+const { Schema } = mongoose; 
 
 const EpisodeSchema = new Schema({
+  episodeName: { type: String, required: true }, 
   episodeNumber: { type: Number, required: true }, 
   episodeLength: { type: Number, required: true }, 
   seasonNum: [{ type: Schema.Types.ObjectId, ref: 'Season' }],
