@@ -1,69 +1,98 @@
 //
-// ─── DATA SCRAPE FROM SCHOLARSHIPS.COM ───────────────────────────────────────────
+// ─── DATA SCRAPE FROM SOUTHPARK.FANDOM.COM ───────────────────────────────────────────
 //
 
 /* eslint-disable max-len */
 /* eslint-disable camelcase */
 /* eslint-disable no-undef */
 /* eslint-disable func-names */
-  
+
 require('dotenv').config()
 const Nightmare = require('nightmare');
 const nightmare = Nightmare({ show: true });
-const vo = require('vo');
 const cheerio = require('cheerio');
-const helper = require('./tokenize')
-const Scholarship = require('../models/scholarship');
-require('../database/scholarboard-db');
+const cheerioAdv = require('cheerio-advanced-selectors');
+// cheerio = cheerioAdv.wrap(cheerio)
 
-// WEBSCRAPE HELPER FUNCTIONS
-const helper = require('./tokenize');
+const Lines = require('../source/api/lines/line.model');
+const Episode = require('../source/api/episodes/episode.model');
+const Season = require('../source/api/seasons/season.model');
+const Character = require('../source/api/characters/character.model');
+require('./db/southpark-db');
 
-let url = [
-  'https://southpark.fandom.com/wiki/Portal:Scripts'
-]
+let urls = ['https://southpark.fandom.com/wiki/Rainforest_Shmainforest/Script'];
 
-nightmare
-  .goto(url)
-  .evaluate(() => {
-    return document.body.innerHTML;
-  })
-  .then((result) => {
-    // LOADING HTML
-    const $ = cheerio.load(result);
+let linesArr = ['hi']; 
 
-    // EXTRACTING NEEDED INFORMATON FROM HTML BODY
-    const scholName = $('.eyebrow').next().text();
-    const scholDeadline = $('#due-date-text').text();
-    const scholFunding = $('.award-info-row :nth-child(1)').text();
-    const scholContact1 = $('#liAddress1Text').text();
-    const scholContact2 = $('#liAddress2Text').text();
-    const scholContact3 = $('#liCityStateZIPText').text();
-    const scholContact4 = $('#ulScholDetails li:nth-child(8)').text();
-    const scholContact = scholContact1 + scholContact2 + scholContact3 + scholContact4;
-    const scholRequirements = $('#ulScholDetails li.scholdescrip div').text();
+const nextLink = () => {
+  const theURL = urls.pop();
+  nightmare
+    .goto(theURL)
+    .evaluate(() => {
+      return document.body.innerHTML;
+    })
+    .then((result) => {
+      // LOADING HTML
+      const $ = cheerio.load(result);
 
-    // Cleaning up scrapped data. The ORDER OF APPENDING TO ARRAY MATTERS!!
-    const clean_data = helper.cleanTextBody([scholName, scholDeadline, scholFunding, scholContact, scholRequirements]);
+      // EXTRACTING NEEDED INFORMATON FROM HTML BODY
+      const episodeName = $('dl:first-child > i:first-child').text();
+      const episodeAndSeasonNumber = $('table:last-child > tbody > tr > th > table > tbody > tr > a').text();
+      // console.log(episodeAndSeasonNumber)
 
-    // SAVE TEXT AS PROPERTY OF RESULT OBJ
-    const result_obj = {
-      name: clean_data[0],
-      deadline: new Date(helper.dateFormat(clean_data[1])),
-      funding: clean_data[2],
-      contactInfo: clean_data[3],
-      description: clean_data[4],
-      grade: helper.extractGrade(scholRequirements),
-      ethnicity: helper.extractEthnicity(scholRequirements),
-      educationLevel: helper.extractEducationLevel(scholRequirements),
-      gpa: helper.extractGPA(scholRequirements),
-    };
+      let characterName;
+      let line; 
 
-    // CREATING AND SAVING A NEW SCHOLARSHIP OBJECT
-    const scholarship = new Scholarship(result_obj);
-    scholarship.save()
+      // LOOPING THROUGH EVERY TR TAG
+      let characterAndLineArray = $('table > tbody > tr').each(function(i, e) {console.log($(this).first('td > span').text())});
+      // console.log(characterAndLineArray.length)
+      // for (let i in characterAndLineArray) {
+      //   if (i < 5) {
 
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+      //     console.log(characterAndLineArray[i].text());
+      //   }
+      // }
+      // let test = characterAndLineArray;
+      // console.log(characterAndLineArray.next.text())
+      // characterAndLineArray = $('table > tbody> tr:first-child');
+      // characterAndLineArray.forEach((item) => {
+      //   characterName = $('td:first-child > span:first-child').text();
+      //   line = $('td:nth-child(2) > span:first-child').text();
+      // }); 
+
+
+
+      // SAVE TO DB
+      // const resultCharacterObj = {
+      //   firstName: firstName,
+      //   lastName: lastName, 
+      //   lines: linesArr
+      // };
+
+      // const resultEpisodeObj = {
+
+      // }
+
+      // const resultSeasonObj = {
+
+      // }
+
+      // const resultLineObj = {
+
+      // }
+
+      // CREATING AND SAVING A NEW CHARACTER OBJECT
+      // const character = new Character(result_obj);
+      // return character.save()
+    }).then((objects) => {
+      console.log('data saved')
+      if (urls.length > 0) {
+        nextLink()
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+nextLink();
