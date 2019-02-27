@@ -46,10 +46,9 @@ const nextLink = () => {
       // AM ABLE TO GRAB ALL VARIABLES CORRECTLY
       const episodeName = $('#mw-content-text').find('table').eq(-3).find('tr').first().text();
       const episodeAndSeasonNumber = $('#mw-content-text').find('table').eq(-1).find('tr').eq(-1).text();
+      
       const seasonNum = parse.cleanUpSeason(episodeAndSeasonNumber);
       const episodeNum = parse.cleanUpEpisode(episodeAndSeasonNumber);
-
-      // TODO: Regex on episdodeandseasonnum, currently in '301: edit' format. 
 
       let characterName;
       let characterLine; 
@@ -73,8 +72,8 @@ const nextLink = () => {
             characterLine = $(this).find('td').last().text();
 
             // ADDING TO CHARACTER-AND-LINEOBJ
-            for (let character in characterAndLineObj) {
-              if (characterAndLineObj.hasOwnProperty(character)) {
+            for (let characterName in characterAndLineObj) {
+              if (characterAndLineObj.hasOwnProperty(characterName)) {
                 characterAndLineObj.characterName = [{
                   line: `${characterLine}`,
                   season: `${seasonNum}`,

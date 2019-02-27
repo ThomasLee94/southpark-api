@@ -11,6 +11,8 @@ Example: '301 edit'
   => {seasonNum: 03, episodeNum: 01}
 */
 
+// TODO: FINISH
+
 module.exports = {
   cleanUpSeason: (string) => {
     const stripped_text = string.replace(':', '');

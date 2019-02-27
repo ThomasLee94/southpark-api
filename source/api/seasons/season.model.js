@@ -14,5 +14,5 @@ const SeasonSchema = new Schema({
 const Season = mongoose.model('Season', SeasonSchema); 
 
 module.exports = {
-  Season
+  Season,
 };
