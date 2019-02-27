@@ -70,13 +70,13 @@ const nextLink = () => {
               if (characterAndLineObj.hasOwnProperty(character)) {
                 characterAndLineObj.characterName = [{
                   line: `${characterLine}`,
-                  season: '3',
+                  season: `${seasonNum}`,
                   episode: `${episodeNum}`,
                 }];
               } else {
                 characterAndLineArray.characterName.append({
                   line: `${characterLine}`,
-                  season: '3',
+                  season: `${seasonNum}`,
                   episode: `${episodeNum}`,
                 });
               }
