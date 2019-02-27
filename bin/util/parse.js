@@ -15,8 +15,10 @@ Example: '301 edit'
 
 module.exports = {
   cleanUpSeason: (string) => {
-    const stripped_text = string.replace(':', '');
-    const seasonNum = stripped_text.splice(0, 2);
+    const str1 = 'edit';
+    const strippedText1 = string.replace(':', '');
+    const strippedText2 = strippedText1.replace(new RegExp(`\\b${str1}\\b`), '');
+    const seasonNum = strippedText2.splice(0, 2);
     return seasonNum;
   },
 
