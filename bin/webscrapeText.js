@@ -13,8 +13,6 @@ require('dotenv').config();
 const Nightmare = require('nightmare');
 const nightmare = Nightmare({ show: true });
 const cheerio = require('cheerio');
-// const cheerioAdv = require('cheerio-advanced-selectors');
-// cheerio = cheerioAdv.wrap(cheerio)
 
 const Lines = require('../source/api/lines/line.model');
 const Episode = require('../source/api/episodes/episode.model');
@@ -25,8 +23,6 @@ require('./db/southpark-db');
 let urls = [
   'https://southpark.fandom.com/wiki/Rainforest_Shmainforest/Script',
 ];
-
-let linesArr = ['hi']; 
 
 const nextLink = () => {
   const theURL = urls.pop();
