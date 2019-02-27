@@ -7,7 +7,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable func-names */
 
-require('dotenv').config()
+require('dotenv').config(); 
 const Nightmare = require('nightmare');
 const nightmare = Nightmare({ show: true });
 const cheerio = require('cheerio');
@@ -20,7 +20,9 @@ const Season = require('../source/api/seasons/season.model');
 const Character = require('../source/api/characters/character.model');
 require('./db/southpark-db');
 
-let urls = ['https://southpark.fandom.com/wiki/Rainforest_Shmainforest/Script'];
+let urls = [
+  'https://southpark.fandom.com/wiki/Rainforest_Shmainforest/Script',
+];
 
 let linesArr = ['hi']; 
 
@@ -36,30 +38,27 @@ const nextLink = () => {
       const $ = cheerio.load(result);
 
       // EXTRACTING NEEDED INFORMATON FROM HTML BODY
-      const episodeName = $('dl:first-child > i:first-child').text();
-      const episodeAndSeasonNumber = $('table:last-child > tbody > tr > th > table > tbody > tr > a').text();
-      // console.log(episodeAndSeasonNumber)
+      // AM ABLE TO GRAB ALL VARIABLES CORRECTLY
+      const episodeName = $('#mw-content-text').find('table').eq(-3).find('tr').first().text();
+      const episodeAndSeasonNumber = $('#mw-content-text').find('table').eq(-1).find('tr').eq(-1).text();
 
       let characterName;
-      let line; 
+      let characterLine; 
+
+      // KEY VALUE PAIRS OF CHARACTER AND ARRAY OF LINES
+      let characterAndLineObj = {}
+
+      // SAVING TO DB
+
 
       // LOOPING THROUGH EVERY TR TAG
-      let characterAndLineArray = $('table > tbody > tr').each(function(i, e) {console.log($(this).first('td > span').text())});
-      // console.log(characterAndLineArray.length)
-      // for (let i in characterAndLineArray) {
-      //   if (i < 5) {
-
-      //     console.log(characterAndLineArray[i].text());
-      //   }
-      // }
-      // let test = characterAndLineArray;
-      // console.log(characterAndLineArray.next.text())
-      // characterAndLineArray = $('table > tbody> tr:first-child');
-      // characterAndLineArray.forEach((item) => {
-      //   characterName = $('td:first-child > span:first-child').text();
-      //   line = $('td:nth-child(2) > span:first-child').text();
-      // }); 
-
+      let length = $('#mw-content-text').find('table').eq(-3).find('tr').length; 
+      let characterAndLineArray = $('#mw-content-text').find('table').eq(-3).find('tr').each(function(i, e) {
+        if (3 <= i && i < 5) {
+          characterName = $(this).find('td').first().text();
+          characterLine = $(this).find('td').last().text();
+        }
+      });
       // SAVE TO DB
       // const resultCharacterObj = {
       //   firstName: firstName,
@@ -85,7 +84,7 @@ const nextLink = () => {
     }).then((objects) => {
       console.log('data saved')
       if (urls.length > 0) {
-        nextLink()
+        nextLink();
       }
     })
     .catch((err) => {
