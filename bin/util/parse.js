@@ -21,8 +21,7 @@ module.exports = {
   },
 
   cleanUpEpisode: (string) => {
-    const stripped_text = string.replace(':', '');
-    const episodeNum = stripped_text.splice(2, 2);
+    const episodeNum = string.split(2, 2);
     return episodeNum;
   },
 
