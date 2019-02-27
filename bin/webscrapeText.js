@@ -9,15 +9,22 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-restricted-syntax */
 
+// IMPORTS
 require('dotenv').config(); 
 const Nightmare = require('nightmare');
 const nightmare = Nightmare({ show: true });
 const cheerio = require('cheerio');
 
+// CUSTOM IMPORT
+const parse = require('./util/parse')
+
+// MODELS
 const Lines = require('../source/api/lines/line.model');
 const Episode = require('../source/api/episodes/episode.model');
 const Season = require('../source/api/seasons/season.model');
 const Character = require('../source/api/characters/character.model');
+
+// DB AND MONGOOSE CONNECTION
 require('./db/southpark-db');
 
 let urls = [
@@ -39,8 +46,8 @@ const nextLink = () => {
       // AM ABLE TO GRAB ALL VARIABLES CORRECTLY
       const episodeName = $('#mw-content-text').find('table').eq(-3).find('tr').first().text();
       const episodeAndSeasonNumber = $('#mw-content-text').find('table').eq(-1).find('tr').eq(-1).text();
-      const seasonNum = 
-      const episodeNum = 
+      const seasonNum = parse.cleanUpSeason(episodeAndSeasonNumber);
+      const episodeNum = parse.cleanUpEpisode(episodeAndSeasonNumber);
 
       // TODO: Regex on episdodeandseasonnum, currently in '301: edit' format. 
 
