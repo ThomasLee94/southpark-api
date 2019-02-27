@@ -65,6 +65,7 @@ const nextLink = () => {
             characterName = $(this).find('td').first().text();
             characterLine = $(this).find('td').last().text();
 
+            // ADDING TO CHARACTER-AND-LINEOBJ
             for (let character in characterAndLineObj) {
               if (characterAndLineObj.hasOwnProperty(character)) {
                 characterAndLineObj.characterName = [{

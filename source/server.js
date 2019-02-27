@@ -4,11 +4,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-// ROUTE IMPORTS
+// ROUTE IMPORT
 const routes = require('/index.routes');
 
 // SETTING DB AND MONGOOSE CONNECTION
-require('../db/southpark-db');
+require('../bin/db/southpark-db');
 
 // INSTANCE OF EXPRESS
 const server = express();
