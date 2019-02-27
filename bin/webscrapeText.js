@@ -6,6 +6,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-undef */
 /* eslint-disable func-names */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-restricted-syntax */
 
 require('dotenv').config(); 
 const Nightmare = require('nightmare');
@@ -41,48 +43,56 @@ const nextLink = () => {
       // AM ABLE TO GRAB ALL VARIABLES CORRECTLY
       const episodeName = $('#mw-content-text').find('table').eq(-3).find('tr').first().text();
       const episodeAndSeasonNumber = $('#mw-content-text').find('table').eq(-1).find('tr').eq(-1).text();
+      const seasonNum = 
+      const episodeNum = 
+
+      // TODO: Regex on episdodeandseasonnum, currently in '301: edit' format. 
 
       let characterName;
       let characterLine; 
 
-      // KEY VALUE PAIRS OF CHARACTER AND ARRAY OF LINES
-      let characterAndLineObj = {}
-
-      // SAVING TO DB
-
+      /* KEY VALUE PAIRS OF CHARACTRY AND ARRAY CONTAINING OBJ OF LINES
+      {character: [{
+          line: characterLine, 
+          season: seasonNum,
+          episode: episodeNum,
+        }]
+      }
+      */
+      const characterAndLineObj = {};
 
       // LOOPING THROUGH EVERY TR TAG
-      let length = $('#mw-content-text').find('table').eq(-3).find('tr').length; 
-      let characterAndLineArray = $('#mw-content-text').find('table').eq(-3).find('tr').each(function(i, e) {
-        if (3 <= i && i < 5) {
-          characterName = $(this).find('td').first().text();
-          characterLine = $(this).find('td').last().text();
-        }
-      });
+      const { length } = $('#mw-content-text').find('table').eq(-3).find('tr'); 
+      const characterAndLineArray = $('#mw-content-text').find('table').eq(-3).find('tr')
+        .each(function(i, e) {
+          if (3 <= i && i < length - 1) {
+            characterName = $(this).find('td').first().text();
+            characterLine = $(this).find('td').last().text();
+
+            for (let character in characterAndLineObj) {
+              if (characterAndLineObj.hasOwnProperty(character)) {
+                characterAndLineObj.characterName = [{
+                  line: `${characterLine}`,
+                  season: '3',
+                  episode: `${episodeNum}`,
+                }];
+              } else {
+                characterAndLineArray.characterName.append({
+                  line: `${characterLine}`,
+                  season: '3',
+                  episode: `${episodeNum}`,
+                });
+              }
+            }
+          }
+        });
       // SAVE TO DB
-      // const resultCharacterObj = {
-      //   firstName: firstName,
-      //   lastName: lastName, 
-      //   lines: linesArr
-      // };
-
-      // const resultEpisodeObj = {
-
-      // }
-
-      // const resultSeasonObj = {
-
-      // }
-
-      // const resultLineObj = {
-
-      // }
 
       // CREATING AND SAVING A NEW CHARACTER OBJECT
       // const character = new Character(result_obj);
       // return character.save()
     }).then((objects) => {
-      console.log('data saved')
+      console.log('data saved');
       if (urls.length > 0) {
         nextLink();
       }
