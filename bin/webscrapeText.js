@@ -42,26 +42,8 @@ const nextLink = () => {
       // LOADING HTML
       const $ = cheerio.load(result);
 
-      // EXTRACTING NEEDED INFORMATON FROM HTML BODY
-      // AM ABLE TO GRAB ALL VARIABLES CORRECTLY
-      const episodeName = $('#mw-content-text').find('table').eq(-3).find('tr').first().text();
-      const episodeAndSeasonNumber = $('#mw-content-text').find('table').eq(-1).find('tr').eq(-1).text();
-
-      const seasonNum = parse.cleanUpSeason(episodeAndSeasonNumber);
-      const episodeNum = parse.cleanUpEpisode(episodeAndSeasonNumber);
-
       let characterName;
       let characterLine; 
-
-      // CREATING AND SAVING EPISODE OBJECT
-      const episodeObj = {
-        episodeName,
-        episodeNumber: episodeNum,
-        seasonNumber: seasonNum,
-      };
-
-      const episode = new Episode(episodeObj);
-      
 
       /* KEY VALUE PAIRS OF CHARACTRY AND ARRAY CONTAINING OBJ OF LINES
       {character: [{

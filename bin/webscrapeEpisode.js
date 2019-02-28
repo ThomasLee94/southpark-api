@@ -39,8 +39,6 @@ const nextLink = () => {
       // LOADING HTML
       const $ = cheerio.load(result);
 
-      // EXTRACTING NEEDED INFORMATON FROM HTML BODY
-      // AM ABLE TO GRAB ALL VARIABLES CORRECTLY
       const episodeName = $('#mw-content-text').find('table').eq(-3).find('tr').first().text();
       const episodeAndSeasonNumber = $('#mw-content-text').find('table').eq(-1).find('tr').eq(-1).text();
 
