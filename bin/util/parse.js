@@ -18,12 +18,12 @@ module.exports = {
     const str1 = 'edit';
     const strippedText1 = string.replace(':', '');
     const strippedText2 = strippedText1.replace(new RegExp(`\\b${str1}\\b`), '');
-    const seasonNum = strippedText2.splice(0, 2);
+    const seasonNum = strippedText2.splice(0, 1);
     return seasonNum;
   },
 
   cleanUpEpisode: (string) => {
-    const episodeNum = string.split(2, 2);
+    const episodeNum = string.split(1, 2);
     return episodeNum;
   },
 

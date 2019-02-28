@@ -33,6 +33,7 @@ let urls = [
 
 const nextLink = () => {
   const theURL = urls.pop();
+  let $;
   nightmare
     .goto(theURL)
     .evaluate(() => {
@@ -40,10 +41,7 @@ const nextLink = () => {
     })
     .then((result) => {
       // LOADING HTML
-      const $ = cheerio.load(result);
-
-      let characterName;
-      let characterLine; 
+      $ = cheerio.load(result);
 
       const episodeName = $('#mw-content-text').find('table').eq(-3).find('tr').first().text();
       const episodeAndSeasonNumber = $('#mw-content-text').find('table').eq(-1).find('tr').eq(-1).text();
@@ -60,6 +58,11 @@ const nextLink = () => {
 
       const episode = new Episode(episodeObj);
       return episode.save();
+
+    }).then((episode) => {
+
+      let characterName;
+      let characterLine; 
 
       /* KEY VALUE PAIRS OF CHARACTRY AND ARRAY CONTAINING OBJ OF LINES
       {character: [{
