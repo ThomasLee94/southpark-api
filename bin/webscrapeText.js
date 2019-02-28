@@ -1,5 +1,5 @@
 //
-// ─── DATA SCRAPE FROM SOUTHPARK.FANDOM.COM ───────────────────────────────────────────
+// ─── DATA SCRAPE OF TEXT FROM SOUTHPARK.FANDOM.COM ───────────────────────────────────────────
 //
 
 /* eslint-disable max-len */
@@ -44,6 +44,22 @@ const nextLink = () => {
 
       let characterName;
       let characterLine; 
+
+      const episodeName = $('#mw-content-text').find('table').eq(-3).find('tr').first().text();
+      const episodeAndSeasonNumber = $('#mw-content-text').find('table').eq(-1).find('tr').eq(-1).text();
+
+      const seasonNum = parse.cleanUpSeason(episodeAndSeasonNumber);
+      const episodeNum = parse.cleanUpEpisode(episodeAndSeasonNumber);
+
+      // CREATING AND SAVING EPISODE OBJECT
+      const episodeObj = {
+        episodeName,
+        episodeNumber: episodeNum,
+        seasonNumber: seasonNum,
+      };
+
+      const episode = new Episode(episodeObj);
+      return episode.save();
 
       /* KEY VALUE PAIRS OF CHARACTRY AND ARRAY CONTAINING OBJ OF LINES
       {character: [{
