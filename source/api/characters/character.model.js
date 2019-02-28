@@ -14,6 +14,7 @@ const CharacterSchema = new Schema({
   lines: [{ type: String, required: true }], 
 });
 
+// NEEDED FOR WEBSCRAPING
 CharacterSchema.plugin(findOrCreate);
 CharacterSchema.plugin(uniqueValidator);
 
