@@ -19,10 +19,7 @@ const cheerio = require('cheerio');
 const parse = require('./util/parse');
 
 // MODELS
-const Lines = require('../source/api/lines/line.model');
 const Episode = require('../source/api/episodes/episode.model');
-const Season = require('../source/api/seasons/season.model');
-const Character = require('../source/api/characters/character.model');
 
 // DB AND MONGOOSE CONNECTION
 require('./db/southpark-db');
@@ -50,9 +47,6 @@ const nextLink = () => {
       const seasonNum = parse.cleanUpSeason(episodeAndSeasonNumber);
       const episodeNum = parse.cleanUpEpisode(episodeAndSeasonNumber);
 
-      let characterName;
-      let characterLine; 
-
       // CREATING AND SAVING EPISODE OBJECT
       const episodeObj = {
         episodeName,
@@ -61,49 +55,7 @@ const nextLink = () => {
       };
 
       const episode = new Episode(episodeObj);
-      
-
-      /* KEY VALUE PAIRS OF CHARACTRY AND ARRAY CONTAINING OBJ OF LINES
-      {character: [{
-          line: characterLine, 
-          season: seasonNum,
-          episode: episodeNum,
-        }]
-      }
-      */
-      const characterAndLineObj = {};
-
-      // LOOPING THROUGH EVERY TR TAG
-      const { length } = $('#mw-content-text').find('table').eq(-3).find('tr'); 
-      const characterAndLineArray = $('#mw-content-text').find('table').eq(-3).find('tr')
-        .each(function(i, e) {
-          if (3 <= i && i < length - 1) {
-            characterName = $(this).find('td').first().text();
-            characterLine = $(this).find('td').last().text();
-
-            // ADDING TO CHARACTER-AND-LINEOBJ
-            for (characterName in characterAndLineObj) {
-              if (!characterAndLineObj.hasOwnProperty(characterName)) {
-                characterAndLineObj[characterName] = [{
-                  line: `${characterLine}`,
-                  season: `${seasonNum}`,
-                  episode: `${episodeNum}`,
-                }];
-              } else {
-                characterAndLineArray[characterName].push({
-                  line: `${characterLine}`,
-                  season: `${seasonNum}`,
-                  episode: `${episodeNum}`,
-                });
-              }
-            }
-          }
-        });
-      // SAVE TO DB
-
-      // CREATING AND SAVING A NEW CHARACTER OBJECT
-      // const character = new Character(result_obj);
-      // return character.save()
+      return episode.save();
       
     }).then((objects) => {
       console.log('data saved');
