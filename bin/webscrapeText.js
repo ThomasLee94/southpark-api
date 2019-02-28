@@ -104,6 +104,8 @@ const nextLink = () => {
       // CREATING AND SAVING A NEW CHARACTER OBJECT
       // const character = new Character(result_obj);
       // return character.save()
+
+      return episode.save();
       
     }).then((objects) => {
       console.log('data saved');
