@@ -3,6 +3,7 @@
 //
 
 const mongoose = require('mongoose');
+// ADDITIONAL MONGOOSE FEATURES
 const findOrCreate = require('mongoose-findorcreate');
 const uniqueValidator = require('mongoose-unique-validator');
 

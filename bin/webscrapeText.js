@@ -84,7 +84,7 @@ const nextLink = () => {
                 // TODO: COME BACK TO THIS, CHARACTER ID NEEDS TO BE UNIQUE
                 episode.characcterId.push(character._id); 
                 return new Lines(lineObj).save();
-                
+
               }).then((line) => {
                 episode.lineId.push(line._id)
                 return Character.findOneAndUpdate({ name: characterName }, { $push: { lines: line._id}})
@@ -92,10 +92,6 @@ const nextLink = () => {
           }
         });
       // SAVE TO DB
-
-      // CREATING AND SAVING A NEW CHARACTER OBJECT
-      // const character = new Character(result_obj);
-      // return character.save()
 
       return episode.save();
       
