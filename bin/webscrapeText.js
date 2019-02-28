@@ -54,6 +54,8 @@ const nextLink = () => {
         episodeName,
         episodeNumber: episodeNum,
         seasonNumber: seasonNum,
+        characterId: [],
+        lineId: [],
       };
 
       const episode = new Episode(episodeObj);
@@ -64,40 +66,37 @@ const nextLink = () => {
       let characterName;
       let characterLine; 
 
-      /* KEY VALUE PAIRS OF CHARACTRY AND ARRAY CONTAINING OBJ OF LINES
-      {character: [{
-          line: characterLine, 
-          season: seasonNum,
-          episode: episodeNum,
-        }]
-      }
-      */
-      const characterAndLineObj = {};
-
       // LOOPING THROUGH EVERY TR TAG
       const { length } = $('#mw-content-text').find('table').eq(-3).find('tr'); 
-      const characterAndLineArray = $('#mw-content-text').find('table').eq(-3).find('tr')
+      $('#mw-content-text').find('table').eq(-3).find('tr')
         .each(function(i, e) {
           if (3 <= i && i < length - 1) {
             characterName = $(this).find('td').first().text();
             characterLine = $(this).find('td').last().text();
 
-            // ADDING TO CHARACTER-AND-LINEOBJ
-            for (characterName in characterAndLineObj) {
-              if (!characterAndLineObj.hasOwnProperty(characterName)) {
-                characterAndLineObj[characterName] = [{
-                  line: `${characterLine}`,
-                  season: `${seasonNum}`,
-                  episode: `${episodeNum}`,
-                }];
-              } else {
-                characterAndLineArray[characterName].push({
-                  line: `${characterLine}`,
-                  season: `${seasonNum}`,
-                  episode: `${episodeNum}`,
-                });
-              }
-            }
+            Character.findOne({name: characterName})
+              .then(async (character) => {
+                if (!character) {
+                  let characterObj = {
+                    name: characterName,
+                    lines: [],
+                  }   
+
+                  character = await new Character(characterObj).save(); 
+                } 
+                let lineObj = {
+                  line: characterLine,
+                  characterId: character._id,
+                  lineId: episode._id,
+                };
+
+                const line = await new Lines(lineObj).save();
+                character.lines.push(line._id)
+                await character.save();
+                episode.lineId.push(line._id)
+                // TODO: COME BACK TO THIS, CHARACTER ID NEEDS TO BE UNIQUE
+                episode.characcterId.push(line._id); 
+              }); 
           }
         });
       // SAVE TO DB
