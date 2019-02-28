@@ -10,13 +10,13 @@
 /* eslint-disable no-restricted-syntax */
 
 // IMPORTS
-require('dotenv').config(); 
+require('dotenv').config();
 const Nightmare = require('nightmare');
 const nightmare = Nightmare({ show: true });
 const cheerio = require('cheerio');
 
 // CUSTOM IMPORT
-const parse = require('./util/parse')
+const parse = require('./util/parse');
 
 // MODELS
 const Lines = require('../source/api/lines/line.model');
@@ -46,7 +46,7 @@ const nextLink = () => {
       // AM ABLE TO GRAB ALL VARIABLES CORRECTLY
       const episodeName = $('#mw-content-text').find('table').eq(-3).find('tr').first().text();
       const episodeAndSeasonNumber = $('#mw-content-text').find('table').eq(-1).find('tr').eq(-1).text();
-      
+
       const seasonNum = parse.cleanUpSeason(episodeAndSeasonNumber);
       const episodeNum = parse.cleanUpEpisode(episodeAndSeasonNumber);
 
@@ -72,15 +72,15 @@ const nextLink = () => {
             characterLine = $(this).find('td').last().text();
 
             // ADDING TO CHARACTER-AND-LINEOBJ
-            for (let characterName in characterAndLineObj) {
-              if (characterAndLineObj.hasOwnProperty(characterName)) {
-                characterAndLineObj.characterName = [{
+            for (characterName in characterAndLineObj) {
+              if (!characterAndLineObj.hasOwnProperty(characterName)) {
+                characterAndLineObj[characterName] = [{
                   line: `${characterLine}`,
                   season: `${seasonNum}`,
                   episode: `${episodeNum}`,
                 }];
               } else {
-                characterAndLineArray.characterName.append({
+                characterAndLineArray[characterName].push({
                   line: `${characterLine}`,
                   season: `${seasonNum}`,
                   episode: `${episodeNum}`,
