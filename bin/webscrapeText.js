@@ -74,29 +74,21 @@ const nextLink = () => {
             characterName = $(this).find('td').first().text();
             characterLine = $(this).find('td').last().text();
 
-            Character.findOne({name: characterName})
-              .then(async (character) => {
-                if (!character) {
-                  let characterObj = {
-                    name: characterName,
-                    lines: [],
-                  }   
-
-                  character = await new Character(characterObj).save(); 
-                } 
+            Character.findOrCreate({name: characterName })
+              .then((character) => {
                 let lineObj = {
                   line: characterLine,
                   characterId: character._id,
                   lineId: episode._id,
                 };
-
-                const line = await new Lines(lineObj).save();
-                character.lines.push(line._id)
-                await character.save();
-                episode.lineId.push(line._id)
                 // TODO: COME BACK TO THIS, CHARACTER ID NEEDS TO BE UNIQUE
-                episode.characcterId.push(line._id); 
-              }); 
+                episode.characcterId.push(character._id); 
+                return new Lines(lineObj).save();
+                
+              }).then((line) => {
+                episode.lineId.push(line._id)
+                return Character.findOneAndUpdate({ name: characterName }, { $push: { lines: line._id}})
+              }) 
           }
         });
       // SAVE TO DB
