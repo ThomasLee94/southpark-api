@@ -7,24 +7,37 @@
 
 /*
 Cleans data to a form that can be used
-Example: '301 edit'
-  => {seasonNum: 03, episodeNum: 01}
+Example: '301:epsidoeName edit'
+  => {seasonNum: 3, episodeNum: 1}
 */
 
-// TODO: FINISH
+const stringToArrPerChar = (string) => {
+  outputArr = [];
+  for (let i = 0; i < string.length; i++){
+    outputArr.push(i);
+  }
+  return outputArr;
+}
 
 module.exports = {
   cleanUpSeason: (string) => {
-    const str1 = 'edit';
-    const strippedText1 = string.replace(':', '');
-    const strippedText2 = strippedText1.replace(new RegExp(`\\b${str1}\\b`), '');
-    const seasonNum = strippedText2.splice(0, 1);
-    return seasonNum;
+    // REMOVE ALL TEXT
+    const strippedText = string.replace(/\D/g,'');
+    const seasonAndEpArr = stringToArrPerChar(strippedText);
+    // ['3','0',''1];
+    return seasonAndEpArr.splice(0, 1).toString();
+
   },
 
   cleanUpEpisode: (string) => {
-    const episodeNum = string.split(1, 2);
-    return episodeNum;
+    // REMOVE ALL TEXT
+    const strippedText = string.replace(/\D/g,'');
+    const seasonAndEpArr = stringToArrPerChar(strippedText);
+    return seasonAndEpArr.splice(1, 1).toString();
   },
+
+  // cleanUpText: (string) => {
+
+  // }
 
 };

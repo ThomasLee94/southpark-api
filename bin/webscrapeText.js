@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow-callback */
 //
 // ─── DATA SCRAPE OF TEXT FROM SOUTHPARK.FANDOM.COM ───────────────────────────────────────────
 //
@@ -19,10 +20,9 @@ const cheerio = require('cheerio');
 const parse = require('./util/parse');
 
 // MODELS
-const Lines = require('../source/api/lines/line.model');
-const Episode = require('../source/api/episodes/episode.model');
-const Season = require('../source/api/seasons/season.model');
-const Character = require('../source/api/characters/character.model');
+const { Line } = require('../source/api/lines/line.model');
+const { Episode } = require('../source/api/episodes/episode.model');
+const { Character } = require('../source/api/characters/character.model');
 
 // DB AND MONGOOSE CONNECTION
 require('./db/southpark-db');
@@ -61,40 +61,41 @@ const nextLink = () => {
       const episode = new Episode(episodeObj);
       return episode.save();
 
-    }).then((episode) => {
-
-      let characterName;
-      let characterLine; 
+    }).then(async (episode) => {
 
       // LOOPING THROUGH EVERY TR TAG
       const { length } = $('#mw-content-text').find('table').eq(-3).find('tr'); 
-      $('#mw-content-text').find('table').eq(-3).find('tr')
-        .each(function(i, e) {
-          if (3 <= i && i < length - 1) {
-            characterName = $(this).find('td').first().text();
-            characterLine = $(this).find('td').last().text();
+      await $('#mw-content-text').find('table').eq(-3).find('tr')
+        .each( function(i, e) {
+          if (3 <= i && i < 6) {
+            let characterName = $(this).find('td').first().text().trim();
+            let characterLine = $(this).find('td').last().text();
+            // console.log(characterLine)
 
-            Character.findOrCreate({name: characterName })
+             Character.findOne({ name: characterName })
               .then((character) => {
+                // console.log('reprint', characterLine)
+                console.log(character)
                 let lineObj = {
                   line: characterLine,
-                  characterId: character._id,
+                  characterId: character.doc._id,
                   lineId: episode._id,
                 };
                 // TODO: COME BACK TO THIS, CHARACTER ID NEEDS TO BE UNIQUE
-                episode.characcterId.push(character._id); 
-                return new Lines(lineObj).save();
-
+                episode.characterId.push(character.doc._id); 
+                const line = new Line(lineObj);
+                return line.save();
               }).then((line) => {
                 episode.lineId.push(line._id)
-                return Character.findOneAndUpdate({ name: characterName }, { $push: { lines: line._id}})
+                return Character.findOneAndUpdate({ name: characterName }, { $push: { lines: line._id}});
+              }).catch((err) => {
+                console.log(err);
               }) 
           }
         });
-      // SAVE TO DB
 
       return episode.save();
-      
+
     }).then((objects) => {
       console.log('data saved');
       if (urls.length > 0) {
