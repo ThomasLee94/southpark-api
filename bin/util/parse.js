@@ -26,7 +26,6 @@ module.exports = {
     const seasonAndEpArr = stringToArrPerChar(strippedText);
     // ['3','0',''1];
     return seasonAndEpArr.splice(0, 1).toString();
-
   },
 
   cleanUpEpisode: (string) => {

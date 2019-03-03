@@ -34,6 +34,7 @@
     "cheerio-advanced-selectors": "^2.0.1",
     "dotenv": "^6.2.0",
     "fs": "0.0.1-security",
+    "lodash": "^4.17.11",
     "mongoose": "^5.4.13",
     "mongoose-findorcreate": "^3.0.0",
     "mongoose-unique-validator": "^2.0.2",
