@@ -1,8 +1,9 @@
 const Episode = require('../episodes/episode.model');
 
+// TODO: FINISH THESE
 // RETURNS ALL SEASONS
-async function Index(req, res) { 
-  res.json(await Model.Season.find());
+async function GetAllSeaons(req, res) { 
+  res.json(await Episode.find());
 }
 
 // RETURN ALL LINES FOR A SPECIFIC EPISODE AS STRING
