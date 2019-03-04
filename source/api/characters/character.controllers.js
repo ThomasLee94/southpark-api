@@ -6,7 +6,7 @@ async function GetAllCharacters(req, res) {
   res.json(characters);
 }
 
-//  SEND SPECIFIC CHARACTER
+// RETURN SPECIFIC CHARACTER
 async function GetCharacter(req, res) {
   const characterString = new RegExp(req.params.name)
   const character = await Character.findOne({ name: characterString });
