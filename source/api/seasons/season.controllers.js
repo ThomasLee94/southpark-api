@@ -1,7 +1,7 @@
-const Model = require('./season.model');
+const Episode = require('../episodes/episode.model');
 
 // RETURNS ALL SEASONS
-async function Index(req, res) {
+async function Index(req, res) { 
   res.json(await Model.Season.find());
 }
 

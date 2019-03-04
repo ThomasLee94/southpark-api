@@ -54,20 +54,21 @@ async function GetCharacterLinesForEpisode(req, res) {
   // RETURNS ALL EPISODES ACCORDING TO THE FUZZY SEARCH
   const episode = await Episode.find({ $and: [{seasonNumber: seasonNum }, { episodeNumber: episodeNum }] });
 
+  // TODO: FIGURE OUT HOW TO GET CHARACTER ID FROM JUST THE CHARACTER NAME
   // RETURNS ALL THE LINES FOR THE GIVEN EPISODE
   const lines = await Line.find()
-
-
 }
 
 // RETURNS ALL LINES PER CHARACTER AS AN ARRAY
 async function GetCharacterLines(req, res) {
-  res.json(await Model.Line.findById(req.params.id));
+  const characterString = new RegExp(req.params.character);
+  const character = await Character.find({ name: characterString });
+  res.json(character);
 }
 
 module.exports = {
-  Index,
+  GetLinesForSeason,
   GetLinesForEpisode,
   GetCharacterLinesForEpisode,
-  GetAllCharacterLines,
+  GetCharacterLines,
 };
