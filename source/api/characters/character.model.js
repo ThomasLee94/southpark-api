@@ -12,6 +12,7 @@ const { Schema } = mongoose;
 
 const CharacterSchema = new Schema({
   name: { type: String, required: true},
+  // LINES ARE STORED AS REFERENCES
   lines: [{ type: String, required: true }], 
 });
 
