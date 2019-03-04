@@ -11,6 +11,7 @@ async function GetEpisodesBySeason(req, res) {
 async function GetEpisode(req, res) {
   const episodeName = new RegExp(req.params.episodeName);
   const episode = await Episode.findOne({ episodeName });
+  res.json(episode);
 }
 
 module.exports = {

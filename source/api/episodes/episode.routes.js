@@ -10,5 +10,4 @@ router.get('/:season/episodes', parcel(controller.GetEpisodesBySeason));
 // GET: RETURN A SPECIFIC EPISODE 
 router.get('/:episodeName', parcel(controller.GetEpisode)); 
 
-
 module.exports = router;
