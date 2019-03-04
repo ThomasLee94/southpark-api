@@ -11,7 +11,6 @@ async function GetCharacter(req, res) {
   const characterString = new RegExp(req.params.name)
   const character = await Character.findOne({ name: characterString });
   res.json(character);
-  
 }
 
 module.exports = {
