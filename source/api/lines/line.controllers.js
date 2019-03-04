@@ -48,7 +48,7 @@ async function GetLinesForEpisode(req, res) {
 async function GetCharacterLinesForEpisode(req, res) {
   const seasonNum = new RegExp(req.params.season);
   const episodeNum = new RegExp(req.params.episode);
-  const characterString = new RegExp(req.params.character);
+  const characterString = new RegExp(req.params.characterName);
   const lineIdsArr = [];
 
   // RETURNS ALL EPISODES ACCORDING TO THE FUZZY SEARCH

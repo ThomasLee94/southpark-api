@@ -6,9 +6,8 @@ const seasonRoutes = require('./api/seasons/season.routes');
 
 const router = express.Router();
 
-router.use('/season', seasonRoutes);
-router.use('/episode', episodeRoutes);
-router.use('/line', lineRoutes);
-router.use('/character', characterRoutes);
+router.use('/episodes', episodeRoutes);
+router.use('/lines', lineRoutes);
+router.use('/characters', characterRoutes);
 
 module.exports = router;

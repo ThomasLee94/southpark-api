@@ -19,7 +19,7 @@ const cheerio = require('cheerio');
 
 // CUSTOM IMPORT
 const parse = require('./util/parse');
-const data = require('./urls')
+const data = require('./urls');
 
 // MODELS
 const { Line } = require('../source/api/lines/line.model');
