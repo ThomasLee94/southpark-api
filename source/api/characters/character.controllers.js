@@ -1,7 +1,7 @@
 const Model = require('./character.model');
 
 // RETURN ALL CHARACTERS
-async function Index(req, res) {
+async function GetAllCharacters(req, res) {
   res.json(await Model.Character.find());
 }
 
@@ -11,6 +11,6 @@ async function GetCharacter(req, res) {
 }
 
 module.exports = {
-  Index,
+  GetAllCharacters,
   GetCharacter,
 };
