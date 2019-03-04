@@ -1,6 +1,6 @@
 const Model = require('./character.model');
 
-// RETURNS LIST OF ALL CHARACTERS
+// RETURN ALL CHARACTERS
 async function Index(req, res) {
   res.json(await Model.Character.find());
 }

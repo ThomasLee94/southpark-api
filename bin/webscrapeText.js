@@ -19,6 +19,7 @@ const cheerio = require('cheerio');
 
 // CUSTOM IMPORT
 const parse = require('./util/parse');
+const data = require('./urls')
 
 // MODELS
 const { Line } = require('../source/api/lines/line.model');
@@ -28,11 +29,11 @@ const { Character } = require('../source/api/characters/character.model');
 // DB AND MONGOOSE CONNECTION
 require('./db/southpark-db');
 
-let urls = [
-  'https://southpark.fandom.com/wiki/Rainforest_Shmainforest/Script',
-];
+// URLS
+let urls = data.season1.concat(data.season2, data.season3, data.season4, data.season5, data.season6, data.season7, data.season8);
 
 const nextLink = () => {
+  // const theURL = urls.pop();
   const theURL = urls.pop();
   let $;
   nightmare
@@ -73,12 +74,15 @@ const nextLink = () => {
           }
         })
 
-      for (let i = 3; i < length; i++) {
+      for (let i = 3; i < length - 1; i++) {
+        console.log(`-------------------WORKING LINE ${i}`)
         const { characterName, characterLine } = rows[i];
-        if (!characterName){
+        if (!characterName) {
+          console.log(`********************SKIPPED ${i}`)
+          console.log(characterLine);
           continue 
         }
-        const character = await Character.findOne({ name: characterName })
+        let character = await Character.findOne({ name: characterName })
         if (!character) {
           await Character.create({ name: characterName })
           character = await Character.findOne({ name: characterName })
@@ -91,7 +95,7 @@ const nextLink = () => {
         line = await line.save(); 
 
         episode.lineId.push(line._id);
-        character.characterId.push(character._id);
+        episode.characterId.push(character._id);
         await Character.findOneAndUpdate({name: characterName}, {$push: { lines: line._id}})
       }
       episode.characterId = _.uniqWith(episode.characterId, _.isEqual);
