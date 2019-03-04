@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/:season/episodes', parcel(controller.GetEpisodesBySeason));
 
 // GET: RETURN A SPECIFIC EPISODE 
-router.get('/:season/:episode', parcel(controller.GetEpisode)); 
+router.get('/:season/:episodeName', parcel(controller.GetEpisode)); 
 
 
 module.exports = router;
