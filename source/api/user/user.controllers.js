@@ -1,11 +1,12 @@
 //
-// ─── SOUTHPARK LINE CONTROLLERS ─────────────────────────────────────────────────
+// ─── SOUTHPARK USER CONTROLLERS ─────────────────────────────────────────────────
 //
 
 /* eslint-disable max-len */
 
 const User = require('./user.model');
-const Episode = require('../episodes/episode.model')
+const Episode = require('../episodes/episode.model');
+const Character = require('../characters/character.model');
 
 async function SignUp(req, res){
   const user = new User(req.body)
@@ -81,12 +82,15 @@ async function UpdateEpisode(req, res){
     seasonNumber: req.body.seasonNumber
   })
 
-  res.json(episode)
+  // SENDING SUCCESS STATUS
+  return res.status(200).json({
+    success: true
+  })
 
 }
 
 async function UpdateLine(req, res){
-  // USER MUST KNOW ASSOCIATED EPISODE
+  // USER MUST KNOW LINDEID 'lineId'
   // CAN ONLY CHANGE THE CONTENTS OF THE LINE
   if (!req.body.line){
     return res.status(400).json({
@@ -95,18 +99,66 @@ async function UpdateLine(req, res){
     })
   }
 
+  let line = await Line.findOneAndUpdate({line: req.body.line, lineId: req.body.lineId});
+
+  // SENDING SUCCESS STATUS
+  return res.status(200).json({
+    success: true
+  })
+
 }
 
 async function DeleteEpisode(req, res){
   // USER MUST KNOW EPISODE NAME, NUMBER AND SEASON NUMBER
-  // TODO: DELETE ALL ASSOCIATED LINES AND CHARACTERS
+  if (!req.body.episodeName || !req.body.episodeNumber || !req.body.seasonNumber){
+    return res.status(400).json({
+      success: false,
+        error: 'Failed to delete episode, parameter missing.'
+    })
+  }
+
+  const episode = await Episode.findOne({
+    episodeName: req.body.episodeName,
+    episodeNumber: req.body.episodeNumber,
+    seasonNumber: req.body.seasonNumber
+  })
+
+  const lines = await Line.deleteMany({episodeId: episode._id})
+
+  const episodeDelete = await Episode.deleteOne({
+    episodeName: req.body.episodeName,
+    episodeNumber: req.body.episodeNumber,
+    seasonNumber: req.body.seasonNumber
+  })
+
+  // SENDING SUCCESS STATUS
+  return res.status(200).json({
+    success: true
+  })
 
 }
 
 async function DeleteLine(req, res){
-  // USER MUST KNOW ASSOCIATED EPISODE 
-  // TODO: DELETE CHARACTER AND LINE ASSOCIATIONS
+  // USER MUST KNOW LINEID 'lineId'
+  if (!req.body.lineId){
+    return res.status(400).json({
+      success: false,
+        error: 'Failed to delete episode, parameter missing.'
+    })
+  }
 
+  const episode = await Episode.deleteOne({
+    lineId: req.body.lineId
+  })
+
+  const line = await Line.deleteOne({
+    episodeId: episode._id
+  })
+
+  // SENDING SUCCESS STATUS
+  return res.status(200).json({
+    success: true
+  })
 }
 
 

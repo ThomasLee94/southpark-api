@@ -8,15 +8,15 @@ This will serve as documentation for my custom made South Park API.
 
 ## Data Collection
 
-* Nightmare.js
-* Cheerio.js
+* Nightmare.js (http://www.nightmarejs.org/)
+* Cheerio.js (https://cheerio.js.org/)
 
-My data was scraped from here. If you would like to run the webscraper that I have provided 
+My data was scraped from here. If you would like to run the webscraper that I have provided, please refer to the Cheerio documentation. 
 
 ## Technology
 
-* Node.JS
-* Express.JS
+* Node.JS - documentation can be found here.
+* Express.JS - documentation can be found here.
 
 ## Persistence Layer
 
@@ -27,7 +27,7 @@ My data was scraped from here. If you would like to run the webscraper that I ha
 
 ### Authentication
 
-*baseURL:* https://.../api/auth
+**baseURL:** https://.../api/auth
 
 Only authenticated will be able to make RESTfull POST, UPDATE & DELETE API calls.  
 
@@ -39,21 +39,21 @@ Only authenticated will be able to make RESTfull POST, UPDATE & DELETE API calls
 
 ### Data Manipulation
 
-*baseURL:* https://.../api/auth
+**baseURL:** https://.../api/auth
 
 | Verb          | Route                                   | Description                            |
 | ------------- |:---------------------------------------:| --------------------------------:      |
-| POST          | /create-episode/:season/:episode        | Sign up to get issued a token          |
-| POST          | /create-line/:season/:episode           | Login to be able to access routes      |
-| PUT           | /update-episode/:season/:episode        | Delete issued token                    |
-| PUT           | /update-line/:season/:episode           | Delete issued token                    |
-| DELETE        | /delete-episode/:season/:episode        | Delete issued token                    |
-| DELETE        | /delete-episode/:season/:episode        | Delete issued token                    |
+| POST          | /create-episode/:season/:episode        | Create new episode                     |
+| POST          | /create-line/:season/:episode           | Create new line                        |
+| PUT           | /update-episode/:season/:episode        | Update existing episode                |
+| PUT           | /update-line/:season/:episode           | Update existing line                   |
+| DELETE        | /delete-episode/:season/:episode        | Delete existing episode                |
+| DELETE        | /delete-episode/:season/:episode        | Delete existing line                   |
 
 
 ### Episode Objects
 
-*baseURL:* https://.../api/episodes
+**baseURL:** https://.../api/episodes
 
 | Verb           | Route                                  | Description                            |
 | -------------  |:--------------------------------------:| --------------------------------:      |
@@ -69,7 +69,7 @@ router.get('/api/episodes/4/episodes', (req, res) => {
 
 ### Character Objects
 
-*baseURL:* https://.../api/characters
+**baseURL:** https://.../api/characters
 
 | Verb           | Route                                  | Description                            |
 | -------------  |:--------------------------------------:| --------------------------------:      |
@@ -78,17 +78,13 @@ router.get('/api/episodes/4/episodes', (req, res) => {
 
 ### Line Objects
 
-*baseURL:* https://.../api/lines
+**baseURL:** https://.../api/lines
 
 | Verb           | Route                                  | Description                            |
 | -------------  |:--------------------------------------:| --------------------------------:      |
 | GET            | /:season                               | Get all lines for a given season       |
 | GET            | /:season/:episode/:characterName       | Get lines for a specific character by name for any episode   |
 | GET            | /character/:characterName              | Get all lines for a specific character |
-
-## Acknowledgement
-
-* Hat tip to anyone who's code was used.
 
 ## License
 This project is licensed under the Apache License 2.0 - see the <a href="https://github.com/ThomasLee94/southpark-api/blob/master/LICENSE">LICENSE</a> file for details
