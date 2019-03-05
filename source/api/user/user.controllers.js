@@ -33,8 +33,8 @@ async function AddLine(req, res) {
   // WRITE IN DOCUMENTATION THAT THEY NEED TO SPECIFY EPISODE AND SEASON NUM, LINE AND CHARACTER NAME
   // SPELL WHERE USERS CAN ADD A LINE - CAN USERS ADD A LINE OF ANY CHARACTER IN ANY EPISODE?
   // LINE MUST BE PROVIDED AS 'line'   
-  // 
-  if (!req.body.character || !req.body.season || req.body.episode || !req.body.line){
+  // I MUST BE PROVIDED REQ.BODY.CHARACTER, REQ.BODY.EPISODE ETC
+  if (!req.body.characterName || !req.body.seasonNumber || req.body.episodeNumber || !req.body.line){
     return res.status(400).json({
       success: false,
         error: 'Failed to add line, parameter missing.'
@@ -70,22 +70,42 @@ async function AddLine(req, res) {
       success: true
     })
   }
-}
+
 
 async function UpdateEpisode(req, res){
-  // USER MUST KNOW SEASON AND EPISODE NUMBER 
+  // USER MUST KNOW CURRENT SEASON AND EPISODE NUMBER AND EPISODE NAME
+  // ONLY THESE PARAMETERS CAN BE CHANGED, NOT THE CHARACTER OR LINE IDS
+  const episode = await findOneAndUpdate({ 
+    episodeName: req.body.episodeName,
+    episodeNumber: parseInt(req.body.episodeNumber),
+    seasonNumber: req.body.seasonNumber
+  })
+
+  res.json(episode)
 
 }
 
 async function UpdateLine(req, res){
+  // USER MUST KNOW ASSOCIATED EPISODE
+  // CAN ONLY CHANGE THE CONTENTS OF THE LINE
+  if (!req.body.line){
+    return res.status(400).json({
+      success: false,
+        error: 'Failed to add line, parameter missing.'
+    })
+  }
 
 }
 
 async function DeleteEpisode(req, res){
+  // USER MUST KNOW EPISODE NAME, NUMBER AND SEASON NUMBER
+  // TODO: DELETE ALL ASSOCIATED LINES AND CHARACTERS
 
 }
 
 async function DeleteLine(req, res){
+  // USER MUST KNOW ASSOCIATED EPISODE 
+  // TODO: DELETE CHARACTER AND LINE ASSOCIATIONS
 
 }
 
