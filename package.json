@@ -30,10 +30,12 @@
     "southpark-api": "webscrape.js"
   },
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "cheerio": "^1.0.0-rc.2",
     "cheerio-advanced-selectors": "^2.0.1",
     "dotenv": "^6.2.0",
     "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.4.13",
     "mongoose-findorcreate": "^3.0.0",
