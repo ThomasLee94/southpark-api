@@ -4,22 +4,20 @@
 
 /* eslint-disable max-len */
 
-const Line = require('./line.model');
-const Episode = require('../episodes/episode.model');
-const Character = require('../characters/character.model');
+const { Line } = require('./line.model');
+const { Episode } = require('../episodes/episode.model');
+const { Character } = require('../characters/character.model');
 
 // RETURNS ALL LINES FOR A SEASON
 async function GetLinesForSeason(req, res) {
-  const seasonNum = new RegExp(req.params.season)
-  const episodes = await Episode.find({seasonNumber: seasonNum });
-  const lineIdsArr = [];
-  // PUSHES ALL LINE_IDS OF THE ASSOCIATED EPISODE AND ASSOCIATED SEASON
+  const episodes = await Episode.find({ seasonNumber: req.params.season }).populate('lineId').lean();
+  let outputArr = []; 
   for (let i = 0; i < episodes.length; i++) {
-    lineIdsArr.push(episodes[i].lineId)
+    // console.log(episodes)
+    outputArr = outputArr.concat(episodes[i].lineId);
+    console.log(outputArr)
   }
-  // QUERIES FOR ALL LINES THAT MATCH THE PREVIOUS LINE_IDS
-  const lines = await Line.find({episodeId: { $in: lineIdsArr} });
-  res.json(lines);
+  res.json(outputArr);
 }
 
 // RETURN ALL LINES FOR A SPECIFIC EPISODE AS STRING

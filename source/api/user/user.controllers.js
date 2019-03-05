@@ -63,7 +63,7 @@ async function AddLine(req, res) {
       })
     }
 
-    const line = new Line({ line: req.body.line , characterId: character._id. episodeId: episode._id });
+    const line = new Line({ line: req.body.line , characterId: character._id, episodeId: episode._id });
     try {
       line.save() 
     }
