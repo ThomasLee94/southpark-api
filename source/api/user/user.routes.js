@@ -24,12 +24,12 @@ router.post('/create-line/:season/:episode', checkAuth, parcel(controller.AddLin
 router.put('/update-episode/:season/:episode', checkAuth, parcel(controller.UpdateEpisode)); 
 
 // PUT: UPDATE A LINE
-router.put('/update-line/:season/:episode', checkAuth, parcel(controller.UpdateLine));
+router.put('/update-line/:season/:episode/:lineId', checkAuth, parcel(controller.UpdateLine));
 
 // DELETE: DELETE A EPISODE
 router.delete('/delete-episode/:season/:episode', checkAuth, parcel(controller.DeleteEpisode)); 
 
 // DELETE: DELETE A LINE
-router.delete('/delete-line/:season/:episode', checkAuth, parcel(controller.DeleteLine)); 
+router.delete('/delete-line/:season/:episode/:lineId', checkAuth, parcel(controller.DeleteLine)); 
 
 module.exports = router;

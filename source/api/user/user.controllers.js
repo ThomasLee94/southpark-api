@@ -9,9 +9,16 @@ const Episode = require('../episodes/episode.model');
 const Character = require('../characters/character.model');
 
 async function SignUp(req, res){
-  const user = new User(req.body)
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password
+  })
 
-  const userSave = await user.save()
+  user = await user.save()
+
+  let token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" });
+  res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
+
 }
 
 async function Login(req, res) {
@@ -76,11 +83,19 @@ async function AddLine(req, res) {
 async function UpdateEpisode(req, res){
   // USER MUST KNOW CURRENT SEASON AND EPISODE NUMBER AND EPISODE NAME
   // ONLY THESE PARAMETERS CAN BE CHANGED, NOT THE CHARACTER OR LINE IDS
-  const episode = await findOneAndUpdate({ 
-    episodeName: req.body.episodeName,
-    episodeNumber: parseInt(req.body.episodeNumber),
-    seasonNumber: req.body.seasonNumber
-  })
+  // CAN ONLY UPDATE EPISDOE NAME
+
+  if (!req.body.episodeName || !req.body.episodeNumber || !req.body.seasonNumber){
+    return res.status(400).json({
+      success: false,
+        error: 'Failed to add line, parameter missing.'
+    })
+  }
+
+  await findOneAndUpdate( 
+    { episodeNumber: parseInt(req.body.episodeNumber), seasonNumber: parseInt(req.body.seasonNumber) },
+    { episodeName: req.body.episodeName }
+  )
 
   // SENDING SUCCESS STATUS
   return res.status(200).json({
@@ -99,7 +114,10 @@ async function UpdateLine(req, res){
     })
   }
 
-  let line = await Line.findOneAndUpdate({line: req.body.line, lineId: req.body.lineId});
+  await Line.findOneAndUpdate(
+    { _id: req.params.lineId },
+    { line: req.body.line }
+  )
 
   // SENDING SUCCESS STATUS
   return res.status(200).json({
@@ -109,8 +127,8 @@ async function UpdateLine(req, res){
 }
 
 async function DeleteEpisode(req, res){
-  // USER MUST KNOW EPISODE NAME, NUMBER AND SEASON NUMBER
-  if (!req.body.episodeName || !req.body.episodeNumber || !req.body.seasonNumber){
+  // USER MUST KNOW EPISODE NUMBER AND SEASON NUMBER
+  if (!req.body.episodeNumber || !req.body.seasonNumber){
     return res.status(400).json({
       success: false,
         error: 'Failed to delete episode, parameter missing.'
@@ -118,15 +136,13 @@ async function DeleteEpisode(req, res){
   }
 
   const episode = await Episode.findOne({
-    episodeName: req.body.episodeName,
     episodeNumber: req.body.episodeNumber,
     seasonNumber: req.body.seasonNumber
   })
 
-  const lines = await Line.deleteMany({episodeId: episode._id})
+  await Line.deleteMany({episodeId: episode._id})
 
-  const episodeDelete = await Episode.deleteOne({
-    episodeName: req.body.episodeName,
+  await Episode.deleteOne({
     episodeNumber: req.body.episodeNumber,
     seasonNumber: req.body.seasonNumber
   })
@@ -140,20 +156,30 @@ async function DeleteEpisode(req, res){
 
 async function DeleteLine(req, res){
   // USER MUST KNOW LINEID 'lineId'
-  if (!req.body.lineId){
+  if (!req.params.lineId){
     return res.status(400).json({
       success: false,
         error: 'Failed to delete episode, parameter missing.'
     })
   }
 
-  const episode = await Episode.deleteOne({
-    lineId: req.body.lineId
+  const episode = await Episode.findOne({
+    lineId: { $in: [req.params.lineId] }
   })
 
-  const line = await Line.deleteOne({
-    episodeId: episode._id
+  episode.lineId = episode.lineId.filter(word => JSON.stringify(word) !==  req.params.lineId )
+
+  await episode.save()
+
+  const character = await Character.findOne({
+    lines: {$in: [req.params.lineId] }
   })
+
+  character.lines = character.lines.filter(word => JSON.stringify(word) !==  req.params.lineId )
+
+  await character.save();
+
+  await Line.findById(req.params.lineId)
 
   // SENDING SUCCESS STATUS
   return res.status(200).json({
