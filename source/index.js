@@ -1,13 +1,28 @@
-// require and configure dotenv, will load vars in .env in PROCESS.ENV
+// MIDDLEWARE IMPORTS
 require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+
+// ROUTE IMPORT
+const routes = require('./index.routes');
+
+// SETTING DB AND MONGOOSE CONNECTION
 require('../bin/db/southpark-db');
-const mongoose = require('mongoose');
 
-const app = require('./config/express');
+// INSTANCE OF EXPRESS
+const server = express();
 
-mongoose.Promise = Promise;
+//  REQ/RES MIDDLEWARE
+server.use(cookieParser());
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use(express.json());
 
-//  eslint-disable-next-line
-app.listen(process.env.port, () => console.log(`server up and running on port ${process.env.port}`))
+// MOUNTING ROUTES TO API PATH
+server.use('/api', routes);
 
-module.export = app;
+// PORT
+const port = process.env.PORT;
+server.listen(port, () => console.log(`server up and running on port ${port}`));
+
+module.exports = server; 
