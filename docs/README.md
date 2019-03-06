@@ -1,3 +1,5 @@
+![South Park]('.images/southpark-banner.png)
+
 # South Park API
 
 This will serve as documentation for my custom made South Park API. 
@@ -36,6 +38,17 @@ Only authenticated will be able to make RESTfull POST, UPDATE & DELETE API calls
 | POST          | /sign-up                                | Sign up to get issued a token          |
 | POST          | /login                                  | Login to be able to access routes      |
 | DELETE        | /logout                                 | Delete issued token                    |
+
+
+```
+Example Sign-up request in JSON format with Insomnia or Postman.
+
+{
+	"username": "tom",
+	"password": "123"
+}
+
+```
 
 ### Data Manipulation
 

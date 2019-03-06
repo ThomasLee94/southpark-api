@@ -18,7 +18,7 @@ router.delete('/logout', parcel(controller.Logout));
 router.post('/create-episode/:season/:episode', checkAuth, parcel(controller.AddEpisode));
 
 // POST: ADD A LINE
-router.post('/create-line/:season/:episode', checkAuth, parcel(controller.AddLine)); 
+router.post('/create-line/:season/:episode/', checkAuth, parcel(controller.AddLine)); 
 
 // PUT: UPDATE A EPISODE
 router.put('/update-episode/:season/:episode', checkAuth, parcel(controller.UpdateEpisode)); 

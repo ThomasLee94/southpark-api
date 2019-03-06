@@ -3,21 +3,25 @@
 //
 
 /* eslint-disable max-len */
-
-const User = require('./user.model');
-const Episode = require('../episodes/episode.model');
-const Character = require('../characters/character.model');
+const jwt = require('jsonwebtoken');
+const { User } = require('./user.model');
+const { Episode } = require('../episodes/episode.model');
+const { Character } = require('../characters/character.model');
 
 async function SignUp(req, res) {
-  const user = new User({
+  let user = new User({
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
   });
 
-  user = await user.save()
+  user = await user.save();
 
   let token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" });
   res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
+
+  res.status(200).json({
+    success: true,
+  })
 }
 
 async function Login(req, res) {
@@ -31,8 +35,9 @@ async function Login(req, res) {
       success: false,
       error: 'Invald credentials',
     });
-  }
 
+  
+  }
   user.comparePassword(password, (err, isMatch) => {
     if (!isMatch) {
       // Password does not match
@@ -44,7 +49,10 @@ async function Login(req, res) {
     });
     // Set a cookie and redirect to root
     res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
-    res.redirect('/');
+
+    res.status(200).json({
+      success: true,
+    });
   });
 }
 
