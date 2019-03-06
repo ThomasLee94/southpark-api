@@ -12,21 +12,44 @@ async function SignUp(req, res) {
   const user = new User({
     username: req.body.username,
     password: req.body.password
-  })
+  });
 
   user = await user.save()
 
   let token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "60 days" });
   res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
-
 }
 
 async function Login(req, res) {
+  const username = req.body.username;
+  const password = req.body.password;
 
+  const user = await User.findOne({ username });
+
+  if (!user) {
+    return res.status(401).json({
+      success: false,
+      error: 'Invald credentials',
+    });
+  }
+
+  user.comparePassword(password, (err, isMatch) => {
+    if (!isMatch) {
+      // Password does not match
+      return res.status(401).send({ message: 'Wrong Username or password' });
+    }
+    // Create a token
+    const token = jwt.sign({ _id: user._id, username: user.username }, process.env.SECRET, {
+      expiresIn: '60 days'
+    });
+    // Set a cookie and redirect to root
+    res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
+    res.redirect('/');
+  });
 }
 
 async function Logout(req, res) {
-
+  res.clearCookie('nToken');
 }
 
 async function AddEpisode(req, res) {
@@ -84,10 +107,10 @@ async function UpdateEpisode(req, res) {
   // ONLY THESE PARAMETERS CAN BE CHANGED, NOT THE CHARACTER OR LINE IDS
   // CAN ONLY UPDATE EPISDOE NAME
 
-  if (!req.body.episodeName || !req.body.episodeNumber || !req.body.seasonNumber){ 
+  if (!req.body.episodeName || !req.body.episodeNumber || !req.body.seasonNumber) { 
     return res.status(400).json({
       success: false,
-        error: 'Failed to add line, parameter missing.'
+      error: 'Failed to add line, parameter missing.'
     })
   }
 
@@ -135,10 +158,10 @@ async function DeleteEpisode(req, res) {
 
   const episode = await Episode.findOne({
     episodeNumber: req.body.episodeNumber,
-    seasonNumber: req.body.seasonNumber
-  })
+    seasonNumber: req.body.seasonNumber,
+  });
 
-  await Line.deleteMany({episodeId: episode._id})
+  await Line.deleteMany({episodeId: episode._id});
 
   await Episode.deleteOne({
     episodeNumber: req.body.episodeNumber,
@@ -156,7 +179,7 @@ async function DeleteLine(req, res) {
   if (!req.params.lineId) {
     return res.status(400).json({
       success: false,
-      error: 'Failed to delete episode, parameter missing.'
+      error: 'Failed to delete episode, parameter missing.',
     })
   }
 
@@ -169,14 +192,14 @@ async function DeleteLine(req, res) {
   await episode.save()
 
   const character = await Character.findOne({
-    lines: {$in: [req.params.lineId] },
+    lines: { $in: [req.params.lineId] },
   })
 
-  character.lines = character.lines.filter(word => JSON.stringify(word) !==  req.params.lineId );
+  character.lines = character.lines.filter(word => JSON.stringify(word) !==  req.params.lineId);
 
   await character.save();
 
-  await Line.findById(req.params.lineId)
+  await Line.findById(req.params.lineId);
 
   // SENDING SUCCESS STATUS
   return res.status(200).json({
