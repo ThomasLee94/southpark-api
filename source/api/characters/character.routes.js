@@ -8,6 +8,6 @@ const router = express.Router();
 router.get('/', parcel(controller.GetAllCharacters));
 
 // GET: RETURNS SPECIFIC CHARACTER
-router.get('/:nameName', parcel(controller.GetCharacter));
+router.get('/:characterId', parcel(controller.GetCharacter));
 
 module.exports = router;

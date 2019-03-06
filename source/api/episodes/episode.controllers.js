@@ -1,16 +1,15 @@
-const Episode = require('./episode.model');
+const { Episode } = require('./episode.model');
 
 // RETURNS ALL EPISODES FOR ANY GIVEN SEASON
 async function GetEpisodesBySeason(req, res) {
-  const seasonNum = new RegExp(req.params.season)
-  const episodes = await Episode.findAll({ seasonNumber: seasonNum });
+  const episodes = await Episode.find({ seasonNumber: req.params.season });
   res.json(episodes);
 }
 
 // RETURNS A SPECIFIC EPISODE
+// USER WILL NEED TO PROVIDE EPISODE ID
 async function GetEpisode(req, res) {
-  const episodeName = new RegExp(req.params.episodeName);
-  const episode = await Episode.findOne({ episodeName });
+  const episode = await Episode.findById(req.params.episodeId);
   res.json(episode);
 }
 
