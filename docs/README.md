@@ -24,13 +24,12 @@ My data was scraped from [here](https://southpark.fandom.com/wiki/South_Park_Arc
 
 ## Technology
 
-* [Node.JS]
-* [Express.JS] 
+* [Node.JS](https://nodejs.org/en/)
+* [Express.JS](https://expressjs.com/) 
 
 ## Persistence Layer
 
-* MongoDB
-
+* [MongoDB](https://www.mongodb.com/)
 
 ## REST
 
@@ -38,7 +37,7 @@ My data was scraped from [here](https://southpark.fandom.com/wiki/South_Park_Arc
 
 **baseURL:** https://.../api/auth
 
-Only authenticated will be able to make RESTfull POST, UPDATE & DELETE API calls.  
+Only authenticated will be able to make RESTfull POST, UPDATE & DELETE API calls. JWT's were used for authentication.
 
 | Verb          | Route                                   | Description                            |
 | ------------- |:---------------------------------------:| --------------------------------:      |
@@ -70,6 +69,20 @@ Example Sign-up request in JSON format with Insomnia or Postman.
 | DELETE        | /delete-episode/:season/:episode        | Delete existing episode                |
 | DELETE        | /delete-episode/:season/:episode        | Delete existing line                   |
 
+```
+Add Episode Example
+The following keys must be provided: 
+
+{
+	"episodeName": "Example add episode"
+	"seasonNumber": "12"
+	"episodeNumber": "1"
+	"line": "This is easy!"
+
+}
+
+```
+
 
 ### Episode Objects
 
@@ -77,16 +90,62 @@ Example Sign-up request in JSON format with Insomnia or Postman.
 
 #### Episode Schema
 
+| Key           | Value                                  | Description                            |
+| ------------- |:--------------------------------------:| --------------------------------:      |
+| episodeName   | String                               	 | Name of episode    										|
+| episodeNumber | Number                                 | Episode number         								|
+| seasonNumber  | Number                                 | Season number         									|
+| characterId   | Schema Reference - 'Character'         | Character Schema reference   		      |
+| lineId        | Schema Referene - 'Line'               | Line Schema reference        				  |
+
+
+#### Episode Routes
+
 | Verb           | Route                                  | Description                            |
 | -------------  |:--------------------------------------:| --------------------------------:      |
 | GET            | /:season                               | Get all episodes for a given season    |
-| GET            | /:episodeName                          | Get a specific episode by name         |
+| GET            | /:episodeId                          	| Get a specific episode by id	         |
 
-Example API call:
+Example season API call:
 ```
-router.get('/api/episodes/4/episodes', (req, res) => {
-  ...
-})
+https://...heroku.app.com/3
+```
+```
+{
+
+}
+```
+
+Some exampls episode id's:
+
+```
+Season 4, Episode 14: 5c7dd3cd107279b93ee32891
+```
+
+Example API call by episode id:
+```
+https://...heroku.app.com/5c7dd3cd107279b93ee32891
+```
+```
+{
+    "_id" : ObjectId("5c7dd3cd107279b93ee32891"),
+    "characterId" : [ 
+        ObjectId("5c7dd328107279b93ee2dc06"), 
+        ObjectId("5c7dd323107279b93ee2da89"), 
+        ObjectId("5c7dd322107279b93ee2d9b7"), 
+        ...
+    ],
+    "lineId" : [ 
+        ObjectId("5c7dd3cd107279b93ee32892"), 
+        ObjectId("5c7dd3cd107279b93ee32893"), 
+        ObjectId("5c7dd3cd107279b93ee32894"), 
+				...
+    ],
+    "episodeName" : "\n Helen Keller! The Musical\n",
+    "episodeNumber" : 14,
+    "seasonNumber" : 4,
+    "__v" : 1
+}
 ```
 
 ### Character Objects
