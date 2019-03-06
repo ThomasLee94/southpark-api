@@ -11,7 +11,7 @@ router.get('/:season', parcel(controller.GetLinesForSeason));
 router.get('/:season/:episode', parcel(controller.GetLinesForEpisode)); 
 
 // GET: RETURNS LINES OF A SPECIFIC EPISODE FOR A SPECIFIC CHARACTER
-router.get('/:season/:episode/:characterName', parcel(controller.GetCharacterLinesForEpisode)); 
+router.get('/:season/:episode/:characterId/:episodeId', parcel(controller.GetCharacterLinesForEpisode)); 
 
 // GET: RETURNS ALL LINES PER CHARACTER
 router.get('/character/:characterName', parcel(controller.GetCharacterLines)); 
