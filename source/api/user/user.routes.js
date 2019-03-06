@@ -6,13 +6,13 @@ const checkAuth = require('../../middleware/checkAuth');
 const router = express.Router();
 
 // POST: SIGN-UP
-router.post('/sign-up', checkAuth, parcel(controller.SignUp));
+router.post('/sign-up', parcel(controller.SignUp));
 
 // POST: LOGIN
-router.post('/login', checkAuth, parcel(controller.Login));
+router.post('/login', parcel(controller.Login));
 
 // DELETE: LOGOUT
-router.delete('/logout', checkAuth, parcel(controller.Logout));
+router.delete('/logout', parcel(controller.Logout));
 
 // POST: ADD A EPISODE
 router.post('/create-episode/:season/:episode', checkAuth, parcel(controller.AddEpisode));
