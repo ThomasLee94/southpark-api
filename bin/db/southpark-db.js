@@ -14,5 +14,6 @@ mongoose.connect(
 
 mongoose.connection.on("error", console.error.bind(console, "MongoDB connection Error:"));
 // mongoose.set("debug", true);
+mongoose.connection.on('connected', () => console.log('connected to mongoDB'))
 
 module.exports = mongoose.connection;

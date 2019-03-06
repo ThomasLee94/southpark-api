@@ -1,8 +1,15 @@
-![alt text](https://github.com/ThomasLee94/southpark-api/tree/master/docs/images/southpark-banner.png "Logo Title Text 1")
+![](/images/southpark-banner.png)
 
 # South Park API
 
 This will serve as documentation for my custom made South Park API. 
+
+Users will be able to:
+	1.	Query for all lines per character. 
+
+	2.	Query for character lines per episode.
+
+	3.	Query all words said per character, per episode.
 
 ## Package Manager
 
@@ -10,15 +17,15 @@ This will serve as documentation for my custom made South Park API.
 
 ## Data Collection
 
-* Nightmare.js (http://www.nightmarejs.org/)
-* Cheerio.js (https://cheerio.js.org/)
+* [Nightmare.js](http://www.nightmarejs.org/)
+* [Cheerio.js](https://cheerio.js.org/)
 
-My data was scraped from here. If you would like to run the webscraper that I have provided, please refer to the Cheerio documentation. 
+My data was scraped from [here](https://southpark.fandom.com/wiki/South_Park_Archives). If you would like to run the webscraper that I have provided, please refer to the Cheerio documentation. 
 
 ## Technology
 
-* Node.JS - documentation can be found here.
-* Express.JS - documentation can be found here.
+* [Node.JS]
+* [Express.JS] 
 
 ## Persistence Layer
 
@@ -67,6 +74,8 @@ Example Sign-up request in JSON format with Insomnia or Postman.
 ### Episode Objects
 
 **baseURL:** https://.../api/episodes
+
+#### Episode Schema
 
 | Verb           | Route                                  | Description                            |
 | -------------  |:--------------------------------------:| --------------------------------:      |
