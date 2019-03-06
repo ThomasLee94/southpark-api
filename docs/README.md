@@ -45,9 +45,11 @@ Only authenticated will be able to make RESTfull POST, UPDATE & DELETE API calls
 | POST          | /login                                  | Login to be able to access routes      |
 | DELETE        | /logout                                 | Delete issued token                    |
 
-
 ```
 Example Sign-up request in JSON format with Insomnia or Postman.
+```
+
+```json
 
 {
 	"username": "tom",
@@ -72,16 +74,75 @@ Example Sign-up request in JSON format with Insomnia or Postman.
 ```
 Add Episode Example
 The following keys must be provided: 
-
+```
+```json
 {
-	"episodeName": "Example add episode"
-	"seasonNumber": "12"
-	"episodeNumber": "1"
-	"line": "This is easy!"
+	"episodeName": "Example add episode",
+	"seasonNumber": "12",
+	"episodeNumber": "1",
+	"line": "This is easy!",
 
 }
 
 ```
+
+
+```
+Add Line Example
+Lines cannot be added to characters that do no already exist.
+The following keys must be provided:
+```
+```json
+{
+    "line": "Example line",
+    "seasonNumber": "3",
+    "episodeNumber": "1",
+    "character": "Stan",
+}
+
+```
+
+```
+Update Episode Example
+The following key-values must be provided:
+```
+```json
+{
+    "episodeName": "Example episode name",
+    "episodeNumber": "6",
+    "seasonNumber": "2",
+}
+```
+
+```
+Update Line Example
+lineId must be provided in URL.
+The following key-values must be provided:
+```
+```json
+{
+    "line": "Example line"
+}
+```
+
+```
+Delete Episode Example
+The following key-values must be provided:
+```
+```json
+{
+    "episodeNumber": "5",
+    "seasonNumber": "1",
+}
+```
+
+```
+Delete Line Example
+***EXAMPLE URL***
+lineId must be provided in the URL.
+
+```
+
 
 
 ### Episode Objects
@@ -110,6 +171,7 @@ Example season API call:
 ```
 https://...heroku.app.com/3
 ```
+
 ```
 {
 
@@ -124,9 +186,9 @@ Season 4, Episode 14: 5c7dd3cd107279b93ee32891
 
 Example API call by episode id:
 ```
-https://...heroku.app.com/5c7dd3cd107279b93ee32891
+https://...herokuapp.com/5c7dd3cd107279b93ee32891
 ```
-```
+```json
 {
     "_id" : ObjectId("5c7dd3cd107279b93ee32891"),
     "characterId" : [ 

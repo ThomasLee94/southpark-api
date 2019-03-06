@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const { User } = require('./user.model');
 const { Episode } = require('../episodes/episode.model');
 const { Character } = require('../characters/character.model');
+const { Line } = require('../lines/line.model');
 
 async function SignUp(req, res) {
   const user = new User({
@@ -80,7 +81,7 @@ async function AddLine(req, res) {
   // SPELL WHERE USERS CAN ADD A LINE - CAN USERS ADD A LINE OF ANY CHARACTER IN ANY EPISODE?
   // LINE MUST BE PROVIDED AS 'line'
   // I MUST BE PROVIDED REQ.BODY.CHARACTER, REQ.BODY.EPISODE ETC
-  if (!req.body.characterName || !req.body.seasonNumber || req.body.episodeNumber || !req.body.line) {
+  if (!req.body.character || !req.body.seasonNumber || req.body.episodeNumber || !req.body.line) {
     return res.status(400).json({
       success: false,
       error: 'Failed to add line, parameter missing.',
@@ -90,7 +91,7 @@ async function AddLine(req, res) {
   if (!character) {
     await character.create({ name: req.body.character });
     // TO GET CHARACTER_ID
-    character = await Character.findOne({ name: characterName });
+    character = await Character.findOne({ name: req.body.character });
   }
   const episode = await Episode.findOne({ episodeNumber: parseInt(req.body.episode), seasonNumber: parseInt(req.body.season) });
   // CANNOT CREATE A NEW EPISODE
@@ -128,7 +129,7 @@ async function UpdateEpisode(req, res) {
     });
   }
 
-  await findOneAndUpdate(
+  await Episode.findOneAndUpdate(
     { episodeNumber: parseInt(req.body.episodeNumber), seasonNumber: parseInt(req.body.seasonNumber) },
     { episodeName: req.body.episodeName },
   );
