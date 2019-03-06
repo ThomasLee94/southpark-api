@@ -1,4 +1,4 @@
-![South Park]('.images/southpark-banner.png)
+![South Park]('.images/southpark-banner.png?raw=true')
 
 # South Park API
 
