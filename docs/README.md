@@ -1,4 +1,4 @@
-![South Park]('.images/southpark-banner.png?raw=true')
+![alt text](https://github.com/ThomasLee94/southpark-api/tree/master/docs/images/southpark-banner.png "Logo Title Text 1")
 
 # South Park API
 

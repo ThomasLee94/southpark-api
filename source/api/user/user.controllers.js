@@ -35,8 +35,6 @@ async function Login(req, res) {
       success: false,
       error: 'Invald credentials',
     });
-
-  
   }
   user.comparePassword(password, (err, isMatch) => {
     if (!isMatch) {
@@ -65,7 +63,6 @@ async function AddEpisode(req, res) {
     const newEpisode = new Episode(req.body);
     newEpisode.save();
   }
-  
 }
 
 async function AddLine(req, res) {
