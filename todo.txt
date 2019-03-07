@@ -1,5 +1,0 @@
-1 - Finish user controllers
-2 - Write basic tests
-3 - Finish documentation
-4 - Push to heroku
-
