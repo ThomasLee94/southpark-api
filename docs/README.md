@@ -264,7 +264,7 @@ Example API call by episode id:
 https://...herokuapp.com/5c7dd3cd107279b93ee32891
 ```
 Received JSON
-```json
+```js
 {
     "_id" : ObjectId("5c7dd3cd107279b93ee32891"),
     "characterId" : [ 
