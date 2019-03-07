@@ -70,10 +70,18 @@ async function Logout(req, res) {
 }
 
 async function AddEpisode(req, res) {
-  if (req.body.episodeName && req.body.episodeNumber && req.body.seasonNumber) {
-    const newEpisode = new Episode(req.body);
-    newEpisode.save();
+  if (!req.body.episodeName || !req.body.episodeNumber || !req.body.seasonNumber) {
+    return res.status(400).json({
+      success: false,
+      error: 'Failed to add line, parameter missing.',
+    });
   }
+
+  const newEpisode = new Episode(req.body);
+  newEpisode.save();
+  return res.status(200).json({
+    success: true,
+  });
 }
 
 async function AddLine(req, res) {
