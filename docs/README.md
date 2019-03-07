@@ -46,7 +46,7 @@ Only authenticated will be able to make RESTfull POST, UPDATE & DELETE API calls
 | ------------- |:---------------------------------------:| --------------------------------:      |
 | POST          | /sign-up                                | Sign up to get issued a token          |
 | POST          | /login                                  | Login to be able to access routes      |
-| DELETE        | /logout                                 | Delete issued token                    |
+| GET           | /logout                                 | Delete issued token                    |
 
 **Example Sign-up request.**
 All parameters are in JSON format. 
@@ -79,8 +79,7 @@ The following keys must be provided:
 {
 	"episodeName": "Example add episode",
 	"seasonNumber": "12",
-	"episodeNumber": "1",
-	"line": "This is easy!",
+	"episodeNumber": "1"
 
 }
 ```
@@ -94,7 +93,7 @@ The following keys must be provided:
     "line": "Example line",
     "seasonNumber": "3",
     "episodeNumber": "1",
-    "character": "Stan",
+    "character": "Stan"
 }
 ```
 
@@ -105,7 +104,7 @@ The following key-values must be provided:
 {
     "episodeName": "Example episode name",
     "episodeNumber": "6",
-    "seasonNumber": "2",
+    "seasonNumber": "2"
 }
 ```
 
@@ -126,7 +125,7 @@ The following key-values must be provided:
 ```json
 {
     "episodeNumber": "5",
-    "seasonNumber": "1",
+    "seasonNumber": "1"
 }
 ```
 

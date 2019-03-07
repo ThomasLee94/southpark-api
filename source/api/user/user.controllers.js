@@ -28,7 +28,7 @@ async function SignUp(req, res) {
     res.status(200).json({
       success: true,
     });
-  } catch(err) {
+  } catch (err) {
     res.status(400).json({
       success: false,
       error: 'failed to sign-up',
@@ -72,6 +72,9 @@ async function Login(req, res) {
 
 async function Logout(req, res) {
   res.clearCookie('nToken');
+  return res.json({
+    success: true,
+  })
 }
 
 async function AddEpisode(req, res) {
@@ -94,40 +97,46 @@ async function AddLine(req, res) {
   // SPELL WHERE USERS CAN ADD A LINE - CAN USERS ADD A LINE OF ANY CHARACTER IN ANY EPISODE?
   // LINE MUST BE PROVIDED AS 'line'
   // I MUST BE PROVIDED REQ.BODY.CHARACTER, REQ.BODY.EPISODE ETC
-  if (!req.body.character || !req.body.seasonNumber || req.body.episodeNumber || !req.body.line) {
+  if (!req.body.character || !req.body.seasonNumber || !req.body.episodeNumber || !req.body.line) {
     return res.status(400).json({
       success: false,
-      error: 'Failed to add line, parameter missing.',
+      error: 'Failed to add line, parameter missing.'
     });
   }
-  let character = await Character.findOne({ name: req.body.character });
-  if (!character) {
-    await character.create({ name: req.body.character });
-    // TO GET CHARACTER_ID
-    character = await Character.findOne({ name: req.body.character });
-  }
-  const episode = await Episode.findOne({ episodeNumber: parseInt(req.body.episode), seasonNumber: parseInt(req.body.season) });
-  // CANNOT CREATE A NEW EPISODE
-  if (!episode) {
-    return res.status(400).json({
-      success: false,
-      error: 'Episode does not exist, line could not be added.',
-    });
-  }
-
-  const line = new Line({ line: req.body.line, characterId: character._id, episodeId: episode._id });
   try {
-    line.save();
+    console.log(req.body)
+    const charExp = new RegExp(req.body.character, 'i')
+    let character = await Character.findOne({ name: charExp });
+
+    if (!character) {
+      await character.create({ name: req.body.character });
+      // TO GET CHARACTER_ID
+      character = await Character.findOne({ name: req.body.character });
+    }
+    const episode = await Episode.findOne({ episodeNumber: parseInt(req.body.episodeNumber), seasonNumber: parseInt(req.body.seasonNumber) });
+    // CANNOT CREATE A NEW EPISODE
+    if (!episode) {
+      return res.status(400).json({
+        success: false,
+        error: 'Episode does not exist, line could not be added.',
+      });
+    }
+
+    const line = new Line({ line: req.body.line, characterId: character._id, episodeId: episode._id });
+
+    await line.save();
+    episode.lineId.unshift(line)
+    await episode.save()
+    // SENDING SUCCESS STATUS
+    return res.status(200).json({
+      success: true,
+    });
   } catch (err) {
-    return res.status(400).json({
+    res.status(400).json({
       success: false,
-      error: 'Failed to create line, try again.',
+      error: err.message,
     });
   }
-  // SENDING SUCCESS STATUS
-  return res.status(200).json({
-    success: true,
-  });
 }
 
 async function UpdateEpisode(req, res) {

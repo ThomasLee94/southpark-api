@@ -14,6 +14,16 @@ const EpisodeSchema = new Schema({
   lineId: [{ type: Schema.Types.ObjectId, ref: 'Line' }],
 });
 
+EpisodeSchema.pre('find', function (next) {
+  this.populate('lineId')
+  next()
+})
+
+EpisodeSchema.pre('findOne', function (next) {
+  this.populate('lineId')
+  next()
+});
+
 const Episode = mongoose.model('Episode', EpisodeSchema); 
 
 module.exports = {
