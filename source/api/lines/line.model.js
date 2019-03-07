@@ -13,12 +13,12 @@ const LineSchema = new Schema({
 });
 
 LineSchema.pre('find', function (next) {
-  this.populate('lines')
+  this.populate('characterId episodeId')
   next()
 })
 
 LineSchema.pre('findOne', function (next) {
-  this.populate('lines')
+  this.populate('characterId episodeId')
   next()
 });
 
