@@ -6,7 +6,6 @@
 
 const { Line } = require('./line.model');
 const { Episode } = require('../episodes/episode.model');
-const { Character } = require('../characters/character.model');
 
 // RETURNS ALL LINES FOR A SEASON
 async function GetLinesForSeason(req, res) {
@@ -14,7 +13,6 @@ async function GetLinesForSeason(req, res) {
   let outputArr = []; 
   for (let i = 0; i < episodes.length; i++) {
     outputArr = outputArr.concat(episodes[i].lineId);
-    console.log(outputArr)
   }
   res.json(outputArr);
 }
@@ -24,15 +22,14 @@ async function GetLinesForEpisode(req, res) {
   const episode = await Episode.findOne({ 
     seasonNumber: req.params.season, episodeNumber: req.params.episode,
   }).populate('lineId').lean();
-  res.json(episode.lineId)
-
+  res.json(episode.lineId);
 }
- 
+
 // RETURNS LINES OF A SPECIFIC EPISODE FROM ASSOCIATED SEASON FOR A SPECIFIC CHARACTER
 // USER MUST PASS IN CHARACTER ID AND EPISODE ID
 async function GetCharacterLinesForEpisode(req, res) {
-  const lines = await Line.find({characterId: req.params.characterId, episodeId: req.params.lineId })
-  res.json(lines)
+  const lines = await Line.find({ characterId: req.params.characterId, episodeId: req.params.lineId });
+  res.json(lines);
 }
 
 module.exports = {
