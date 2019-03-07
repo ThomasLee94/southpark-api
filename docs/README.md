@@ -6,7 +6,7 @@ This will serve as documentation for my custom made South Park API.
 
 Users will be able to:
 
-	1.	Query for all lines per character. 
+	1.	Query for all episodes per season. 
 
 	2.	Query for character lines per episode.
 
@@ -36,7 +36,7 @@ My data was scraped from [here](https://southpark.fandom.com/wiki/South_Park_Arc
 
 ### Authentication
 
-**baseURL:** https://.../api/auth
+**baseURL:** https://southpark-api.herokuapp.com/api/auth 
 
 Only authenticated will be able to make RESTfull POST, UPDATE & DELETE API calls. JWT's were used for authentication.
 
@@ -61,7 +61,7 @@ All parameters are in JSON format.
 
 ### Data Manipulation
 
-**baseURL:** https://.../api/auth
+**baseURL:** https://southpark-api.herokuapp.com/api/auth
 
 | Verb          | Route                                   | Description                            |
 | ------------- |:---------------------------------------:| --------------------------------:      |
@@ -140,7 +140,7 @@ lineId must be provided in the URL.
 
 ### Episode Objects
 
-**baseURL:** https://.../api/episodes
+**baseURL:** https://southpark-api.herokuapp.com/api/episodes
 
 #### Episode Schema
 
@@ -158,11 +158,11 @@ lineId must be provided in the URL.
 | Verb           | Route                                  | Description                            |
 | -------------  |:--------------------------------------:| --------------------------------:      |
 | GET            | /:season/episodes                      | Get all episodes for a given season    |
-| GET            | /:episodeId                            | Get a specific episode by id	       |
+| GET            | /:episodeId                            | Get a specific episode by id	         |
 
 Example Episode by Season API call:
 ```
-https://...heroku.app.com/3/episodes
+https://southpark-api.herokuapp.com/api/episodes/3/episodes 
 ```
 
 ```js
@@ -258,7 +258,7 @@ Season 4, Episode 2: 5c7dd3e8107279b93ee33668 => Name: Timmy 2000
 
 Example API call by episode id:
 ```
-https://...herokuapp.com/5c7dd3cd107279b93ee32891
+https://southpark-api.herokuapp.com/api/episodes/5c7dd3cd107279b93ee32891
 ```
 Received JSON
 ```js
@@ -285,7 +285,7 @@ Received JSON
 
 ### Character Objects
 
-**baseURL:** https://.../api/characters
+**baseURL:** https://southpark-api.herokuapp.com/api/characters
 
 #### Character Schema
 
@@ -302,7 +302,7 @@ Received JSON
 
 Example All Charactres API call:
 ```
-https://...heroku.app.com/api/characters
+https://southpark-api.herokuapp.com/api/characters
 ```
 Received JSON. This API call returns all the characters, which contain their lines. Expect a large response.
 ```js
@@ -352,20 +352,17 @@ Received JSON. This API call returns all the characters, which contain their lin
 
 #### Line Routes
 
-**baseURL:** https://.../api/lines
+**baseURL:** https://southpark-api.herokuapp.com/api/lines
 
 | Verb           | Route                                  | Description                            |
 | -------------  |:--------------------------------------:| --------------------------------:      |
 | GET            | /:season                               | Get all lines for a given season       |
 | GET            | /:season/:episode                      | Get all lines for an episode           |
 | GET            | /:season/:episode/:characterId/:episodeId   | Get lines for a specific character by name for any episode   |
-| GET            | /character/:characterName              | Get all lines for a specific character |
-
-/:season/:episode'
 
 Example All Lines for a Season API call:
 ```
-https://...heroku.app.com/api/lines/6
+https://southpark-api.herokuapp.com/api/lines/6
 ```
 Received JSON
 ```js
@@ -398,7 +395,7 @@ Received JSON
 
 Example Lines for an Episode API call for season 3 episode 1:
 ```
-https://...heroku.app.com/api/lines/3/1
+https://southpark-api.herokuapp.com/api/lines/3/1
 ```
 ```js
 {
@@ -432,7 +429,7 @@ Kyle: 5c7dd323107279b93ee2da89
 Example Lines for a Season by Character API call:
 Requires characterId & episodeId.
 ```
-https://...heroku.app.com/api/lines/character-lines/5c7dd323107279b93ee2daca/5c7dd3ea107279b93ee337d5
+https://southpark-api.herokuapp.com/api/lines/character-lines/5c7dd323107279b93ee2daca/5c7dd3ea107279b93ee337d5
 ```
 Received JSON
 ```js
