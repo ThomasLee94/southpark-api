@@ -1,6 +1,5 @@
-1 - Will be able to query for all lines per character. 
+1.    Query for all episodes per season. 
 
-2 -  Will be able to query for character lines per episode.
+2.    Query for character lines per episode.
 
-3 - Will be able to query all words said per character, per episode.
-
+3.    Query all words said per character, per episode.
