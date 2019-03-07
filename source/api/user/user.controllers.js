@@ -84,19 +84,22 @@ async function AddEpisode(req, res) {
       error: 'Failed to add Episode, parameter missing.',
     });
   }
-
-  const newEpisode = new Episode(req.body);
-  newEpisode.save();
-  return res.status(200).json({
-    success: true,
-  });
+  try {
+    const newEpisode = new Episode(req.body);
+    newEpisode.save();
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      success: false,
+      error: err.message,
+    });
+  }
 }
 
 async function AddLine(req, res) {
-  // WRITE IN DOCUMENTATION THAT THEY NEED TO SPECIFY EPISODE AND SEASON NUM, LINE AND CHARACTER NAME
-  // SPELL WHERE USERS CAN ADD A LINE - CAN USERS ADD A LINE OF ANY CHARACTER IN ANY EPISODE?
-  // LINE MUST BE PROVIDED AS 'line'
-  // I MUST BE PROVIDED REQ.BODY.CHARACTER, REQ.BODY.EPISODE ETC
+  // USER SPECIFY EPISODE AND SEASON NUM, LINE AND CHARACTER NAME
   if (!req.body.character || !req.body.seasonNumber || !req.body.episodeNumber || !req.body.line) {
     return res.status(400).json({
       success: false,
@@ -104,7 +107,6 @@ async function AddLine(req, res) {
     });
   }
   try {
-    console.log(req.body)
     const charExp = new RegExp(req.body.character, 'i')
     let character = await Character.findOne({ name: charExp });
 
@@ -141,8 +143,6 @@ async function AddLine(req, res) {
 
 async function UpdateEpisode(req, res) {
   // USER MUST KNOW CURRENT SEASON AND EPISODE NUMBER AND EPISODE NAME
-  // ONLY THESE PARAMETERS CAN BE CHANGED, NOT THE CHARACTER OR LINE IDS
-  // CAN ONLY UPDATE EPISDOE NAME
   if (!req.body.episodeName || !req.body.episodeNumber || !req.body.seasonNumber) {
     return res.status(400).json({
       success: false,
@@ -150,15 +150,21 @@ async function UpdateEpisode(req, res) {
     });
   }
 
-  await Episode.findOneAndUpdate(
-    { episodeNumber: parseInt(req.body.episodeNumber), seasonNumber: parseInt(req.body.seasonNumber) },
-    { episodeName: req.body.episodeName },
-  );
-
-  // SENDING SUCCESS STATUS
-  return res.status(200).json({
-    success: true,
-  });
+  try {
+    await Episode.findOneAndUpdate(
+      { episodeNumber: parseInt(req.body.episodeNumber), seasonNumber: parseInt(req.body.seasonNumber) },
+      { episodeName: req.body.episodeName },
+    );
+    // SENDING SUCCESS STATUS
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      success: false,
+      error: err.message,
+    });
+  }
 }
 
 async function UpdateLine(req, res) {
@@ -171,15 +177,21 @@ async function UpdateLine(req, res) {
     });
   }
 
-  await Line.findOneAndUpdate(
-    { _id: req.params.lineId },
-    { line: req.body.line },
-  );
-
-  // SENDING SUCCESS STATUS
-  return res.status(200).json({
-    success: true,
-  });
+  try {
+    await Line.findOneAndUpdate(
+      { _id: req.params.lineId },
+      { line: req.body.line },
+    );
+    // SENDING SUCCESS STATUS
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      success: false,
+      error: err.message,
+    })
+  }
 }
 
 async function DeleteEpisode(req, res) {

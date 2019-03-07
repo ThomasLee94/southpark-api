@@ -98,6 +98,7 @@ The following keys must be provided:
 ```
 
 **Update Episode Example**
+Only the episode name, number and season number can be updated.
 The following key-values must be provided:
 
 ```json
