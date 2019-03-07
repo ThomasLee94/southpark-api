@@ -100,7 +100,6 @@ The following keys must be provided:
 
 ```
 
-
 **Update Episode Example**
 The following key-values must be provided:
 
@@ -303,7 +302,7 @@ Received JSON
 
 Example All Charactres API call:
 ```
-https://...heroku.app.com/characters
+https://...heroku.app.com/api/characters
 ```
 Received JSON. This API call returns all the characters, which contain their lines. Expect a large response.
 ```js
@@ -358,9 +357,111 @@ Received JSON. This API call returns all the characters, which contain their lin
 | Verb           | Route                                  | Description                            |
 | -------------  |:--------------------------------------:| --------------------------------:      |
 | GET            | /:season                               | Get all lines for a given season       |
-| GET            | /:season/:episode/:characterName       | Get lines for a specific character by name for any episode   |
+| GET            | /:season/:episode                      | Get all lines for an episode           |
+| GET            | /:season/:episode/:characterId/:episodeId   | Get lines for a specific character by name for any episode   |
 | GET            | /character/:characterName              | Get all lines for a specific character |
 
+/:season/:episode'
+
+Example All Lines for a Season API call:
+```
+https://...heroku.app.com/api/lines/6
+```
+Received JSON
+```js
+{
+    "_id": "5c7dd366107279b93ee2fba6",
+    "line": " Ah-a-a-alright, I'm done.\n",
+    "characterId": "5c7dd366107279b93ee2fba5",
+    "__v": 0
+  },
+  {
+    "_id": "5c7dd366107279b93ee2fba7",
+    "line": " You're done?\n",
+    "characterId": "5c7dd323107279b93ee2dac3",
+    "__v": 0
+  },
+  {
+    "_id": "5c7dd366107279b93ee2fba8",
+    "line": " Ye-yes, I-I've tallied up all the times you've been naughty and deducted the times you've been nice.\n",
+    "characterId": "5c7dd366107279b93ee2fba5",
+    "__v": 0
+  },
+  {
+    "_id": "5c7dd366107279b93ee2fba9",
+    "line": " Yeah, so how's it look?\n",
+    "characterId": "5c7dd323107279b93ee2dac3",
+    "__v": 0
+  },
+...
+```
+
+Example Lines for an Episode API call for season 3 episode 1:
+```
+https://...heroku.app.com/api/lines/3/1
+```
+```js
+{
+    "_id": "5c7dd41a107279b93ee35036",
+    "line": " Okay, children, we have a special guest today, a woman recruiting young people [she walks to the group and smiles] for a national choir tour. Now I know that choir tours are totally stupid and lame [she frowns], but please, give her your full attention. [to her] Go ahead.\n",
+    "characterId": "5c7dd323107279b93ee2dac7",
+    "__v": 0
+  },
+  {
+    "_id": "5c7dd41a107279b93ee35038",
+    "line": " Uh. Thank you, Mr. Garrison. [cheerfully] How are we all doing today?! [the kids' eyes wander] I can't hear you! I said, How are we all doing?! [Cartman farts]\n",
+    "characterId": "5c7dd41a107279b93ee35037",
+    "__v": 0
+  },
+  {
+    "_id": "5c7dd41a107279b93ee35039",
+    "line": " [angrily] Eric Cartman, you say ‘’excuse me”!\n",
+    "characterId": "5c7dd323107279b93ee2dac7",
+    "__v": 0
+  },
+  ...
+```
+
+Example Character Ids
+```
+Stan: 5c7dd322107279b93ee2d9b7
+Butters: 5c7dd323107279b93ee2daca
+Kyle: 5c7dd323107279b93ee2da89
+```
+
+Example Lines for a Season by Character API call:
+Requires characterId & episodeId.
+```
+https://...heroku.app.com/api/lines/character-lines/5c7dd323107279b93ee2daca/5c7dd3ea107279b93ee337d5
+```
+Received JSON
+```js
+{
+    "_id": "5c7dd323107279b93ee2dacb",
+    "line": " Well but, but what happened?\n",
+    "characterId": "5c7dd323107279b93ee2daca",
+    "__v": 0
+  },
+  {
+    "_id": "5c7dd323107279b93ee2dad6",
+    "line": " Aw well, come on. Let him read us the end.\n",
+    "characterId": "5c7dd323107279b93ee2daca",
+    "__v": 0
+  },
+  {
+    "_id": "5c7dd325107279b93ee2daf7",
+    "line": " Yeah. I think it'd be better to start lower.\n",
+    "characterId": "5c7dd323107279b93ee2daca",
+    "__v": 0
+  },
+  {
+    "_id": "5c7dd325107279b93ee2db5f",
+    "line": " Wuh be careful, Kyle.\n",
+    "characterId": "5c7dd323107279b93ee2daca",
+    "__v": 0
+  },
+  ...
+```
 
 
 ## License

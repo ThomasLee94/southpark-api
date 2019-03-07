@@ -21,7 +21,6 @@ async function GetLinesForSeason(req, res) {
 
 // RETURN ALL LINES FOR A SPECIFIC EPISODE AS STRING
 async function GetLinesForEpisode(req, res) {
-  // RETURNS SPECIFIED EPISODE OF SPECIFIED SEASON ACCORDING TO THE FUZZY SEARCH
   const episode = await Episode.findOne({ 
     seasonNumber: req.params.season, episodeNumber: req.params.episode,
   }).populate('lineId').lean();
@@ -36,15 +35,8 @@ async function GetCharacterLinesForEpisode(req, res) {
   res.json(lines)
 }
 
-// RETURNS ALL LINES PER CHARACTER AS AN ARRAY
-async function GetCharacterLines(req, res) {
-  const character = await Character.find({ name: req.params.character });
-  res.json(character);
-}
-
 module.exports = {
   GetLinesForSeason,
   GetLinesForEpisode,
   GetCharacterLinesForEpisode,
-  GetCharacterLines,
 };
