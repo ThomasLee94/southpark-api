@@ -132,7 +132,10 @@ The following key-values must be provided:
 
 
 **Delete Line Example**
-***EXAMPLE URL***
+```
+https://southpark-api.herokuapp.com/api/auth/delete-line/8/14/5c7dd322107279b93ee2d9b2
+```
+
 lineId must be provided in the URL.
 
 
