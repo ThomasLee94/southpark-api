@@ -10,7 +10,7 @@ Users will be able to:
 
 	2.	Query for character lines per episode.
 
-	3.	Query all words said per character, per episode.
+	3.	Query lines said per character, per episode.
 
 ## Package Manager
 
@@ -290,8 +290,8 @@ Received JSON
 
 | Key           | Value                                  | Description                            |
 | ------------- |:--------------------------------------:| --------------------------------:      |
-| name          | String                               	 | Character name    					  |
-| lines         | [String]                               | Episode number         				  |
+| name          | String                               	 | Character name    					            |
+| lines         | [String]                               | Episode number         				        |
 
 #### Character Routes
 | Verb           | Route                                  | Description                            |
@@ -345,9 +345,9 @@ Received JSON. This API call returns all the characters, which contain their lin
 
 | Key           | Value                                  | Description                            |
 | ------------- |:--------------------------------------:| --------------------------------:      |
-| line          | String                               	 | Line content    					      |
+| line          | String                               	 | Line content    					              |
 | characterId   | Schema Reference                       | Character Schema reference             |
-| episodeId     | Schema Reference                       | Episode Schema reference        		  |
+| episodeId     | Schema Reference                       | Episode Schema reference        		    |
 
 #### Line Routes
 
