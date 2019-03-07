@@ -191,22 +191,28 @@ async function DeleteEpisode(req, res) {
     });
   }
 
-  const episode = await Episode.findOne({
-    episodeNumber: req.body.episodeNumber,
-    seasonNumber: req.body.seasonNumber,
-  });
-
-  await Line.deleteMany({ episodeId: episode._id });
-
-  await Episode.deleteOne({
-    episodeNumber: req.body.episodeNumber,
-    seasonNumber: req.body.seasonNumber,
-  });
-
-  // SENDING SUCCESS STATUS
-  return res.status(200).json({
-    success: true,
-  });
+  try {
+    const episode = await Episode.findOne({
+      episodeNumber: parseInt(req.body.episodeNumber),
+      seasonNumber: parseInt(req.body.seasonNumber),
+    });
+  
+    await Line.deleteMany({ episodeId: episode._id });
+  
+    await Episode.deleteOne({
+      episodeNumber: req.body.episodeNumber,
+      seasonNumber: req.body.seasonNumber,
+    });
+    // SENDING SUCCESS STATUS
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      success: false,
+      error: err.message,
+    });
+  }
 }
 
 async function DeleteLine(req, res) {
@@ -218,28 +224,35 @@ async function DeleteLine(req, res) {
     });
   }
 
-  const episode = await Episode.findOne({
-    lineId: { $in: [req.params.lineId] },
-  });
-
-  episode.lineId = episode.lineId.filter(word => JSON.stringify(word) !== req.params.lineId);
-
-  await episode.save();
-
-  const character = await Character.findOne({
-    lines: { $in: [req.params.lineId] },
-  });
-
-  character.lines = character.lines.filter(word => JSON.stringify(word) !== req.params.lineId);
-
-  await character.save();
-
-  await Line.findById(req.params.lineId);
-
-  // SENDING SUCCESS STATUS
-  return res.status(200).json({
-    success: true,
-  });
+  try {
+    const episode = await Episode.findOne({
+      lineId: { $in: [req.params.lineId] },
+    });
+  
+    episode.lineId = episode.lineId.filter(word => JSON.stringify(word) !== req.params.lineId);
+  
+    await episode.save();
+  
+    const character = await Character.findOne({
+      lines: { $in: [req.params.lineId] },
+    });
+  
+    character.lines = character.lines.filter(word => JSON.stringify(word) !== req.params.lineId);
+  
+    await character.save();
+  
+    await Line.findById(req.params.lineId);
+  
+    // SENDING SUCCESS STATUS
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (err) {
+    return res.json({
+      success: false,
+      error: err.message,
+    });
+  }
 }
 
 
