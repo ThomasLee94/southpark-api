@@ -70,7 +70,7 @@ All parameters are in JSON format.
 | PUT           | /update-episode/:season/:episode        | Update existing episode                |
 | PUT           | /update-line/:season/:episode           | Update existing line                   |
 | DELETE        | /delete-episode/:season/:episode        | Delete existing episode                |
-| DELETE        | /delete-episode/:season/:episode        | Delete existing line                   |
+| DELETE        | /delete-episode/:season/:episode/:lineId | Delete existing line                   |
 
 **Add Episode Example**
 The following keys must be provided: 
