@@ -1,4 +1,4 @@
-![](/docs/images/southpark-banner.png)
+![](/images/southpark-banner.png)
 
 # South Park API
 
@@ -21,7 +21,7 @@ Users will be able to:
 * [Nightmare.js](http://www.nightmarejs.org/)
 * [Cheerio.js](https://cheerio.js.org/)
 
-My data was scraped from [here](https://southpark.fandom.com/wiki/South_Park_Archives). If you would like to run the webscraper that I have provided, please refer to the Cheerio documentation. 
+My data was scraped from [here](https://southpark.fandom.com/wiki/South_Park_Archives). Source code for the webscrapping is [here](https://github.com/ThomasLee94/southpark-api/blob/master/bin/webscrapeText.js). If you would like to run the webscraper that I have provided, please refer to the Cheerio documentation. 
 
 ## Technology
 
@@ -33,6 +33,8 @@ My data was scraped from [here](https://southpark.fandom.com/wiki/South_Park_Arc
 * [MongoDB](https://www.mongodb.com/)
 
 ## REST
+
+Currently only seasons 1-8 are available, more can be scrapped at a later date. 
 
 ### Authentication
 
