@@ -51,12 +51,10 @@ All parameters are in JSON format.
 
 
 ```json
-
 {
 	"username": "tom",
 	"password": "123"
 }
-
 ```
 
 ### Data Manipulation
@@ -83,7 +81,6 @@ The following keys must be provided:
 	"line": "This is easy!",
 
 }
-
 ```
 
 **Add Line Example**
@@ -97,7 +94,6 @@ The following keys must be provided:
     "episodeNumber": "1",
     "character": "Stan",
 }
-
 ```
 
 **Update Episode Example**
@@ -427,6 +423,7 @@ Kyle: 5c7dd323107279b93ee2da89
 ```
 
 Example Lines for a Season by Character API call:
+
 Requires characterId & episodeId.
 ```
 https://southpark-api.herokuapp.com/api/lines/character-lines/5c7dd323107279b93ee2daca/5c7dd3ea107279b93ee337d5
