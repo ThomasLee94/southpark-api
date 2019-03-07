@@ -10,27 +10,32 @@ const { Character } = require('../characters/character.model');
 const { Line } = require('../lines/line.model');
 
 async function SignUp(req, res) {
+  if (!req.body.username || !req.body.password) {
+    return res.json({
+      success: false,
+      error: 'No username or password',
+    })
+  }
   const user = new User({
     username: req.body.username,
     password: req.body.password,
   });
-
-  user.save((err, user) => {
-    if (err) {
-      res.status(400).json({
-        success: false,
-        error: 'failed to sign-up',
-      });
-    } else {
-      console.log(user);
-      const token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: '60 days' });
-      res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
-      res.status(200).json({
-        success: true,
-      });
-    }
-  });
+  try {
+    await user.save();
+    console.log(user);
+    const token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: '60 days' });
+    res.cookie('nToken', token, { maxAge: 900000, httpOnly: true });
+    res.status(200).json({
+      success: true,
+    });
+  } catch(err) {
+    res.status(400).json({
+      success: false,
+      error: 'failed to sign-up',
+    });
+  }
 }
+
 
 async function Login(req, res) {
   const username = req.body.username;
