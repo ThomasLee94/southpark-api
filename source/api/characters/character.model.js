@@ -16,6 +16,16 @@ const CharacterSchema = new Schema({
   lines: [{ type: String, required: true }], 
 });
 
+CharacterSchema.pre('find', function (next) {
+  this.populate('lines')
+  next()
+})
+
+CharacterSchema.pre('findOne', function (next) {
+  this.populate('lines')
+  next()
+});
+
 // NEEDED FOR WEBSCRAPING
 CharacterSchema.plugin(findOrCreate);
 // CharacterSchema.plugin(uniqueValidator);

@@ -12,6 +12,16 @@ const LineSchema = new Schema({
   episodeId: { type: Schema.Types.ObjectId, ref: 'Episode' }, 
 });
 
+LineSchema.pre('find', function (next) {
+  this.populate('lines')
+  next()
+})
+
+LineSchema.pre('findOne', function (next) {
+  this.populate('lines')
+  next()
+});
+
 const Line = mongoose.model('Line', LineSchema); 
 
 module.exports = {
