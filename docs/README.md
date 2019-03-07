@@ -5,6 +5,7 @@
 This will serve as documentation for my custom made South Park API. 
 
 Users will be able to:
+
 	1.	Query for all lines per character. 
 
 	2.	Query for character lines per episode.
@@ -45,9 +46,9 @@ Only authenticated will be able to make RESTfull POST, UPDATE & DELETE API calls
 | POST          | /login                                  | Login to be able to access routes      |
 | DELETE        | /logout                                 | Delete issued token                    |
 
-```
-Example Sign-up request in JSON format with Insomnia or Postman.
-```
+**Example Sign-up request.**
+All parameters are in JSON format. 
+
 
 ```json
 
@@ -71,10 +72,9 @@ Example Sign-up request in JSON format with Insomnia or Postman.
 | DELETE        | /delete-episode/:season/:episode        | Delete existing episode                |
 | DELETE        | /delete-episode/:season/:episode        | Delete existing line                   |
 
-```
-Add Episode Example
+**Add Episode Example**
 The following keys must be provided: 
-```
+
 ```json
 {
 	"episodeName": "Example add episode",
@@ -87,11 +87,11 @@ The following keys must be provided:
 ```
 
 
-```
-Add Line Example
+
+**Add Line Example**
 Lines cannot be added to characters that do no already exist.
 The following keys must be provided:
-```
+
 ```json
 {
     "line": "Example line",
@@ -102,10 +102,10 @@ The following keys must be provided:
 
 ```
 
-```
-Update Episode Example
+
+**Update Episode Example**
 The following key-values must be provided:
-```
+
 ```json
 {
     "episodeName": "Example episode name",
@@ -114,21 +114,20 @@ The following key-values must be provided:
 }
 ```
 
-```
-Update Line Example
+**Update Line Example**
 lineId must be provided in URL.
 The following key-values must be provided:
-```
+
 ```json
 {
     "line": "Example line"
 }
 ```
 
-```
-Delete Episode Example
+
+**Delete Episode Example**
 The following key-values must be provided:
-```
+
 ```json
 {
     "episodeNumber": "5",
@@ -136,13 +135,10 @@ The following key-values must be provided:
 }
 ```
 
-```
-Delete Line Example
+
+**Delete Line Example**
 ***EXAMPLE URL***
 lineId must be provided in the URL.
-
-```
-
 
 
 ### Episode Objects
@@ -153,41 +149,121 @@ lineId must be provided in the URL.
 
 | Key           | Value                                  | Description                            |
 | ------------- |:--------------------------------------:| --------------------------------:      |
-| episodeName   | String                               	 | Name of episode    										|
-| episodeNumber | Number                                 | Episode number         								|
-| seasonNumber  | Number                                 | Season number         									|
-| characterId   | Schema Reference - 'Character'         | Character Schema reference   		      |
-| lineId        | Schema Referene - 'Line'               | Line Schema reference        				  |
+| episodeName   | String                               	 | Name of episode    					  |
+| episodeNumber | Number                                 | Episode number         				  |
+| seasonNumber  | Number                                 | Season number         				  |
+| characterId   | Schema Reference - 'Character'         | Character Schema reference   		  |
+| lineId        | Schema Referene - 'Line'               | Line Schema reference        		  |
 
 
 #### Episode Routes
 
 | Verb           | Route                                  | Description                            |
 | -------------  |:--------------------------------------:| --------------------------------:      |
-| GET            | /:season                               | Get all episodes for a given season    |
-| GET            | /:episodeId                          	| Get a specific episode by id	         |
+| GET            | /:season/episodes                      | Get all episodes for a given season    |
+| GET            | /:episodeId                            | Get a specific episode by id	       |
 
-Example season API call:
+Example Episode by Season API call:
 ```
-https://...heroku.app.com/3
+https://...heroku.app.com/3/episodes
 ```
 
-```
+```json
 {
-
+    "characterId": [
+      "5c7dd325107279b93ee2db81",
+      "5c7dd323107279b93ee2dac7",
+      ...
+    ],
+    "lineId": [
+      "5c7dd3f0107279b93ee33ae6",
+      "5c7dd3f0107279b93ee33ae7",
+      ...
+    ],
+    "_id": "5c7dd3f0107279b93ee33ae5",
+    "episodeName": "\n World Wide Recorder Concert\n",
+    "episodeNumber": 17,
+    "seasonNumber": 3,
+    "__v": 1
+  },
+  {
+    "characterId": [
+      "5c7dd322107279b93ee2d9b7",
+      "5c7dd323107279b93ee2da89",
+      ...
+    ],
+    "lineId": [
+      "5c7dd3f3107279b93ee33c56",
+      "5c7dd3f3107279b93ee33c57",
+    ],
+    "_id": "5c7dd3f3107279b93ee33c55",
+    "episodeName": "\n Are You There God? It's Me, Jesus\n",
+    "episodeNumber": 16,
+    "seasonNumber": 3,
+    "__v": 1
+  },
+  {
+    "characterId": [
+      "5c7dd34e107279b93ee2ef43",
+      "5c7dd3f6107279b93ee33d7d",
+      ...
+    ],
+    "_id": "5c7dd3f6107279b93ee33d7b",
+    "episodeName": "\n Mr. Hankey's Christmas Classics\n",
+    "episodeNumber": 15,
+    "seasonNumber": 3,
+    "__v": 1
+  },
+  {
+    "characterId": [
+      "5c7dd322107279b93ee2d9b7",
+      "5c7dd323107279b93ee2dac3",
+      ...
+    ],
+    "lineId": [
+      "5c7dd3f8107279b93ee33ed1",
+      "5c7dd3f8107279b93ee33ed2",
+      ...
+    ],
+    "_id": "5c7dd3f8107279b93ee33ed0",
+    "episodeName": "\n The Red Badge of Gayness\n",
+    "episodeNumber": 14,
+    "seasonNumber": 3,
+    "__v": 1
+  },
+  {
+    "characterId": [
+      "5c7dd325107279b93ee2db09",
+      "5c7dd323107279b93ee2dac3",
+      ...
+    ],
+    ...
 }
 ```
 
 Some exampls episode id's:
 
 ```
-Season 4, Episode 14: 5c7dd3cd107279b93ee32891
+Season 1, Episode 1: 5c7dd474107279b93ee37d69 => Name: Cartman Gets an Anal Probe
+Season 1, Episode 2: 5c7dd471107279b93ee37c22 => Name: Weight Gain 4000
+
+Season 2, Episode 1: 5c7dd451107279b93ee36c5c => Name: Terrance and Phillip in Not Without My Anus
+Season 2, Episode 2: 5c7dd44f107279b93ee36ae2 => Name: Cartman's Mom is Still a Dirty Slut
+
+Season 3, Episdoe 1: 5c7dd401107279b93ee3434c => Name: Korn's Groovy Pirate Ghost Mystery
+Season 3, Episode 2: 5c7dd3fe107279b93ee341a9 => Name: Chinpokomon
+
+Season 4, Episode 1: 5c7dd3ea107279b93ee337d5 => Name: Cartman's Silly Hate Crime 2000
+Season 4, Episode 2: 5c7dd3e8107279b93ee33668 => Name: Timmy 2000
+
+...
 ```
 
 Example API call by episode id:
 ```
 https://...herokuapp.com/5c7dd3cd107279b93ee32891
 ```
+Received JSON
 ```json
 {
     "_id" : ObjectId("5c7dd3cd107279b93ee32891"),
@@ -214,6 +290,14 @@ https://...herokuapp.com/5c7dd3cd107279b93ee32891
 
 **baseURL:** https://.../api/characters
 
+#### Character Schema
+
+| Key           | Value                                  | Description                            |
+| ------------- |:--------------------------------------:| --------------------------------:      |
+| name          | String                               	 | Character name    					  |
+| lines         | [String]                               | Episode number         				  |
+
+#### Character Routes
 | Verb           | Route                                  | Description                            |
 | -------------  |:--------------------------------------:| --------------------------------:      |
 | GET            | /                                      | Get all characters                     |
