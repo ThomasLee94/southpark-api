@@ -86,8 +86,6 @@ The following keys must be provided:
 
 ```
 
-
-
 **Add Line Example**
 Lines cannot be added to characters that do no already exist.
 The following keys must be provided:
@@ -152,8 +150,8 @@ lineId must be provided in the URL.
 | episodeName   | String                               	 | Name of episode    					  |
 | episodeNumber | Number                                 | Episode number         				  |
 | seasonNumber  | Number                                 | Season number         				  |
-| characterId   | Schema Reference - 'Character'         | Character Schema reference   		  |
-| lineId        | Schema Referene - 'Line'               | Line Schema reference        		  |
+| characterId   | Schema Reference                       | Character Schema reference   		  |
+| lineId        | Schema Referene                        | Line Schema reference        		  |
 
 
 #### Episode Routes
@@ -168,7 +166,7 @@ Example Episode by Season API call:
 https://...heroku.app.com/3/episodes
 ```
 
-```json
+```js
 {
     "characterId": [
       "5c7dd325107279b93ee2db81",
@@ -303,7 +301,57 @@ Received JSON
 | GET            | /                                      | Get all characters                     |
 | GET            | /:characterName                        | Get a specific character by name       |
 
+Example All Charactres API call:
+```
+https://...heroku.app.com/characters
+```
+Received JSON. This API call returns all the characters, which contain their lines. Expect a large response.
+```js
+{
+    "lines": [
+      "5c7dd322107279b93ee2d9b2",
+      "5c7dd322107279b93ee2d9b3",
+      ...
+    ],
+    "_id": "5c7dd322107279b93ee2d9b1",
+    "name": "Narrator",
+    "__v": 0
+  },
+  {
+    "lines": [
+      "5c7dd322107279b93ee2d9b5",
+      "5c7dd322107279b93ee2d9fd"
+    ],
+    "_id": "5c7dd322107279b93ee2d9b4",
+    "name": "Woodland Critters",
+    "__v": 0
+  },
+  {
+    "lines": [
+      "5c7dd322107279b93ee2d9b8",
+      "5c7dd322107279b93ee2d9bf"
+      ...
+    ],
+    "_id": "5c7dd322107279b93ee2d9b7",
+    "name": "Stan",
+    "__v": 0
+  },
+  ...
+}
+```
+
+
 ### Line Objects
+
+#### Line Schema
+
+| Key           | Value                                  | Description                            |
+| ------------- |:--------------------------------------:| --------------------------------:      |
+| line          | String                               	 | Line content    					      |
+| characterId   | Schema Reference                       | Character Schema reference             |
+| episodeId     | Schema Reference                       | Episode Schema reference        		  |
+
+#### Line Routes
 
 **baseURL:** https://.../api/lines
 
@@ -312,6 +360,8 @@ Received JSON
 | GET            | /:season                               | Get all lines for a given season       |
 | GET            | /:season/:episode/:characterName       | Get lines for a specific character by name for any episode   |
 | GET            | /character/:characterName              | Get all lines for a specific character |
+
+
 
 ## License
 This project is licensed under the Apache License 2.0 - see the <a href="https://github.com/ThomasLee94/southpark-api/blob/master/LICENSE">LICENSE</a> file for details
