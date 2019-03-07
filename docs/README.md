@@ -159,7 +159,7 @@ https://southpark-api.herokuapp.com/api/auth/delete-line/8/14/5c7dd322107279b93e
 | GET            | /:season/episodes                      | Get all episodes for a given season    |
 | GET            | /:episodeId                            | Get a specific episode by id	         |
 
-Example Episode by Season API call:
+**Example Episode by Season API call:**
 ```
 https://southpark-api.herokuapp.com/api/episodes/3/episodes 
 ```
@@ -237,7 +237,7 @@ https://southpark-api.herokuapp.com/api/episodes/3/episodes
 }
 ```
 
-Some exampls episode id's:
+**Some exampls episode id's:**
 
 ```
 Season 1, Episode 1: 5c7dd474107279b93ee37d69 => Name: Cartman Gets an Anal Probe
@@ -255,7 +255,7 @@ Season 4, Episode 2: 5c7dd3e8107279b93ee33668 => Name: Timmy 2000
 ...
 ```
 
-Example API call by episode id:
+**Example API call by episode id:**
 ```
 https://southpark-api.herokuapp.com/api/episodes/5c7dd3cd107279b93ee32891
 ```
@@ -299,7 +299,7 @@ Received JSON
 | GET            | /                                      | Get all characters                     |
 | GET            | /:characterName                        | Get a specific character by name       |
 
-Example All Charactres API call:
+**Example All Charactres API call:**
 ```
 https://southpark-api.herokuapp.com/api/characters
 ```
@@ -359,7 +359,7 @@ Received JSON. This API call returns all the characters, which contain their lin
 | GET            | /:season/:episode                      | Get all lines for an episode           |
 | GET            | /:season/:episode/:characterId/:episodeId   | Get lines for a specific character by name for any episode   |
 
-Example All Lines for a Season API call:
+**Example All Lines for a Season API call:**
 ```
 https://southpark-api.herokuapp.com/api/lines/6
 ```
@@ -392,7 +392,7 @@ Received JSON
 ...
 ```
 
-Example Lines for an Episode API call for season 3 episode 1:
+**Example Lines for an Episode API call for season 3 episode 1:**
 ```
 https://southpark-api.herokuapp.com/api/lines/3/1
 ```
@@ -418,15 +418,14 @@ https://southpark-api.herokuapp.com/api/lines/3/1
   ...
 ```
 
-Example Character Ids
+**Example Character Ids**
 ```
 Stan: 5c7dd322107279b93ee2d9b7
 Butters: 5c7dd323107279b93ee2daca
 Kyle: 5c7dd323107279b93ee2da89
 ```
 
-Example Lines for a Season by Character API call:
-
+**Example Lines for a Season by Character API call:**
 Requires characterId & episodeId.
 ```
 https://southpark-api.herokuapp.com/api/lines/character-lines/5c7dd323107279b93ee2daca/5c7dd3ea107279b93ee337d5
