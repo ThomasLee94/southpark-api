@@ -195,6 +195,7 @@ async function UpdateLine(req, res) {
 }
 
 async function DeleteEpisode(req, res) {
+
   // USER MUST KNOW EPISODE NUMBER AND SEASON NUMBER
   if (!req.body.episodeNumber || !req.body.seasonNumber) {
     return res.status(400).json({

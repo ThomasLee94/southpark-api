@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const checkAuthentication = require('./middleware/checkAuthentication');
 
 // ROUTE IMPORT
 const routes = require('./index.routes');
@@ -17,6 +18,9 @@ const server = express();
 server.use(cookieParser());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(express.json());
+
+// CUSTOME MIDDLEWARE
+server.use(checkAuthentication);
 
 // MOUNTING ROUTES TO API PATH
 server.use('/api', routes);

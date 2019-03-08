@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = function checkAuth(req, res, next) {
+module.exports = function checkAuthentication(req, res, next) {
   console.log('Checking authentication');
   if (typeof req.cookies.nToken === 'undefined' || req.cookies.nToken === null) {
     req.user = null;
@@ -13,6 +13,5 @@ module.exports = function checkAuth(req, res, next) {
     res.locals.currentUser = decodedToken.payload;
     console.log(req.user); 
   }
-
   next();
 };
