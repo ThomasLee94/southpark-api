@@ -2,17 +2,12 @@
 
 package characterController
 
-import()
-
 // RETURNS ALL CHARACTERS
-func GetAllCharacters(){
+func GetAllCharacters() {
 
 }
 
 // RETURNS GET CHARACTER
-func GetCharacter(){
+func GetCharacter() {
 
 }
-
-
-
