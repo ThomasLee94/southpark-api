@@ -4,6 +4,6 @@ import(
 	"os"
 )
 
-client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+client, err := mongo.NewClient(options.Client().ApplyURI(os.MONGODB_URI))
 
 
