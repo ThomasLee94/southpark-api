@@ -1,5 +1,6 @@
 package episodeModel
 
+// TODO: FINISH
 type Episode struct {
 	episodeName string `required:"true"`
   episodeNumber int `min: "1", max: "30", required: "true"`

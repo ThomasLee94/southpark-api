@@ -1,0 +1,7 @@
+1 - figure out which ORM to use and how the do associations
+2 - how to do authentication on go
+3 - add docker
+4 - graphql support 
+5 - how to do queries in go and how to make them concurrent 
+6 - update docs to follow twitch api docs structure 
+
