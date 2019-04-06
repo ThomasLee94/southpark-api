@@ -1,8 +1,9 @@
-package characterModel
+package models
 
 type Character struct {
-	name  string
-	lines []string
+	ID      bson.ObjectId	`json:"_id,omitempty" bson:"_id,omitempty"`
+	Name  	string				`json:"name,omitempty" bson:"name,omitempty"`
+	Lines 	[]string			`json:"lines" bson:"lines"`
 }
 
 // ResponseError model

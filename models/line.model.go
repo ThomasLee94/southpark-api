@@ -1,7 +1,8 @@
-package lineModel
+package models
 
 type Line struct {
-	line string `required:"true"`
-	characterId
-	episodeId
+	ID 					bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
+	Line 				string 				`required:"true"`
+	CharacterId	bson.ObjectId	`json:"characterId,omitempty" bson:"characterId,omitempty"`
+	EpisodeId		bson.ObjectId	`json:"episodeId,omitempty" bson:"episodeId,omitempty"`
 }

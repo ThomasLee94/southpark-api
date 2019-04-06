@@ -1,10 +1,11 @@
-package episodeModel
+package models
 
-// TODO: FINISH
 type Episode struct {
-	episodeName string `required:"true"`
-  episodeNumber int `min: "1", max: "30", required: "true"`
-	seasonNumber int `min: "1", max: "25", required: "true"`
-  characterId: [{ type: Schema.Types.ObjectId, ref: 'Character' }],
-  lineId: [{ type: Schema.Types.ObjectId, ref: 'Line' }],
+  ID            bson.ObjectId `json:"_id,omitempty" bson:"_id,omitempty"`
+  EpisodeName   string        `json:"episodeName,omitempty" bson:"episodeName,omitempty"`
+  // TODO: FINISH
+  EpisodeNumber int           `min: "1", max: "30", required: "true"`
+	SeasonNumber  int           `min: "1", max: "25", required: "true"`
+  CharacterId   []string      [{ type: Schema.Types.ObjectId, ref: 'Character' }],
+  LineId:       []string      [{ type: Schema.Types.ObjectId, ref: 'Line' }],
 }

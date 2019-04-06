@@ -1,6 +1,6 @@
-package userModel
+package models
 
 type User struct {
-	username string `required:"true"`
-	password string 
+	Username string `json:"username,omitempty" bson:"username,omitempty"`
+	Password string `json:"password,omitempty" bson:"password,omitempty"`
 }
