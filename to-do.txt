@@ -6,3 +6,7 @@
 6 - how to do queries in go and how to make them concurrent 
 7 - update docs to follow twitch api docs structure 
 
+- Learn sqlite
+- User GORM
+- Visualise sqlite data table (sql app)
+
