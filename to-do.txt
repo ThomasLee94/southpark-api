@@ -10,3 +10,5 @@
 - User GORM
 - Visualise sqlite data table (sql app)
 
+- validate struct types in server
+
