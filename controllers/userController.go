@@ -1,28 +1,25 @@
 // ─── USER CONTROLLERS ───────────────────────────────────────────────────────────
 
-package userController
-
-import()
+package controllers
 
 func SignUp(req, res) {
-  
+
 }
 
-
 func Login(req, res) {
-  
+
 }
 
 func Logout(req, res) {
-  
+
 }
 
 func AddEpisode(req, res) {
- 
+
 }
 
 func AddLine(req, res) {
-  
+
 }
 
 func UpdateEpisode(req, res) {
