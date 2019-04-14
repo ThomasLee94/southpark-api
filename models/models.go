@@ -2,28 +2,31 @@ package models
 
 import "github.com/jinzhu/gorm"
 
-type Character struct {
+type Season struct {
 	gorm.Model
-	Name  string `json:"name,omitempty"`
-	Lines []Line `json:"lines"`
-}
-
-type Line struct {
-	gorm.Model
-	Line        string `json:"line,omitempty"`
-	Character   Character
-	CharacterID uint
-	Episode     Episode
-	EpisodeID   uint
+	SeasonNumber int    `validate:"number, min=1, max=25", json:"seasonNum, omitempty"`
+	TotalEpisodes int   `json"totalEpisodes,omitempty"`
+	EpisodeID []Episode
 }
 
 type Episode struct {
 	gorm.Model
 	EpisodeName   string      `json:"episodeName,omitempty"`
-	EpisodeNumber int         `validate:"number, min:1, max:30", json:"episodeNum, omitempty"`
-	SeasonNumber  int         `validate:"number, min=1, max=25", json:"seasonNum, omitempty"`
-	CharacterID   []Character `json:"characterId,omitempty"`
+	EpisodeNumber int        `validate:"number, min=1, max=25", json:"episodeNum, omitempty"`
 	LineID        []Line      `json:"lineId,omitempty"`
+}
+
+type Line struct {
+	gorm.Model
+	Line        string `json:"line,omitempty"`
+	CharacterID []Character
+}
+
+type Character struct {
+	gorm.Model
+	FirstName  string `json:"firstName,omitempty"`
+	LastName   string `json:"lastName,omitempty`
+	
 }
 
 type User struct {
