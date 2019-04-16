@@ -1,21 +1,21 @@
-version: "3.1"
+version: "1.0"
 
 services:
   db:
     image: mongo:4.0
     environment:
-      - MONGO_DATA_DIR=/data/db
+      - MONGO_DATA_DIR=/bin/data/db
     expose:
       - "27017"
     ports:
       - "27017:27017"
     volumes:
-      - gig-buddy-data:/db/data/db
+      - southpark-api-db:/bin/db
     restart: always
     command: mongod
 
   web:
-    image: ccahill/gig-buddy-node:latest
+    image: ThomasLee94/southpark-api-node:latest
     env_file: .env
     expose:
       - "3000"
@@ -26,4 +26,4 @@ services:
       - db
 
 volumes:
-  gig-buddy-data:
+  southpark-api-db:
