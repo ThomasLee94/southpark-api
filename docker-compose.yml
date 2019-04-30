@@ -1,29 +1,25 @@
-version: "1.0"
+version: "2"
 
 services:
-  db:
-    image: mongo:4.0
+  mongo:
+    image: mongo
     environment:
       - MONGO_DATA_DIR=/bin/data/db
-    expose:
-      - "27017"
     ports:
-      - "27017:27017"
+      - "27019:27017"
     volumes:
-      - southpark-api-db:/bin/db
+      - ./southpark-api-db:/bin/db
     restart: always
     command: mongod
 
   web:
-    image: ThomasLee94/southpark-api-node:latest
+    image: southpark-api-node:latest
     env_file: .env
-    expose:
-      - "3000"
     ports:
       - "3000:3000"
     restart: always
     depends_on:
-      - db
+      - mongo
 
 volumes:
   southpark-api-db:

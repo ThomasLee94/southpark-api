@@ -1,7 +1,9 @@
 FROM node:11.12.0
 
+RUN mkdir -p /usr/src/app
+
 # working directory (for container)
-WORKDIR /source/src/app
+WORKDIR /usr/src/app
 
 # dependencies (both package and package.lock)
 COPY package*.json ./
