@@ -40,6 +40,8 @@ Currently only seasons 1-8 are available, more can be scrapped at a later date.
 
 **baseURL:** https://southpark-api.herokuapp.com/api/auth 
 
+**alternativeURL:** http://138.68.254.60:3000/auth - hosted on Digital Ocean
+
 Only authenticated will be able to make RESTfull POST, UPDATE & DELETE API calls. JWT's were used for authentication.
 
 | Verb          | Route                                   | Description                            |
