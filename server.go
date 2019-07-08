@@ -1,8 +1,7 @@
 package main
 
-import "github.com/jinzhu/gorm"
+import "fmt"
 
 func main() {
-	db, err := gorm.Open("sqlite3", "/tmp/gorm.db")
-	defer db.Close()
+	fmt.Println("I am package main")
 }
