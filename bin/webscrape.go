@@ -17,10 +17,10 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-urlEp := "https://southpark.fandom.com/wiki/Cartman_Gets_an_Anal_Probe/Script"
-urlSeason := "https://southpark.fandom.com/wiki/Portal:Scripts/Season_One"
+url_ep := "https://southpark.fandom.com/wiki/Cartman_Gets_an_Anal_Probe/Script"
+url_season := "https://southpark.fandom.com/wiki/Portal:Scripts/Season_One"
 
-func loadDocumentSeason(url_season) {
+func load_document_season_num(url_season) {
 
 	""" Returns HTML body of url"""
 
@@ -49,7 +49,7 @@ func loadDocumentSeason(url_season) {
 
 }
 
-func loadDocumentEpisode(url_episode) {
+func load_document_ep_model(url_episode) {
 
 	""" Returns HTML body of url"""
 
@@ -77,7 +77,7 @@ func loadDocumentEpisode(url_episode) {
 
 }
 
-func scrapeSeason(html_body) {
+func scrape_season(html_body) {
 	""" Accepts HTML body and saves the Season model into db """ 
 
 	// 	  ===========
@@ -96,13 +96,13 @@ func scrapeSeason(html_body) {
 	// || SEASON MODEL ||
 	//    ============
 
-	episodeAndSeasonNum := docEp.find("#mw-content-text").find("table").eq(-1).text().trim().split(':',1)[0];
+	episode_and_season_num := docEp.find("#mw-content-text").find("table").eq(-1).text().trim().split(':',1)[0];
 
 	// season number
 	if len(episodeAndSeasonNum) == 3 {
-		seasonNum := episodeAndSeasonNum.substring(0,1)
+		season_num := episode_and_season_num.substring(0,1)
 	} else {
-		seasonNum := episodeAndSeasonNum.substring(0,2)
+		season_num := episode_and_season_num.substring(0,2)
 	}
 
 	// episode number
@@ -113,8 +113,8 @@ func scrapeSeason(html_body) {
 	}
 
 	// use different url to get length for total episodes
-	totalEpisodes := 0
-	episodeId := []string
+	total_episodes := 0
+	episode_id := []string
 
 	//    ===================
 	// || SAVING SEASON MODEL ||
@@ -122,8 +122,8 @@ func scrapeSeason(html_body) {
 
 	CREATE TABLE IF NOT EXIST `Season` (
 		id INTEGER PRIMARY KEY,
-		SeasonNumber INTEGER,
-		TotalEpisodes INTEGER,
+		season_number INTEGER,
+		total_episodes INTEGER,
 		FOREIGN KEY(episodeId) REFERENCES episode(id)
 	)
 
@@ -133,21 +133,21 @@ func scrapeSeason(html_body) {
 
 	channel := make(chan string)
 
-	go scrapeEpisode()
+	go scrape_episode()
 
 }
 
 
 
-func scrapeEpisode() {
+func scrape_episode() {
 	""" Accepts HTML body and saves Episode model into db """
 
-	episodeNum := 
+	episode_num := 
 
 }
 
 func main() {
-	scrapeSeason()
+	scrape_season()
 
 }
 
