@@ -20,7 +20,7 @@ import (
 url_ep := "https://southpark.fandom.com/wiki/Cartman_Gets_an_Anal_Probe/Script"
 url_season := "https://southpark.fandom.com/wiki/Portal:Scripts/Season_One"
 
-func load_document_season_num(url_season) {
+func load_document_total_eps(url_season string) string {
 
 	""" Returns HTML body of url"""
 
@@ -49,7 +49,7 @@ func load_document_season_num(url_season) {
 
 }
 
-func load_document_ep_model(url_episode) {
+func load_document_ep_model(url_episode string) string {
 
 	""" Returns HTML body of url"""
 
@@ -77,7 +77,19 @@ func load_document_ep_model(url_episode) {
 
 }
 
-func scrape_season(html_body) {
+func scrape_total_ep_in_season_num(url string) string {
+
+	""" Rreturns the number of episodes in given season page """
+
+	doc := load_document_total_eps(url)
+
+	total_episodes := doc.find("div.item").length
+	return total_episodes
+
+
+}
+
+func scrape_season(url_episode string, url_season string) {
 	""" Accepts HTML body and saves the Season model into db """ 
 
 	// 	  ===========
@@ -89,7 +101,7 @@ func scrape_season(html_body) {
 	//    ==================
 	// || LOAD HTML DOCUMENT ||
 	//    ==================
-	docEp := loadDocument(html_body)
+	docEp := load_document_ep_model(url_episode)
 
 
 	//    ============
@@ -113,7 +125,7 @@ func scrape_season(html_body) {
 	}
 
 	// use different url to get length for total episodes
-	total_episodes := 0
+	total_episodes := load_document_total_eps(url_season)
 	episode_id := []string
 
 	//    ===================
@@ -124,11 +136,11 @@ func scrape_season(html_body) {
 		id INTEGER PRIMARY KEY,
 		season_number INTEGER,
 		total_episodes INTEGER,
-		FOREIGN KEY(episodeId) REFERENCES episode(id)
+		FOREIGN KEY(episode id) REFERENCES Episode(id)
 	)
 
 	//    ===========================
-	// || GOROUTINES FOR ASYNC TABLES ||
+	// || GOROUTINE FOR ASYNC TABLES ||
 	//    ===========================
 
 	channel := make(chan string)
@@ -137,12 +149,55 @@ func scrape_season(html_body) {
 
 }
 
-
-
 func scrape_episode() {
 	""" Accepts HTML body and saves Episode model into db """
 
+	doc = load
+
 	episode_num := 
+	season_num := 
+
+	CREATE TABLE IF NOT EXIST `Episode` (
+		id INTEGER PRIMARY KEY,
+		episode_number INTEGER,
+		total_episodes INTEGER,
+		FOREIGN KEY(Lines id) REFERENCES Lines(id)
+	)
+
+}
+
+func scrape_lines() {
+	""" Accepts HTML body and saves Lines model into db """
+
+	doc = load
+
+	character_name := 
+	episode_num :=
+	character_id :=  
+
+	CREATE TABLE IF NOT EXIST `Lines` (
+		id INTEGER PRIMARY KEY,
+		episode_number INTEGER,
+		total_episodes INTEGER,
+		FOREIGN KEY(Character id) REFERENCES Character(id)
+	)
+
+}
+
+func scrape_characters() {
+	""" Accepts HTML body and saves Lines model into db """
+
+	doc = load
+
+	character_name := 
+	lines_slice := 
+
+	CREATE TABLE IF NOT EXIST `Character` (
+		id INTEGER PRIMARY KEY,
+		episode_number INTEGER,
+		total_episodes INTEGER,
+		FOREIGN KEY(Lines id) REFERENCES Lines(id)
+	)
 
 }
 
