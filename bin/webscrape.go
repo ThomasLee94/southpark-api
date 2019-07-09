@@ -79,7 +79,7 @@ func load_document_ep_model(url_episode string) string {
 
 func scrape_total_ep_in_season_num(url string) string {
 
-	""" Rreturns the number of episodes in given season page """
+	""" Returns the number of episodes in given season page """
 
 	doc := load_document_total_eps(url)
 
@@ -202,7 +202,12 @@ func scrape_characters() {
 }
 
 func main() {
-	scrape_season()
-
+	doc_season := load_document_total_eps(url_season)
+	doc_ep := load_document_ep_model(url_episode)
+	total_eps_in_season := scrape_total_ep_in_season_num(url)
+	scrape_season(url_episode, url_season)
+	go scrape_episodes()
+	go scrape_lines()
+	go scrape_characters()
 }
 
