@@ -2,12 +2,19 @@
 package webscrape
 
 import (
+	// built-in imports
     "fmt"
 	"log"
 	"net/http"
+	// SQLite driver
+	"database/sql"
+	// Models and urls
+	"github.com/ThomasLee94/southpark-api/models/models"
 	"github.com/ThomasLee94/southpark-api/blob/v2/bin/urls"
+	// 3rd party imports
 	"github.com/PuerkitoBio/goquery"
 	"github.com/jinzhu/gorm"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 urlEp := "https://southpark.fandom.com/wiki/Cartman_Gets_an_Anal_Probe/Script"
@@ -66,8 +73,19 @@ func scrape() {
 	}
 
 	// use different url to get length for total episodes
-	totalEpisodes := 
-	characterId := 
+	totalEpisodes := 0
+	episodeId := []string
+
+	// ===================
+	// SAVING SEASON MODEL
+	// ===================
+
+	CREATE TABLE IF NOT EXIST `Season` (
+		id INTEGER PRIMARY KEY,
+		SeasonNumber INTEGER,
+		TotalEpisodes INTEGER,
+		FOREIGN KEY(episodeId) REFERENCES episode(id)
+	)
 
 }	
 
