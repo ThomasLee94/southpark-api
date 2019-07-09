@@ -20,16 +20,18 @@ import (
 urlEp := "https://southpark.fandom.com/wiki/Cartman_Gets_an_Anal_Probe/Script"
 urlSeason := "https://southpark.fandom.com/wiki/Portal:Scripts/Season_One"
 
-func scrape() {
-	// ===========
-	// INIT SQLITE
-	// ===========
+func scrapeSeason() {
+	""" Accepts HTML body and saves the Season model into db """ 
+
+	// 	  ===========
+	// ** INIT SQLITE ** 
+	//    ===========
 	db, err := gorm.Open("sqlite3", "/tmp/gorm.db")
 	defer db.Close()
 
-	// =================
-	// REQUEST HTML PAGE 
-	// =================
+	//    =================
+	// ** REQUEST HTML PAGE **
+	//    =================
 	res, err := http.Get(url)
 	if err != nil {
 		log.Fatal(err)
@@ -39,9 +41,9 @@ func scrape() {
 		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
 	}
 
-	// ==================
-	// LOAD HTML DOCUMENT
-	// ==================
+	//    ==================
+	// ** LOAD HTML DOCUMENT **
+	//    ==================
 	docEp, err := goquery.NewDocument(res.Body)
 	if err != nil {
 		log.Fatal(err)
@@ -51,11 +53,11 @@ func scrape() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// ====================================
-	// FIND IN ORDER OF HIERARCHY OF MODELS
-	// ====================================
 
-	// ** SEASON MODEL
+	//    ============
+	// ** SEASON MODEL **
+	//    ============
+
 	episodeAndSeasonNum := docEp.find("#mw-content-text").find("table").eq(-1).text().trim().split(':',1)[0];
 
 	// season number
@@ -76,9 +78,9 @@ func scrape() {
 	totalEpisodes := 0
 	episodeId := []string
 
-	// ===================
-	// SAVING SEASON MODEL
-	// ===================
+	//    ===================
+	// ** SAVING SEASON MODEL **
+	//    ===================
 
 	CREATE TABLE IF NOT EXIST `Season` (
 		id INTEGER PRIMARY KEY,
@@ -87,9 +89,23 @@ func scrape() {
 		FOREIGN KEY(episodeId) REFERENCES episode(id)
 	)
 
-}	
+	//    ===========================
+	// ** GOROUTINES FOR ASYNC TABLES **
+	//    ===========================
+
+	channel := make(chan string)
+
+}
+
+func scrapeEpisode() {
+	""" Accepts HTML body and saves Episode model into db """
+
+}
 
 func main() {
-	scrape()
+	go scrapeSeason()
+	go scrapeEpisode()
+	go scrapeLines()
+	go scrapeCharacters()
 }
 

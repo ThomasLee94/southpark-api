@@ -18,7 +18,7 @@ require (
 	github.com/lib/pq v1.1.1 // indirect
 	github.com/mattn/go-colorable v0.1.1 // indirect
 	github.com/mattn/go-isatty v0.0.7 // indirect
-	github.com/mattn/go-sqlite3 v1.10.0 // indirect
+	github.com/mattn/go-sqlite3 v1.10.0
 	github.com/valyala/fasttemplate v1.0.1 // indirect
 	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
 	github.com/xdg/stringprep v1.0.0 // indirect
