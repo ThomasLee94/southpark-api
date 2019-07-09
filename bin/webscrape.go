@@ -20,19 +20,14 @@ import (
 urlEp := "https://southpark.fandom.com/wiki/Cartman_Gets_an_Anal_Probe/Script"
 urlSeason := "https://southpark.fandom.com/wiki/Portal:Scripts/Season_One"
 
-func scrapeSeason() {
-	""" Accepts HTML body and saves the Season model into db """ 
+func loadDocumentSeason(url_season) {
 
-	// 	  ===========
-	// ** INIT SQLITE ** 
-	//    ===========
-	db, err := gorm.Open("sqlite3", "/tmp/gorm.db")
-	defer db.Close()
+	""" Returns HTML body of url"""
 
 	//    =================
-	// ** REQUEST HTML PAGE **
+	// || REQUEST HTML PAGE ||
 	//    =================
-	res, err := http.Get(url)
+	res, err := http.Get(url_season)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -42,20 +37,63 @@ func scrapeSeason() {
 	}
 
 	//    ==================
-	// ** LOAD HTML DOCUMENT **
+	// || LOAD HTML DOCUMENT ||
 	//    ==================
-	docEp, err := goquery.NewDocument(res.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	docSeason, err := goquery.NewDocument(res.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	return docSeason
+
+}
+
+func loadDocumentEpisode(url_episode) {
+
+	""" Returns HTML body of url"""
+
+	//    =================
+	// || REQUEST HTML PAGE ||
+	//    =================
+	res, err := http.Get(url_season)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer res.Body.Close()
+	if res.StatusCode != 200 {
+		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
+	}
+
+	//    ==================
+	// || LOAD HTML DOCUMENT ||
+	//    ==================
+	docEp, err := goquery.NewDocument(res.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return docEp
+
+}
+
+func scrapeSeason(html_body) {
+	""" Accepts HTML body and saves the Season model into db """ 
+
+	// 	  ===========
+	// || INIT SQLITE || 
+	//    ===========
+	db, err := gorm.Open("sqlite3", "/tmp/gorm.db")
+	defer db.Close()
+
+	//    ==================
+	// || LOAD HTML DOCUMENT ||
+	//    ==================
+	docEp := loadDocument(html_body)
+
+
 	//    ============
-	// ** SEASON MODEL **
+	// || SEASON MODEL ||
 	//    ============
 
 	episodeAndSeasonNum := docEp.find("#mw-content-text").find("table").eq(-1).text().trim().split(':',1)[0];
@@ -79,7 +117,7 @@ func scrapeSeason() {
 	episodeId := []string
 
 	//    ===================
-	// ** SAVING SEASON MODEL **
+	// || SAVING SEASON MODEL ||
 	//    ===================
 
 	CREATE TABLE IF NOT EXIST `Season` (
@@ -90,22 +128,26 @@ func scrapeSeason() {
 	)
 
 	//    ===========================
-	// ** GOROUTINES FOR ASYNC TABLES **
+	// || GOROUTINES FOR ASYNC TABLES ||
 	//    ===========================
 
 	channel := make(chan string)
 
+	go scrapeEpisode()
+
 }
+
+
 
 func scrapeEpisode() {
 	""" Accepts HTML body and saves Episode model into db """
 
+	episodeNum := 
+
 }
 
 func main() {
-	go scrapeSeason()
-	go scrapeEpisode()
-	go scrapeLines()
-	go scrapeCharacters()
+	scrapeSeason()
+
 }
 
