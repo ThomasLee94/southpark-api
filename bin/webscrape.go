@@ -65,19 +65,7 @@ func scrape_season() {
 
 }
 
-func scrape_total_ep_in_season_num(url string) string {
-
-	""" Returns the number of episodes in given season page """
-
-	doc := load_document_total_eps(url)
-
-	total_episodes := doc.find("div.item").length
-	return total_episodes
-
-
-}
-
-func scrape_season(url_episode string, url_season string) {
+func scrape_episode(url_episode string) {
 	""" Accepts HTML body and saves the Season model into db """ 
 
 	// 	  ===========
@@ -89,7 +77,7 @@ func scrape_season(url_episode string, url_season string) {
 	//    ==================
 	// || LOAD HTML DOCUMENT ||
 	//    ==================
-	docEp := load_document_ep_model(url_episode)
+	docEp := load_doc(url_episode)
 
 
 	//    ============
