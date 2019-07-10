@@ -20,7 +20,7 @@ import (
 url_ep := "https://southpark.fandom.com/wiki/Cartman_Gets_an_Anal_Probe/Script"
 url_season := "https://southpark.fandom.com/wiki/Portal:Scripts/Season_One"
 
-func load_document_total_eps(url_season string) string {
+func load_doc(url string) string {
 
 	""" Returns HTML body of url"""
 
@@ -39,41 +39,29 @@ func load_document_total_eps(url_season string) string {
 	//    ==================
 	// || LOAD HTML DOCUMENT ||
 	//    ==================
-
-	docSeason, err := goquery.NewDocument(res.Body)
+	doc, err := goquery.NewDocument(res.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return docSeason
+	return doc
 
 }
 
-func load_document_ep_model(url_episode string) string {
+func scrape_season() {
+	""" Returns the number of episodes in given season page """
 
-	""" Returns HTML body of url"""
+	doc := load_doc(url_season)
 
-	//    =================
-	// || REQUEST HTML PAGE ||
-	//    =================
-	res, err := http.Get(url_season)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer res.Body.Close()
-	if res.StatusCode != 200 {
-		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
-	}
-
-	//    ==================
-	// || LOAD HTML DOCUMENT ||
-	//    ==================
-	docEp, err := goquery.NewDocument(res.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return docEp
+	season_number_string := doc.find("h1.page-header__title").split(" ")[1]
+	total_episodes := doc.find("div.item").length
+	
+	CREATE TABLE IF NOT EXIST `Season` (
+		id INTEGER PRIMARY KEY,
+		season_number STRING,
+		total_episodes INTEGER,
+		FOREIGN KEY(episode id) REFERENCES Episode(id)
+	)
 
 }
 
@@ -202,8 +190,8 @@ func scrape_characters() {
 }
 
 func main() {
-	doc_season := load_document_total_eps(url_season)
-	doc_ep := load_document_ep_model(url_episode)
+	doc_season := load_doc(url_season)
+	doc_ep := load_doc(url_episode)
 	total_eps_in_season := scrape_total_ep_in_season_num(url)
 	scrape_season(url_episode, url_season)
 	go scrape_episodes()
