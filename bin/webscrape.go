@@ -1,4 +1,3 @@
-
 package webscrape
 
 import (
@@ -19,6 +18,14 @@ import (
 
 url_ep := "https://southpark.fandom.com/wiki/Cartman_Gets_an_Anal_Probe/Script"
 url_season := "https://southpark.fandom.com/wiki/Portal:Scripts/Season_One"
+
+func db_init() {
+	// 	  ===========
+	// || INIT SQLITE || 
+	//    ===========
+	db, err := gorm.Open("sqlite3", "/tmp/gorm.db")
+	defer db.Close()
+}
 
 func load_doc(url string) string {
 
@@ -51,6 +58,8 @@ func load_doc(url string) string {
 func scrape_season() {
 	""" Returns the number of episodes in given season page """
 
+	db_init()
+
 	doc := load_doc(url_season)
 
 	season_number_string := doc.find("h1.page-header__title").split(" ")[1]
@@ -59,8 +68,7 @@ func scrape_season() {
 	CREATE TABLE IF NOT EXIST `Season` (
 		id INTEGER PRIMARY KEY,
 		season_number STRING,
-		total_episodes INTEGER,
-		FOREIGN KEY(episode id) REFERENCES Episode(id)
+		total_episodes INTEGER
 	)
 
 }
@@ -68,17 +76,9 @@ func scrape_season() {
 func scrape_episode(url_episode string) {
 	""" Accepts HTML body and saves the Season model into db """ 
 
-	// 	  ===========
-	// || INIT SQLITE || 
-	//    ===========
-	db, err := gorm.Open("sqlite3", "/tmp/gorm.db")
-	defer db.Close()
+	db_init()
 
-	//    ==================
-	// || LOAD HTML DOCUMENT ||
-	//    ==================
 	docEp := load_doc(url_episode)
-
 
 	//    ============
 	// || SEASON MODEL ||
@@ -108,11 +108,11 @@ func scrape_episode(url_episode string) {
 	// || SAVING SEASON MODEL ||
 	//    ===================
 
-	CREATE TABLE IF NOT EXIST `Season` (
+	CREATE TABLE IF NOT EXIST `Episode` (
 		id INTEGER PRIMARY KEY,
 		season_number INTEGER,
 		total_episodes INTEGER,
-		FOREIGN KEY(episode id) REFERENCES Episode(id)
+		FOREIGN KEY(season id) REFERENCES Season(id)
 	)
 
 	//    ===========================
@@ -121,12 +121,14 @@ func scrape_episode(url_episode string) {
 
 	channel := make(chan string)
 
-	go scrape_episode()
+	// go scrape_episode()
 
 }
 
 func scrape_lines() {
 	""" Accepts HTML body and saves Lines model into db """
+
+	db_init()
 
 	doc = load
 
@@ -138,13 +140,15 @@ func scrape_lines() {
 		id INTEGER PRIMARY KEY,
 		episode_number INTEGER,
 		total_episodes INTEGER,
-		FOREIGN KEY(Character id) REFERENCES Character(id)
+		FOREIGN KEY(Episode id) REFERENCES Episode(id)
 	)
 
 }
 
 func scrape_characters() {
 	""" Accepts HTML body and saves Lines model into db """
+
+	db_init()
 
 	doc = load
 
