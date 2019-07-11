@@ -1,6 +1,6 @@
-package urlScrape
+package url_scrape
 
-urls = map[string][]string {
+urls_episode = map[string][]string {
 	"season1": [
 		"https://southpark.fandom.com/wiki/Cartman_Gets_an_Anal_Probe/Script",
 		"https://southpark.fandom.com/wiki/Weight_Gain_4000/Script",
@@ -147,4 +147,15 @@ urls = map[string][]string {
 		"https://southpark.fandom.com/wiki/Cartman%27s_Incredible_Gift/Script",
 		"https://southpark.fandom.com/wiki/Woodland_Critter_Christmas/Script"
 	  ],
+}
+
+urls_total_ep = map[string] {
+	"season1": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_One",
+	"season2": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Two",
+	"season3": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Three",
+	"season4": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Four",
+	"season5": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Five",
+	"season6": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Six",
+	"season7": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Seven",
+	"season8": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Eight",
 }
