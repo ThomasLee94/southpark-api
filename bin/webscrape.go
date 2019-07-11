@@ -125,23 +125,6 @@ func scrape_episode(url_episode string) {
 
 }
 
-func scrape_episode() {
-	""" Accepts HTML body and saves Episode model into db """
-
-	doc = load
-
-	episode_num := 
-	season_num := 
-
-	CREATE TABLE IF NOT EXIST `Episode` (
-		id INTEGER PRIMARY KEY,
-		episode_number INTEGER,
-		total_episodes INTEGER,
-		FOREIGN KEY(Lines id) REFERENCES Lines(id)
-	)
-
-}
-
 func scrape_lines() {
 	""" Accepts HTML body and saves Lines model into db """
 
