@@ -1,6 +1,17 @@
 package url_scrape
 
-urls_episode = map[string][]string {
+Urls_season = map[string] {
+	"season1": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_One",
+	"season2": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Two",
+	"season3": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Three",
+	"season4": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Four",
+	"season5": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Five",
+	"season6": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Six",
+	"season7": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Seven",
+	"season8": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Eight",
+}
+
+Urls_episode = map[string][]string {
 	"season1": [
 		"https://southpark.fandom.com/wiki/Cartman_Gets_an_Anal_Probe/Script",
 		"https://southpark.fandom.com/wiki/Weight_Gain_4000/Script",
@@ -149,13 +160,3 @@ urls_episode = map[string][]string {
 	  ],
 }
 
-urls_total_ep = map[string] {
-	"season1": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_One",
-	"season2": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Two",
-	"season3": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Three",
-	"season4": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Four",
-	"season5": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Five",
-	"season6": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Six",
-	"season7": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Seven",
-	"season8": "https://southpark.fandom.com/wiki/Portal:Scripts/Season_Eight",
-}

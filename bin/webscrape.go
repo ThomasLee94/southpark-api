@@ -16,8 +16,11 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-url_ep := "https://southpark.fandom.com/wiki/Cartman_Gets_an_Anal_Probe/Script"
-url_season := "https://southpark.fandom.com/wiki/Portal:Scripts/Season_One"
+// CHANNELS FOR CONCURRENT SCRAPING OF GIVEN MODEL
+done_season := make(chan bool)
+done_episode:= make(chan bool)
+done_lines := make(chan bool)
+done_character := make(chan bool)
 
 func db_init() {
 	// 	  ===========
@@ -64,6 +67,8 @@ func scrape_season() {
 
 	season_number_string := doc.find("h1.page-header__title").split(" ")[1]
 	total_episodes := doc.find("div.item").length
+
+	
 	
 	CREATE TABLE IF NOT EXIST `Season` (
 		id INTEGER PRIMARY KEY,
@@ -80,9 +85,9 @@ func scrape_episode(url_episode string) {
 
 	docEp := load_doc(url_episode)
 
-	//    ============
-	// || SEASON MODEL ||
-	//    ============
+	//    ==============
+	// || EPISODE MODEL ||
+	//    ==============
 
 	episode_and_season_num := docEp.find("#mw-content-text").find("table").eq(-1).text().trim().split(':',1)[0];
 
@@ -104,9 +109,9 @@ func scrape_episode(url_episode string) {
 	total_episodes := load_document_total_eps(url_season)
 	episode_id := []string
 
-	//    ===================
-	// || SAVING SEASON MODEL ||
-	//    ===================
+	//    =====================
+	// || SAVING EPISODE MODEL ||
+	//    =====================
 
 	CREATE TABLE IF NOT EXIST `Episode` (
 		id INTEGER PRIMARY KEY,
@@ -114,14 +119,6 @@ func scrape_episode(url_episode string) {
 		total_episodes INTEGER,
 		FOREIGN KEY(season id) REFERENCES Season(id)
 	)
-
-	//    ===========================
-	// || GOROUTINE FOR ASYNC TABLES ||
-	//    ===========================
-
-	channel := make(chan string)
-
-	// go scrape_episode()
 
 }
 
@@ -135,6 +132,10 @@ func scrape_lines() {
 	character_name := 
 	episode_num :=
 	character_id :=  
+
+	//    ============
+	// || LINES MODEL ||
+	//    ============
 
 	CREATE TABLE IF NOT EXIST `Lines` (
 		id INTEGER PRIMARY KEY,
@@ -155,6 +156,10 @@ func scrape_characters() {
 	character_name := 
 	lines_slice := 
 
+	//    ===============
+	// || CHARACTER MODEL ||
+	//    ===============
+
 	CREATE TABLE IF NOT EXIST `Character` (
 		id INTEGER PRIMARY KEY,
 		episode_number INTEGER,
@@ -164,10 +169,19 @@ func scrape_characters() {
 
 }
 
-func main() {
+func main(Urls_season map, Urls_episodes map) {
 	doc_season := load_doc(url_season)
 	doc_ep := load_doc(url_episode)
 	total_eps_in_season := scrape_total_ep_in_season_num(url)
+
+	// for key, value := range season_map {
+			// go func(number string, url string) {
+				// scrape_season(url_episode, url_season)
+			// }(key, value)
+			// done<-true
+	// }
+	// <- done_season
+
 	scrape_season(url_episode, url_season)
 	go scrape_episodes()
 	go scrape_lines()
