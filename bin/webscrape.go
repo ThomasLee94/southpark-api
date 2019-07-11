@@ -58,7 +58,7 @@ func load_doc(url string) string {
 
 }
 
-func scrape_season() {
+func scrape_season(url_season string, ) {
 	""" Returns the number of episodes in given season page """
 
 	db_init()
@@ -68,8 +68,6 @@ func scrape_season() {
 	season_number_string := doc.find("h1.page-header__title").split(" ")[1]
 	total_episodes := doc.find("div.item").length
 
-	
-	
 	CREATE TABLE IF NOT EXIST `Season` (
 		id INTEGER PRIMARY KEY,
 		season_number STRING,
@@ -174,17 +172,18 @@ func main(Urls_season map, Urls_episodes map) {
 	doc_ep := load_doc(url_episode)
 	total_eps_in_season := scrape_total_ep_in_season_num(url)
 
-	// for key, value := range season_map {
-			// go func(number string, url string) {
-				// scrape_season(url_episode, url_season)
-			// }(key, value)
-			// done<-true
-	// }
-	// <- done_season
+	// Scrape all season models concurrently 
+	for key, value := range Urls_season {
+			go func(season_number string) {
+				scrape_season(season_number)
+			}(key, value)
+			done<-true
+	}
+	<- done_season
 
 	scrape_season(url_episode, url_season)
-	go scrape_episodes()
-	go scrape_lines()
-	go scrape_characters()
+	scrape_episodes()
+	scrape_lines()
+	scrape_characters()
 }
 
