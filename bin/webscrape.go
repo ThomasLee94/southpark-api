@@ -120,12 +120,16 @@ func scrape_episode(url_episode string) {
 
 }
 
-func scrape_lines() {
+func scrape_lines(url string) {
 	""" Accepts HTML body and saves Lines model into db """
 
 	db_init()
 
-	doc = load
+	doc = load_doc(url)
+
+	// looping through every TR tag
+	length := doc.find('#mw-content-text').find('table').eq(-3).find('tr'); 
+	rows := doc.find('#mw-content-text').find('table').eq(-3).find('tr')
 
 	character_name := 
 	episode_num :=
@@ -144,12 +148,12 @@ func scrape_lines() {
 
 }
 
-func scrape_characters() {
+func scrape_characters(url string) {
 	""" Accepts HTML body and saves Lines model into db """
 
 	db_init()
 
-	doc = load
+	doc = load_doc(url)
 
 	character_name := 
 	lines_slice := 
@@ -181,7 +185,6 @@ func main(Urls_season map, Urls_episodes map) {
 	}
 	<- done_season
 
-	scrape_season(url_episode, url_season)
 	scrape_episodes()
 	scrape_lines()
 	scrape_characters()
