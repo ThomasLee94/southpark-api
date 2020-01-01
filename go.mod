@@ -6,6 +6,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.5.0
 	github.com/denisenkom/go-mssqldb v0.0.0-20190707035753-2be1aa521ff4 // indirect
 	github.com/erikstmartin/go-testdb v0.0.0-20160219214506-8d10e4a1bae5 // indirect
+	github.com/go-chi/chi v4.0.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/gofrs/uuid v3.2.0+incompatible // indirect
 	github.com/golang/snappy v0.0.1 // indirect
