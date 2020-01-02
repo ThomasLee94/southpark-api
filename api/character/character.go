@@ -25,3 +25,14 @@ func Routes() chi.Mux {
 func GetCharacter(w http.ResponseWriter, r *http.Request) {
 
 }
+
+// // RETURNS ALL CHARACTERS
+// func GetAllCharacters() {
+// 	const characters = await Character.find();
+//   res.json(characters);
+// }
+
+// // RETURNS GET CHARACTER
+// func GetCharacter() {
+
+// }
