@@ -3,6 +3,7 @@ package character
 import (
 	"net/http"
 
+	"github.com/ThomasLee94/southpark-api/api/config"
 	"github.com/go-chi/chi"
 )
 
@@ -16,8 +17,8 @@ type Character struct {
 // Character routes
 func Routes() chi.Mux {
 	router := chi.NewRouter()
-	router.Get("/{characterID}", GetCharacter)
-	router.Get("/", GetAllCharacters)
+	router.Get("/{characterID}", config.GetCharacter)
+	router.Get("/", config.GetAllCharacters)
 	return router
 }
 

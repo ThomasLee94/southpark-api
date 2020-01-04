@@ -1,14 +1,8 @@
-1 - figure out which ORM to use and how the do associations
-2 - connect with MongoDB
-3 - how to do authentication on go
-4 - add docker
-5 - graphql support 
-6 - how to do queries in go and how to make them concurrent 
-7 - update docs to follow twitch api docs structure 
+1 - SQL associations
+2 - Go webscraper
+3 - add docker
+4 - graphql support
+5 - concurrent api calls
+6 - update docs to follow twitch api docs structure
 
-- Learn sqlite
-- User GORM
-- Visualise sqlite data table (sql app)
-
-- validate struct types in server
 
