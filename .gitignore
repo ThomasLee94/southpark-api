@@ -64,5 +64,6 @@ Temporary Items
 
 # End of https://www.gitignore.io/api/go,linux,macos
 
-node_modules
-.env
+.swo
+.swp
+southpark-api
