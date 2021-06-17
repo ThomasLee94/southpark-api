@@ -34,7 +34,7 @@
     "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
-    "cheerio": "^1.0.0-rc.2",
+    "cheerio": "^1.0.0-rc.10",
     "cheerio-advanced-selectors": "^2.0.1",
     "cookie-parser": "^1.4.4",
     "dotenv": "^6.2.0",
@@ -43,7 +43,7 @@
     "jsonwebtoken": "^8.5.0",
     "lodash": "^4.17.21",
     "mocha": "^6.0.2",
-    "mongoose": "^5.4.13",
+    "mongoose": "^5.12.14",
     "mongoose-findorcreate": "^3.0.0",
     "mongoose-unique-validator": "^2.0.2",
     "nightmare": "^3.0.1"
