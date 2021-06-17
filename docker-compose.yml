@@ -13,7 +13,7 @@ services:
     command: mongod
 
   web:
-    image: southpark-api-node:latest
+    image: tl9474/southpark-api-node:latest
     env_file: .env
     ports:
       - "3000:3000"
