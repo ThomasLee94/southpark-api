@@ -22,9 +22,9 @@ const parse = require('./util/parse');
 const data = require('./urls');
 
 // MODELS
-const { Line } = require('../source/api/lines/line.model');
-const { Episode } = require('../source/api/episodes/episode.model');
-const { Character } = require('../source/api/characters/character.model');
+const { Line } = require('../src/api/lines/line.model');
+const { Episode } = require('../src/api/episodes/episode.model');
+const { Character } = require('../src/api/characters/character.model');
 
 // DB AND MONGOOSE CONNECTION
 require('./db/southpark-db');
