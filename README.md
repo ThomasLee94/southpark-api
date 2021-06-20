@@ -12,29 +12,22 @@ Users will be able to:
 
 	3.	Query lines said per character, per episode.
 
-## Package Manager
-
-* npm
-
 ## Data Collection
 
 * [Nightmare.js](http://www.nightmarejs.org/)
 * [Cheerio.js](https://cheerio.js.org/)
 
-My data was scraped from [here](https://southpark.fandom.com/wiki/South_Park_Archives). Source code for the webscrapping is [here](https://github.com/ThomasLee94/southpark-api/blob/master/bin/webscrapeText.js). If you would like to run the webscraper that I have provided, please refer to the Cheerio documentation. 
+My data was scraped from [here](https://southpark.fandom.com/wiki/South_Park_Archives). Source code for the webscrapping is [here](https://github.com/ThomasLee94/southpark-api/blob/v1/bin/webscrapeText.js). If you would like to run the webscraper that I have provided, please refer to the Cheerio documentation. 
 
-## Technology
+## Technologies
 
 * [Node.JS](https://nodejs.org/en/)
 * [Express.JS](https://expressjs.com/) 
-
-## Persistence Layer
-
 * [MongoDB](https://www.mongodb.com/)
 
 ## REST
 
-Currently only seasons 1-8 are available, more can be scrapped at a later date. 
+Currently only seasons 1-8 are available.
 
 ### Episode Objects
 
