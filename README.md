@@ -36,107 +36,6 @@ My data was scraped from [here](https://southpark.fandom.com/wiki/South_Park_Arc
 
 Currently only seasons 1-8 are available, more can be scrapped at a later date. 
 
-### Authentication
-
-**baseURL:** https://southpark-api.herokuapp.com/api/auth 
-
-Only authenticated will be able to make RESTfull POST, UPDATE & DELETE API calls. JWT's were used for authentication.
-
-| Verb          | Route                                   | Description                            |
-| ------------- |:---------------------------------------:| --------------------------------:      |
-| POST          | /sign-up                                | Sign up to get issued a token          |
-| POST          | /login                                  | Login to be able to access routes      |
-| DELETE        | /logout                                 | Delete issued token                    |
-
-**Example Sign-up request.**
-All parameters are in JSON format. 
-
-
-```json
-{
-	"username": "tom",
-	"password": "123"
-}
-```
-
-### Data Manipulation
-
-**baseURL:** https://southpark-api.herokuapp.com/api/auth
-
-| Verb          | Route                                   | Description                            |
-| ------------- |:---------------------------------------:| --------------------------------:      |
-| POST          | /create-episode/:season/:episode        | Create new episode                     |
-| POST          | /create-line/:season/:episode           | Create new line                        |
-| PUT           | /update-episode/:season/:episode        | Update existing episode                |
-| PUT           | /update-line/:season/:episode           | Update existing line                   |
-| DELETE        | /delete-episode/:season/:episode        | Delete existing episode                |
-| DELETE        | /delete-episode/:season/:episode/:lineId | Delete existing line                   |
-
-**Add Episode Example**
-The following keys must be provided: 
-
-```json
-{
-	"episodeName": "Example add episode",
-	"seasonNumber": "12",
-	"episodeNumber": "1",
-	"line": "This is easy!",
-
-}
-```
-
-**Add Line Example**
-Lines cannot be added to characters that do no already exist.
-The following keys must be provided:
-
-```json
-{
-    "line": "Example line",
-    "seasonNumber": "3",
-    "episodeNumber": "1",
-    "character": "Stan",
-}
-```
-
-**Update Episode Example**
-The following key-values must be provided:
-
-```json
-{
-    "episodeName": "Example episode name",
-    "episodeNumber": "6",
-    "seasonNumber": "2",
-}
-```
-
-**Update Line Example**
-lineId must be provided in URL.
-The following key-values must be provided:
-
-```json
-{
-    "line": "Example line"
-}
-```
-
-
-**Delete Episode Example**
-The following key-values must be provided:
-
-```json
-{
-    "episodeNumber": "5",
-    "seasonNumber": "1",
-}
-```
-
-
-**Delete Line Example**
-lineId must be provided in the URL.
-```
-https://southpark-api.herokuapp.com/api/auth/delete-line/8/14/5c7dd322107279b93ee2d9b2
-```
-
 ### Episode Objects
 
 **baseURL:** https://southpark-api.herokuapp.com/api/episodes
@@ -161,126 +60,97 @@ https://southpark-api.herokuapp.com/api/auth/delete-line/8/14/5c7dd322107279b93e
 
 Example Episode by Season API call:
 ```
-https://southpark-api.herokuapp.com/api/episodes/3/episodes 
+https://southpark-api.herokuapp.com/api/episodes/1/episodes 
 ```
 
 ```js
-{
+[
+  {
     "characterId": [
-      "5c7dd325107279b93ee2db81",
-      "5c7dd323107279b93ee2dac7",
+      "60cd771a4fcba1557213ca74",
+      "60cd569a4fcba1557210fdc9",
+      "60cd569a4fcba1557210fdda",
       ...
+    
     ],
     "lineId": [
-      "5c7dd3f0107279b93ee33ae6",
-      "5c7dd3f0107279b93ee33ae7",
+      {
+        "_id": "60cd771a4fcba1557213ca77",
+        "line": "...And so, these ancient…rowheads every month.\n",
+        "characterId": {
+          "lines": [],
+          "_id": "60cd771a4fcba1557213ca74",
+          "name": "Anthropologist",
+          "__v": 0
+        },
+        "__v": 0
+      },
       ...
     ],
-    "_id": "5c7dd3f0107279b93ee33ae5",
-    "episodeName": "\n World Wide Recorder Concert\n",
-    "episodeNumber": 17,
-    "seasonNumber": 3,
+    "_id": "60cd771a4fcba1557213ca71",
+    "episodeName": "\nMecha-Streisand\n",
+    "episodeNumber": 12,
+    "seasonNumber": 1,
     "__v": 1
   },
-  {
-    "characterId": [
-      "5c7dd322107279b93ee2d9b7",
-      "5c7dd323107279b93ee2da89",
-      ...
-    ],
-    "lineId": [
-      "5c7dd3f3107279b93ee33c56",
-      "5c7dd3f3107279b93ee33c57",
-    ],
-    "_id": "5c7dd3f3107279b93ee33c55",
-    "episodeName": "\n Are You There God? It's Me, Jesus\n",
-    "episodeNumber": 16,
-    "seasonNumber": 3,
-    "__v": 1
-  },
-  {
-    "characterId": [
-      "5c7dd34e107279b93ee2ef43",
-      "5c7dd3f6107279b93ee33d7d",
-      ...
-    ],
-    "_id": "5c7dd3f6107279b93ee33d7b",
-    "episodeName": "\n Mr. Hankey's Christmas Classics\n",
-    "episodeNumber": 15,
-    "seasonNumber": 3,
-    "__v": 1
-  },
-  {
-    "characterId": [
-      "5c7dd322107279b93ee2d9b7",
-      "5c7dd323107279b93ee2dac3",
-      ...
-    ],
-    "lineId": [
-      "5c7dd3f8107279b93ee33ed1",
-      "5c7dd3f8107279b93ee33ed2",
-      ...
-    ],
-    "_id": "5c7dd3f8107279b93ee33ed0",
-    "episodeName": "\n The Red Badge of Gayness\n",
-    "episodeNumber": 14,
-    "seasonNumber": 3,
-    "__v": 1
-  },
-  {
-    "characterId": [
-      "5c7dd325107279b93ee2db09",
-      "5c7dd323107279b93ee2dac3",
-      ...
-    ],
-    ...
-}
+]
 ```
 
 Some exampls episode id's:
 
 ```
-Season 1, Episode 1: 5c7dd474107279b93ee37d69 => Name: Cartman Gets an Anal Probe
-Season 1, Episode 2: 5c7dd471107279b93ee37c22 => Name: Weight Gain 4000
+Season 1, Episode 2: 60cd7b524fcba1557214097a => Name: Weight Gain 4000
 
-Season 2, Episode 1: 5c7dd451107279b93ee36c5c => Name: Terrance and Phillip in Not Without My Anus
-Season 2, Episode 2: 5c7dd44f107279b93ee36ae2 => Name: Cartman's Mom is Still a Dirty Slut
+Season 2, Episode 17: 60cd6f7c4fcba15572134258 => Name: Gnomes
 
-Season 3, Episdoe 1: 5c7dd401107279b93ee3434c => Name: Korn's Groovy Pirate Ghost Mystery
-Season 3, Episode 2: 5c7dd3fe107279b93ee341a9 => Name: Chinpokomon
-
-Season 4, Episode 1: 5c7dd3ea107279b93ee337d5 => Name: Cartman's Silly Hate Crime 2000
-Season 4, Episode 2: 5c7dd3e8107279b93ee33668 => Name: Timmy 2000
-
+Season 3, Episdoe 10: 60cd6b144fcba1557212eca3 => Name: Chinpokomon
 ...
 ```
 
 Example API call by episode id:
 ```
-https://southpark-api.herokuapp.com/api/episodes/5c7dd3cd107279b93ee32891
+https://southpark-api.herokuapp.com/api/episodes/60cd6b144fcba1557212eca3
 ```
 Received JSON
 ```js
 {
-    "_id" : ObjectId("5c7dd3cd107279b93ee32891"),
-    "characterId" : [ 
-        ObjectId("5c7dd328107279b93ee2dc06"), 
-        ObjectId("5c7dd323107279b93ee2da89"), 
-        ObjectId("5c7dd322107279b93ee2d9b7"), 
-        ...
-    ],
-    "lineId" : [ 
-        ObjectId("5c7dd3cd107279b93ee32892"), 
-        ObjectId("5c7dd3cd107279b93ee32893"), 
-        ObjectId("5c7dd3cd107279b93ee32894"), 
-				...
-    ],
-    "episodeName" : "\n Helen Keller! The Musical\n",
-    "episodeNumber" : 14,
-    "seasonNumber" : 4,
-    "__v" : 1
+  "characterId": [
+    "60cd6b144fcba1557212eca6",
+    "60cd569a4fcba1557210fdc9",
+    "60cd6b154fcba1557212ecbc",
+    ...
+  ],
+  "lineId": [
+    {
+      "_id": "60cd6b144fcba1557212eca9",
+      "line": "Reowr.\n",
+      "characterId": {
+        "lines": [],
+        "_id": "60cd6b144fcba1557212eca6",
+        "name": "Kitty",
+        "__v": 0
+      },
+      "__v": 0
+    },
+    {
+      "_id": "60cd6b154fcba1557212ecae",
+      "line": "No, Kitty, these are my spicy-hot Louisiana-baked Chicken Tenders!\n",
+      "characterId": {
+        "lines": [],
+        "_id": "60cd569a4fcba1557210fdc9",
+        "name": "Cartman",
+        "__v": 0
+      },
+    ...
+  ],
+  "_id": "60cd6b144fcba1557212eca3",
+  "episodeName": "\nChinpokomon\n",
+  "episodeNumber": 10,
+  "seasonNumber": 3,
+  "__v": 1
 }
 ```
+
 
 ### Character Objects
 
@@ -305,37 +175,27 @@ https://southpark-api.herokuapp.com/api/characters
 ```
 Received JSON. This API call returns all the characters, which contain their lines. Expect a large response.
 ```js
-{
-    "lines": [
-      "5c7dd322107279b93ee2d9b2",
-      "5c7dd322107279b93ee2d9b3",
-      ...
-    ],
-    "_id": "5c7dd322107279b93ee2d9b1",
+[
+  {
+    "lines": [],
+    "_id": "60cd566e4fcba1557210f8ba",
     "name": "Narrator",
     "__v": 0
   },
   {
-    "lines": [
-      "5c7dd322107279b93ee2d9b5",
-      "5c7dd322107279b93ee2d9fd"
-    ],
-    "_id": "5c7dd322107279b93ee2d9b4",
+    "lines": [],
+    "_id": "60cd566f4fcba1557210f8c6",
     "name": "Woodland Critters",
     "__v": 0
   },
   {
-    "lines": [
-      "5c7dd322107279b93ee2d9b8",
-      "5c7dd322107279b93ee2d9bf"
-      ...
-    ],
-    "_id": "5c7dd322107279b93ee2d9b7",
+    "lines": [],
+    "_id": "60cd566f4fcba1557210f8d2",
     "name": "Stan",
     "__v": 0
   },
   ...
-}
+]
 ```
 
 
@@ -365,31 +225,42 @@ https://southpark-api.herokuapp.com/api/lines/6
 ```
 Received JSON
 ```js
-{
-    "_id": "5c7dd366107279b93ee2fba6",
-    "line": " Ah-a-a-alright, I'm done.\n",
-    "characterId": "5c7dd366107279b93ee2fba5",
+[
+  {
+    "_id": "60cd5c4e4fcba15572119abf",
+    "line": "Ah-a-a-alright, I'm done.\n",
+    "characterId": {
+      "_id": "60cd5c4e4fcba15572119abc",
+      "lines": [],
+      "name": "Kyle Schwartz",
+      "__v": 0
+    },
     "__v": 0
   },
   {
-    "_id": "5c7dd366107279b93ee2fba7",
-    "line": " You're done?\n",
-    "characterId": "5c7dd323107279b93ee2dac3",
+    "_id": "60cd5c4e4fcba15572119ac4",
+    "line": "You're done?\n",
+    "characterId": {
+      "_id": "60cd569a4fcba1557210fdc9",
+      "lines": [],
+      "name": "Cartman",
+      "__v": 0
+    },
     "__v": 0
   },
   {
-    "_id": "5c7dd366107279b93ee2fba8",
-    "line": " Ye-yes, I-I've tallied up all the times you've been naughty and deducted the times you've been nice.\n",
-    "characterId": "5c7dd366107279b93ee2fba5",
-    "__v": 0
-  },
-  {
-    "_id": "5c7dd366107279b93ee2fba9",
-    "line": " Yeah, so how's it look?\n",
-    "characterId": "5c7dd323107279b93ee2dac3",
+    "_id": "60cd5c4e4fcba15572119ac9",
+    "line": "Ye-yes, I-I've tallied up all the times you've been naughty and deducted the times you've been nice.\n",
+    "characterId": {
+      "_id": "60cd5c4e4fcba15572119abc",
+      "lines": [],
+      "name": "Kyle Schwartz",
+      "__v": 0
+    },
     "__v": 0
   },
 ...
+]
 ```
 
 Example Lines for an Episode API call for season 3 episode 1:
@@ -397,32 +268,49 @@ Example Lines for an Episode API call for season 3 episode 1:
 https://southpark-api.herokuapp.com/api/lines/3/1
 ```
 ```js
-{
-    "_id": "5c7dd41a107279b93ee35036",
-    "line": " Okay, children, we have a special guest today, a woman recruiting young people [she walks to the group and smiles] for a national choir tour. Now I know that choir tours are totally stupid and lame [she frowns], but please, give her your full attention. [to her] Go ahead.\n",
-    "characterId": "5c7dd323107279b93ee2dac7",
+[
+  {
+    "_id": "60cd6eae4fcba1557213337f",
+    "line": "Okay, children, we have a special guest today, a woman recruiting young people [she walks to the group and smiles] for a national choir tour. Now I know that choir tours are totally stupid and lame [she frowns], but please, give her your full attention. [to her] Go ahead.\n",
+    "characterId": {
+      "_id": "60cd569a4fcba1557210fdda",
+      "lines": [],
+      "name": "Mr. Garrison",
+      "__v": 0
+    },
     "__v": 0
   },
   {
-    "_id": "5c7dd41a107279b93ee35038",
-    "line": " Uh. Thank you, Mr. Garrison. [cheerfully] How are we all doing today?! [the kids' eyes wander] I can't hear you! I said, How are we all doing?! [Cartman farts]\n",
-    "characterId": "5c7dd41a107279b93ee35037",
+    "_id": "60cd6eae4fcba15572133386",
+    "line": "Uh. Thank you, Mr. Garrison. [cheerfully] How are we all doing today?! [the kids' eyes wander] I can't hear you! I said, How are we all doing?! [Cartman farts]\n",
+    "characterId": {
+      "_id": "60cd6eae4fcba15572133383",
+      "lines": [],
+      "name": "Ms. Stevens",
+      "__v": 0
+    },
     "__v": 0
   },
   {
-    "_id": "5c7dd41a107279b93ee35039",
-    "line": " [angrily] Eric Cartman, you say ‘’excuse me”!\n",
-    "characterId": "5c7dd323107279b93ee2dac7",
+    "_id": "60cd6eae4fcba1557213338b",
+    "line": "[angrily] Eric Cartman, you say ‘’excuse me”!\n",
+    "characterId": {
+      "_id": "60cd569a4fcba1557210fdda",
+      "lines": [],
+      "name": "Mr. Garrison",
+      "__v": 0
+    },
     "__v": 0
-  },
+  },  
   ...
+]
 ```
 
 Example Character Ids
 ```
-Stan: 5c7dd322107279b93ee2d9b7
-Butters: 5c7dd323107279b93ee2daca
-Kyle: 5c7dd323107279b93ee2da89
+Stan: 60cd566f4fcba1557210f8d2
+Cartman: 60cd569a4fcba1557210fdc9
+Kyle: 60cd56904fcba1557210fcb3
 ```
 
 Example Lines for a Season by Character API call:
