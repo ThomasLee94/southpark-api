@@ -315,37 +315,48 @@ Kyle: 60cd56904fcba1557210fcb3
 
 Example Lines for a Season by Character API call:
 
-Requires characterId & episodeId.
+Requires characterId & episodeId. All of Cartmans lines in season1 episode 2 ("Weight Gain 4000")
 ```
-https://southpark-api.herokuapp.com/api/lines/character-lines/5c7dd323107279b93ee2daca/5c7dd3ea107279b93ee337d5
+https://southpark-api.herokuapp.com/api/lines/character-lines/60cd569a4fcba1557210fdc9/60cd7b524fcba1557214097a
 ```
 Received JSON
 ```js
-{
-    "_id": "5c7dd323107279b93ee2dacb",
-    "line": " Well but, but what happened?\n",
-    "characterId": "5c7dd323107279b93ee2daca",
+[
+  {
+    "_id": "60cd569a4fcba1557210fdcc",
+    "line": "I don't believe anyone interrupted you when you read your Christmas story aloud, Kyle. [behind him on the board is written \"Write Your Own Christmas Story Day\"]\n",
+    "characterId": {
+      "lines": [],
+      "_id": "60cd569a4fcba1557210fdc9",
+      "name": "Cartman",
+      "__v": 0
+    },
     "__v": 0
   },
   {
-    "_id": "5c7dd323107279b93ee2dad6",
-    "line": " Aw well, come on. Let him read us the end.\n",
-    "characterId": "5c7dd323107279b93ee2daca",
+    "_id": "60cd569a4fcba1557210fdd6",
+    "line": "Mr. Garrison, could you do something, please?\n",
+    "characterId": {
+      "lines": [],
+      "_id": "60cd569a4fcba1557210fdc9",
+      "name": "Cartman",
+      "__v": 0
+    },
     "__v": 0
   },
   {
-    "_id": "5c7dd325107279b93ee2daf7",
-    "line": " Yeah. I think it'd be better to start lower.\n",
-    "characterId": "5c7dd323107279b93ee2daca",
-    "__v": 0
-  },
-  {
-    "_id": "5c7dd325107279b93ee2db5f",
-    "line": " Wuh be careful, Kyle.\n",
-    "characterId": "5c7dd323107279b93ee2daca",
+    "_id": "60cd569a4fcba1557210fde2",
+    "line": "[closes his booklet] All right, fine! Forget it! [He drops off the stool and heads for his desk.]\n",
+    "characterId": {
+      "lines": [],
+      "_id": "60cd569a4fcba1557210fdc9",
+      "name": "Cartman",
+      "__v": 0
+    },
     "__v": 0
   },
   ...
+]
 ```
 
 
